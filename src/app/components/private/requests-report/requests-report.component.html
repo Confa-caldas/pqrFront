@@ -1,0 +1,138 @@
+<div class="row mb-5">
+  <div class="col-10">
+    <div class="title-page">Generar reporte de solicitudes</div>
+  </div>
+</div>
+<form [formGroup]="formGroup">
+  <div class="position-relative custom-calendar">
+    <div class="card flex justify-content-center absolute-center">
+      <div class="filters-row">
+        <div class="filters-col">
+          <p-calendar
+            formControlName="dates_range"
+            selectionMode="range"
+            [readonlyInput]="true"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            placeholder="Rango de fechas"
+            class="calendar"></p-calendar>
+        </div>
+        <div class="filters-col">
+          <p-multiSelect
+            formControlName="request_status_id"
+            [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
+            [options]="statusList"
+            optionLabel="status_name"
+            optionValue="request_status_id"
+            placeholder="Tipo de estado"></p-multiSelect>
+        </div>
+        <div class="filters-col">
+          <p-multiSelect
+            formControlName="assigned_user"
+            [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
+            [options]="userList"
+            optionLabel="user_name"
+            optionValue="user_name"
+            placeholder="Responsable de la solicitud"></p-multiSelect>
+        </div>
+        <div class="filters-col">
+          <p-dropdown
+            formControlName="is_pqr"
+            [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
+            [options]="ispqrList"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Es una pqr?"></p-dropdown>
+        </div>
+        <div class="filters-colButtons">
+          <p-button
+            icon="pi pi-trash"
+            [styleClass]="'btn-icon-info'"
+            (click)="cleanForm()"></p-button>
+        </div>
+        <div class="filters-colButtons">
+          <p-button
+            icon="pi pi-search"
+            [styleClass]="'btn-icon-info'"
+            (click)="initPaginador()"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row mt-5" *ngIf="requestReportList">
+  <div class="col-12 mt-5">
+    <p-table
+      #dt
+      [value]="requestReportList"
+      [scrollable]="true"
+      scrollHeight="550px"
+      [virtualScroll]="true"
+      [virtualScrollItemSize]="80"
+      [columns]="cols"
+      selectionMode="single"
+      [(selection)]="selectedProducts"
+      [exportHeader]="'customExportHeader'"
+      [paginator]="false"
+      [showCurrentPageReport]="true"
+      [lazy]="true"
+      [rows]="20"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="{first} de {totalRecords}">
+      <ng-template pTemplate="caption">
+        <div class="captionBtn">
+          <button
+            type="button"
+            pButton
+            pRipple
+            icon="pi pi-file-export"
+            (click)="generateExcel('xlsx')"
+            class="buttonExport mr-2"
+            pTooltip="CSV"
+            tooltipPosition="bottom">
+            .xlsx
+          </button>
+          <button
+            type="button"
+            pButton
+            pRipple
+            icon="pi pi-file-excel"
+            (click)="generateExcel('xls')"
+            class="buttonExport mr-2"
+            pTooltip="XLS"
+            tooltipPosition="bottom">
+            .xls
+          </button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-requestReportList let-columns="columns">
+        <tr [pSelectableRow]="requestReportList" style="height: 80px">
+          <td *ngFor="let col of columns">
+            <div
+              *ngIf="col.header === 'Días solicitud'"
+              class="circle"
+              [style.background-color]="getColor(requestReportList.request_days)"></div>
+            <div *ngIf="col.header === 'Días solicitud'" style="margin-left: 19px">
+              {{ requestReportList[col.field] }} días hábiles
+            </div>
+            {{ col.header !== 'Días solicitud' ? requestReportList[col.field] : '' }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="totalRows"
+      [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+  </div>
+</div>
+<p-toast></p-toast>

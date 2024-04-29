@@ -1,0 +1,135 @@
+{
+    "usuarioId":264,
+    "usuario":"ext_prueba1",
+    "contrasena":"",
+    "tema":"",
+    "plazaId":"",
+    "estado":true,
+    "fechaVencimiento":"",
+    "perfiles":[
+       {
+          "perfilId":106,
+          "sistema":{
+             "sistemaId":54,
+             "nombre":"PQRS",
+             "estado":true
+          },
+          "nombre":"ADMINISTRACION",
+          "descripcion":"",
+          "estado":true
+       }
+    ],
+    "links":[
+       {
+          "modulo_id":"184",
+          "moduloNombre":"Configuración",
+          "nombre":"Configuración",
+          "url":"",
+          "estado":true,
+          "usuarioLinks":[
+             
+          ],
+          "perfilLinks":[
+            {
+               "modulo_id":"184",
+               "moduloNombre":"Configurar notificaciones",
+               "nombre":"Configurar notificaciones",
+               "url":"/configure_notifications",
+               "estado":true,
+               "usuarioLinks":[
+                  
+               ]
+            },
+            {
+               "modulo_id":"184",
+               "moduloNombre":"Parametrizar responsables",
+               "nombre":"Parametrizar responsables",
+               "url":"/request_manager",
+               "estado":true,
+               "usuarioLinks":[
+                  
+               ]
+            },
+            {
+                "modulo_id":"184",
+                "moduloNombre":"Parametrizar solicitantes, solicitudes y asociados",
+                "nombre":"Parametrizar solicitantes, solicitudes y asociados",
+                "url":"/",
+                "estado":true,
+                "perfilLinks":[
+                   {
+                      "modulo_id":"184",
+                      "moduloNombre":"Tipo solicitante",
+                      "nombre":"Tipo solicitante",
+                      "url":"/applicant_type",
+                      "estado":true
+                   },
+                   {
+                      "modulo_id":"184",
+                      "moduloNombre":"Tipo solicitud",
+                      "nombre":"Tipo solicitud",
+                      "url":"/request_type",
+                      "estado":true
+                   },
+                   {
+                      "modulo_id":"184",
+                      "moduloNombre":"Asociar tipos de solicitud de un solicitante",
+                      "nombre":"Asociar tipos de solicitud de un solicitante",
+                      "url":"/applicant_request_association",
+                      "estado":true
+                   }
+                ]
+             },
+             {
+                "modulo_id":"184",
+                "moduloNombre":"Parametrizar modalidad y categoria",
+                "nombre":"Parametrizar modalidad y categoria",
+                "url":"/",
+                "estado":true,
+                "perfilLinks":[
+                  {
+                     "modulo_id":"184",
+                     "moduloNombre":"Modalidad",
+                     "nombre":"Modalidad",
+                     "url":"/modality",
+                     "estado":true
+                  },
+                  {
+                     "modulo_id":"184",
+                     "moduloNombre":"Categoría",
+                     "nombre":"Categoría",
+                     "url":"/category",
+                     "estado":true
+                  }
+                ]
+             }
+          ]
+       },
+       {
+          "modulo_id":"184",
+          "moduloNombre":"Consultar solicitudes",
+          "nombre":"Consultar solicitudes",
+          "url":"/search_requests",
+          "estado":true,
+          "usuarioLinks":[
+             
+          ],
+          "perfilLinks":[
+             
+          ]
+       },
+       {
+         "modulo_id":"184",
+         "moduloNombre":"Generar Reporte",
+         "nombre":"Generar Reporte",
+         "url":"/request_report",
+         "estado":true,
+         "usuarioLinks":[
+            
+         ],
+         "perfilLinks":[
+            
+         ]
+      }
+    ]
+ }

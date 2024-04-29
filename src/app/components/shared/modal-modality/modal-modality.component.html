@@ -1,0 +1,83 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '40vw' }" [modal]="true">
+  <ng-template pTemplate="headless">
+    <div class="modal-content">
+      <div class="login-form-header">
+        <div class="login-form-header__item login-form-header__item_1"></div>
+        <div class="login-form-header__item login-form-header__item_2"></div>
+        <div class="login-form-header__item login-form-header__item_3"></div>
+        <div class="login-form-header__item login-form-header__item_4"></div>
+        <div class="login-form-header__item login-form-header__item_5"></div>
+        <div class="login-form-header__item login-form-header__item_6"></div>
+      </div>
+      <div class="row my-4 px-5">
+        <div class="col-12 text-center">{{ message }}</div>
+      </div>
+      <form [formGroup]="formGroup">
+        <div class="row my-4 px-5">
+          <div class="col-12">
+            <label> Código </label>
+            <input
+              [readonly]="this.buttonmsg !== 'Crear' ? true : false"
+              formControlName="modality_id"
+              pInputText
+              pKeyFilter="integer"
+              placeholder="000" />
+            <label class="invalid">
+              {{
+                formGroup.get('modality_id')?.hasError('required') &&
+                formGroup.get('modality_id')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}{{
+                formGroup.get('modality_id')?.hasError('pattern') &&
+                formGroup.get('modality_id')?.touched
+                  ? 'Ingrese solo números'
+                  : ''
+              }}</label
+            >
+          </div>
+          <div class="col-12">
+            <label> Nombre de modalidad </label>
+            <input
+              [readonly]="read_only"
+              formControlName="modality_name"
+              pInputText
+              pKeyFilter="string"
+              placeholder="Escriba nombre" />
+            <label class="invalid">
+              {{
+                formGroup.get('modality_name')?.hasError('required') &&
+                formGroup.get('modality_name')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}{{
+                formGroup.get('modality_name')?.hasError('pattern') &&
+                formGroup.get('modality_name')?.touched
+                  ? 'Ingrese solo letras'
+                  : ''
+              }}</label
+            >
+          </div>
+        </div>
+      </form>
+      <div *ngIf="read_only">
+        <div class="row my-4 px-5">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cerrar" severity="secondary" (click)="closeDialog(false)"></p-button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!read_only">
+        <div class="row my-4 px-5">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cancelar" severity="secondary" (click)="closeDialog(false)"></p-button>
+            <p-button
+              [label]="buttonmsg"
+              [disabled]="!formGroup.valid"
+              (click)="closeDialog(true)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

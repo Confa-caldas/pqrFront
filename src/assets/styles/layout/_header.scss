@@ -1,0 +1,26 @@
+@import '../abstracts/variables';
+.alert {
+  display: contents;
+  padding: 10px;
+  &-icon {
+    margin: 0 10px;
+    font-size: 18px;
+    color: $color-indigo;
+    position: absolute;
+    margin-left: -64px;
+    top: 10px;
+    cursor: pointer;
+  }
+}
+.image-login {
+  height: 54px;
+}
+
+.name-user {
+  font-size: 13px;
+  color: $color-quick-silver;
+}
+.name-rol {
+  font-size: 11px;
+  color: $color-quick-silver;
+}

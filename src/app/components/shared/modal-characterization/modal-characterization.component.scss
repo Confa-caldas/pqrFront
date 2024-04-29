@@ -1,0 +1,93 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.fullscreen-dialog-content {
+  overflow-y: auto;
+  overflow-x: clip;
+  //height: 58vh;
+  //width: 95vw;
+  //overflow: scroll;
+}
+
+.modal-content {
+  background-color: $color-white;
+  // height: 58vh;
+  //width: 95vw;
+  //overflow: scroll;
+}
+
+.title {
+  text-align: start;
+  font-size: 20px;
+  font-weight: 400;
+  color: $color-gray;
+}
+
+.custom-input {
+  font-size: small;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  color: #66798d;
+  /* Agrega cualquier otro estilo necesario */
+}
+
+
+.error-label {
+  color: $color-red;
+}
+
+.invalid {
+  color: $color-red;
+  font-size: x-small;
+}
+
+.label-select {
+  color: $color-gray;
+  font-size: 12px;
+}
+
+.container-group {
+  display: flex;
+  margin: 5px 0;
+
+  &-checkbox {
+    margin-left: 5px;
+    border-radius: 20px;
+  }
+
+  &-label {
+    color: $color-gray;
+    font-size: 10px;
+    margin: auto 2px;
+  }
+}
+
+.container {
+  &-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin: 22px 10px;
+  }
+
+  &-rowCauses {
+    display: flex;
+    flex-direction: row;
+
+    align-items: flex-end;
+    margin: 22px 10px;
+  }
+
+  &-col {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+  }
+
+  &-colCauses {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+    justify-content: flex-start;
+  }
+}

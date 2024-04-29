@@ -1,0 +1,39 @@
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - '# Execute Amplify CLI with the helper script'
+        - amplifyPush --simple
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - ls -ltr
+        - rm -rf node_modules
+        - ls -ltr
+        - nvm install 18.18
+        - node -v
+        - nvm use 18.18
+        - npm update
+    build:
+      commands:
+        - nvm use 18.18
+        - node -v
+        - echo "La rama actual es:" $AWS_BRANCH
+        - echo "La rama actual es:" $BUILD_ENV
+        - echo "${AWS_BRANCH}"
+        - pwd
+        - npm run build:$AWS_BRANCH
+        - ls -ltr
+        - pwd
+        - cd dist/confa/browser
+        - ls -ltr
+        - pwd
+  artifacts:
+    baseDirectory: dist/confa/browser
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*

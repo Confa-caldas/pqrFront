@@ -1,0 +1,64 @@
+trigger:
+- develop
+
+variables:
+  - name: branchName
+    value:  $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
+  - group: front-dev
+
+jobs:
+- job: Build
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - checkout: self
+
+  - script: |
+      cd $(Build.SourcesDirectory)
+      npm install -g @angular/cli
+      npm install
+      ng build --configuration=develop
+    displayName: 'Build and Archive Artifacts'
+    condition: succeeded()
+
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '2.x'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - script: |
+      cd $(Agent.ToolsDirectory)
+
+      # Download the AWS CLI
+      curl -O https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+      unzip awscli-exe-linux-x86_64.zip
+      sudo ./aws/install
+
+      # Configure AWS CLI
+      aws configure set aws_access_key_id $(AWS_ACCESS_KEY_ID)
+      aws configure set aws_secret_access_key $(AWS_SECRET_ACCESS_KEY)
+      aws configure set region $(AWS_REGION)
+    displayName: 'Download and Configure AWS CLI'
+    condition: succeeded()
+
+  - script: |
+      cd $(Build.SourcesDirectory)/dist
+
+      # Get information about the last deployment job
+      lastDeploymentId=$(aws amplify list-deployment-jobs --app-id $(AMPLIFY_APP_ID) --branch-name $(AMPLIFY_ENV_NAME) --max-results 1 --output json | jq -r '.jobSummaries[0].jobId')
+
+      # If there is an existing deployment, wait for it to complete
+      if [ -n "$lastDeploymentId" ]; then
+        echo "Waiting for the last deployment $lastDeploymentId to finish"
+        aws amplify wait job-not-exists --app-id $(AMPLIFY_APP_ID) --branch-name $(AMPLIFY_ENV_NAME) --job-id "$lastDeploymentId"
+      fi
+
+      # Start a new deployment
+      aws amplify start-deployment --app-id $(AMPLIFY_APP_ID) --branch-name $(AMPLIFY_ENV_NAME)
+
+      # Wait for deployment to complete
+      aws amplify wait deployment-complete --app-id $(AMPLIFY_APP_ID) --branch-name $(AMPLIFY_ENV_NAME)
+    displayName: 'Deploy to AWS Amplify'
+    condition: succeeded()

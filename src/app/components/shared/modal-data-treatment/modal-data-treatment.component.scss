@@ -1,0 +1,74 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.modal-content {
+  background-color: $color-white;
+}
+
+.error-label {
+  color: $color-red;
+  font-weight: 500;
+  text-align: center;
+  font-size: 14px;
+}
+
+.invalid {
+  color: $color-red;
+  font-size: small;
+}
+
+.button-more {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+
+.button-close {
+  background-color: $color-gray;
+  color: white;
+  width: 275px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  &-plus {
+    font-size: 15px;
+  }
+}
+
+.container-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: justify;
+  font-size: small;
+}
+
+.container {
+  &_checkbox {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  &_text {
+    color: black;
+  }
+
+  &_link {
+    font-weight: 700;
+    color: $color-tab-blue;
+  }
+
+  &-button {
+    display: flex;
+    justify-content: center;
+    color: $color-blue;
+  }
+
+}
+
+
+.text-justify {
+  text-align: justify;
+}

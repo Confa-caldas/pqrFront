@@ -1,0 +1,40 @@
+<p-dialog [(visible)]="visible" class="size" [modal]="true">
+  <!--<p-dialog [(visible)]="visible" [style]="{ width: '30vw', height: '30vh' }" [modal]="true">-->
+  <ng-template pTemplate="headless">
+    <div class="modal-content">
+      <div class="row">
+        <div class="modal-white">
+          <img src="../../../assets/images/logo-login.png" class="login-logo" />
+          <img src="../../../assets/images/check_button.png" class="login-form-logo-check" />
+        </div>
+      </div>
+
+      <div class="modal-blue">
+        <div *ngIf="requestCreation">
+          <div class="col-12 title" style="font-size: 23pt">
+            Su solicitud ha sido enviada exitosamente
+          </div>
+          <div class="col-12 text">
+            <span class="text">Número de radicado: </span>
+            <span class="text">{{ message }}</span>
+          </div>
+          <div class="col-12 text-center">
+            <p-button
+              type="button"
+              [style]="{
+                'border-radius': '28pt',
+                'background-color': '#f3f3f3',
+                color: '#4face9',
+                width: '70%',
+                'font-size': '16pt'
+              }"
+              label="Cerrar"
+              [severity]="severity"
+              (click)="closeDialog(false)"
+              class="button"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

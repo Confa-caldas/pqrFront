@@ -1,0 +1,189 @@
+@import '../abstracts/variables';
+
+.p-tabview .p-tabview-nav {
+  background-color: transparent;
+  display: flex;
+  margin: 35px 0;
+  border: none;
+
+  &-process {
+    margin: -42px 0;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+
+
+  }
+
+  &-tabs {
+    margin: -42px 0;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+
+    &>.p-tabview.p-component .p-tabview-nav-container .p-tabview-nav-content {
+      margin: 0 auto;
+    }
+  }
+
+
+  &>.p-tabview.p-component {
+    width: 100%;
+
+  }
+}
+
+.p-tabview {
+  margin: 5px;
+
+  &>.p-component .p-tabview-nav-container .p-tabview-nav-content {
+    margin: 0 auto;
+  }
+
+}
+
+.p-tabview .p-tabview-nav .p-tabview-nav-link {
+  background-color: $color-white;
+  border: none;
+
+  // &:hover {
+  //   color: $color-black;
+  // }
+
+  &-1 {
+    font-weight: 600;
+    font-size: 13px;
+    color: $color-black;
+    border: 1.5px solid $color-tab-blue;
+    border-radius: 5px;
+
+    &>.p-tabview-nav-link[aria-selected='true'] {
+      background-color: $color-tab-blue;
+      color: $color-white;
+      border: 0;
+    }
+
+  }
+
+  &-process-1 {
+
+    border: 1.5px solid $color-tab-blue;
+    border-radius: 5px;
+
+    &>.p-ripple {
+      color: $color-tab-blue;
+      font-weight: bold;
+    }
+
+    &>.p-tabview-nav-link[aria-selected='true'] {
+      background-color: $color-tab-blue;
+      color: $color-white;
+      font-weight: 600;
+      border: 0;
+    }
+
+  }
+
+  &-2 {
+    font-weight: 600;
+    font-size: 13px;
+    color: $color-black;
+    border: 1.5px solid $color-tab-yellow;
+    border-radius: 5px;
+
+
+    &>.p-tabview-nav-link[aria-selected='true'] {
+      background-color: $color-tab-yellow;
+      color: $color-black;
+      border: 0;
+    }
+
+  }
+
+  &-3 {
+    font-weight: 600;
+    font-size: 13px;
+    color: $color-black;
+    border: 1.5px solid $color-dark-orange;
+    border-radius: 5px;
+
+
+    &>.p-tabview-nav-link[aria-selected='true'] {
+      background-color: $color-dark-orange;
+      color: $color-white;
+      border: 0;
+    }
+  }
+
+  &-4 {
+    font-weight: 600;
+    font-size: 13px;
+    color: $color-black;
+    border: 1.5px solid $color-green;
+    border-radius: 5px;
+
+
+    &>.p-tabview-nav-link[aria-selected='true'] {
+      background-color: $color-green;
+      color: $color-white;
+      border: 0;
+    }
+  }
+
+  &-sub {
+    border: none;
+    font-weight: 600;
+    font-size: 13px;
+    color: $color-black;
+
+    &>.p-tabview-nav-link[aria-selected='true'] {
+      background-color: $color-tab-blue;
+      color: $color-white;
+      border: 0;
+    }
+
+
+  }
+
+}
+
+
+.p-tabview .p-tabview-nav .p-tabview-nav-link {
+  padding: 13px;
+  //margin-bottom: -1px;
+  font-family: $font-medium;
+}
+
+.p-tabview .p-tabview-nav li {
+  flex: 1;
+}
+
+.p-tabview-title {
+  //color: #acaeae;
+  margin: auto;
+}
+
+.p-tabview .p-tabview-panels {
+  padding: 13px 5px 53px 5px;
+  max-width: 100%;
+
+
+}
+
+.p-tabview .p-tabview-nav-content {
+  //margin-bottom: -18px;
+  height: 74px;
+  //margin: 0 auto;
+  width: 600px;
+
+}
+
+.p-accordion .p-accordion-header .p-accordion-header-link {
+  background-color: $color-jelly-bean-blue;
+  padding: 10px;
+  font-family: $font-light;
+  font-size: 14px;
+  color: $color-white;
+}

@@ -1,0 +1,104 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.ui-dropdown .ui-dropdown-item.ui-state-highlight {
+  background-color: #f0f0f0;
+  /* Set your desired background color */
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+
+
+  &-select {
+    display: flex;
+    flex-direction: column;
+
+    &-placeholder {
+      color: $color-text-black;
+      font-family: $font-light;
+      font-size: 10px;
+      margin: 0 0 5px 15px;
+      border-radius: 20px;
+    }
+
+    &-options {
+      width: 250px;
+    }
+
+    &-invalid {
+      color: $color-red;
+      font-size: small;
+    }
+  }
+
+  &-card {
+    margin: 0.5% 2%;
+
+    &_header {
+      text-align: center;
+      font-family: $font-bold;
+      font-size: 26px;
+      //font-weight: bold;
+      padding-top: 2%;
+      color: $color-text-black;
+    }
+
+    &_textRecomendations {
+      font-size: 16px;
+      text-align: justify;
+      color: $color-text-black;
+      font-family: $font-medium;
+    }
+
+    &_title {
+      font-family: $font-bold;
+      color: $color-title-blue;
+      //font-weight: bold;
+      font-size: 24px;
+    }
+
+    &_text {
+      font-family: $font-medium;
+      color: $color-text-black;
+      font-size: 16px;
+      //font-weight: normal;
+      margin-left: 200px;
+      margin-right: 200px;
+    }
+  }
+
+  &-checkbox {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+    //text-decoration: underline;
+    cursor: pointer;
+    align-items: center;
+
+    &_a {
+      font-family: $font-light;
+      margin: 5px 0 5px 5px;
+      font-size: 20px;
+      color: $color-text-black ;
+      text-decoration: none;
+
+
+    }
+
+    &_link {
+      font-family: $font-light;
+      text-decoration: underline;
+      color: $color-text-black;
+      font-size: 20px;
+    }
+
+
+  }
+
+  &-button {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,119 @@
+<div class="container-layout">
+  <div class="row header">
+    <div class="col-12 d-flex align-items-center">
+      <img src="../../../assets/images/logo-blanco.svg" class="header-img" />
+    </div>
+  </div>
+  <div class="row h-100">
+    <!--Menu  no expandido -->
+    <div class="pe-0 menu colNotExpanded" *ngIf="!expand; else menuExpanded">
+      <div>
+        <div class="login-form-header">
+          <div class="login-form-header__item login-form-header__item_1"></div>
+          <div class="login-form-header__item login-form-header__item_2"></div>
+          <div class="login-form-header__item login-form-header__item_3"></div>
+          <div class="login-form-header__item login-form-header__item_4"></div>
+          <div class="login-form-header__item login-form-header__item_5"></div>
+          <div class="login-form-header__item login-form-header__item_6"></div>
+        </div>
+
+        <p-menu
+          [model]="nodes"
+          class="itemsNotExpanded"
+          [style]="{
+            width: 'auto',
+            'background-color': 'transparent',
+            border: 'none'
+          }">
+          <ng-template let-node pTemplate="default">
+            <i
+              *ngIf="node.label === 'CONFIGURACION'"
+              (click)="toggleNavBar()"
+              class="pi pi-cog icons"
+              style="font-size: 1.5rem"></i>
+            <i
+              *ngIf="node.label === 'CONSULTAR SOLICITUDES'"
+              (click)="toggleNavBar()"
+              class="pi pi-search icons"
+              style="font-size: 1.5rem"></i>
+            <i
+              *ngIf="node.label === 'GENERAR REPORTE'"
+              (click)="toggleNavBar()"
+              class="pi pi-user-edit icons"
+              style="font-size: 1.5rem"></i>
+            <i
+              *ngIf="node.label === 'TRAMITAR SOLICITUD'"
+              (click)="toggleNavBar()"
+              class="pi pi-file-import icons"
+              style="font-size: 1.5rem"></i>
+          </ng-template>
+        </p-menu>
+      </div>
+      <div class="iconsToggle">
+        <i
+          (click)="toggleNavBar()"
+          class="pi pi-angle-double-right icons"
+          [style]="{ 'font-size': '1.5rem' }"></i>
+        <i (click)="logout()" class="pi pi-sign-out icons" [style]="{ 'font-size': '1.5rem' }"></i>
+      </div>
+    </div>
+    <!--Menu expandido -->
+    <ng-template #menuExpanded>
+      <div class="col-3 pe-0 menu" *ngIf="expand">
+        <div>
+          <div class="login-form-header">
+            <div class="login-form-header__item login-form-header__item_1"></div>
+            <div class="login-form-header__item login-form-header__item_2"></div>
+            <div class="login-form-header__item login-form-header__item_3"></div>
+            <div class="login-form-header__item login-form-header__item_4"></div>
+            <div class="login-form-header__item login-form-header__item_5"></div>
+            <div class="login-form-header__item login-form-header__item_6"></div>
+          </div>
+          <div class="flex justify-content-center">
+            <p-tree
+              [value]="nodes"
+              class="w-full md:w-30rem"
+              (onNodeExpand)="nodeExpand($event)"
+              (onNodeCollapse)="nodeCollapse($event)"
+              (onNodeSelect)="nodeSelect($event)"
+              (onNodeUnselect)="nodeUnselect($event)">
+              <ng-template let-node pTemplate="url">
+                <div
+                  class="item-label"
+                  [ngClass]="{ 'item-label-select': node.expanded === true }"
+                  (click)="redirect(node.data)"
+                  class="menuList">
+                  {{ node.label }}
+                </div>
+              </ng-template>
+              <ng-template let-node pTemplate="default">
+                <div class="item-label" [ngClass]="{ 'item-label-select': node.expanded === true }">
+                  {{ node.label }}
+                </div>
+              </ng-template>
+            </p-tree>
+          </div>
+        </div>
+        <div class="iconsToggleExpanded">
+          <div class="iconsBox">
+            <i
+              (click)="toggleNavBar()"
+              class="pi pi-angle-double-left icons"
+              [style]="{ 'font-size': '1.5rem', 'margin-right': '11px' }"></i>
+            Reducir
+          </div>
+          <div class="iconsBox">
+            <i
+              (click)="logout()"
+              class="pi pi-sign-out icons"
+              [style]="{ 'font-size': '1.5rem', 'margin-right': '11px' }"></i>
+            Cerrar Sesion
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div [ngClass]="expand ? 'col-9 content-data' : 'main content-data'">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

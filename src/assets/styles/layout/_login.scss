@@ -1,0 +1,95 @@
+@import '../abstracts/variables';
+
+.container-login {
+  background-image: url('../../images/fondo-login.png');
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-color: #ececec;
+  background-repeat: no-repeat;
+  height: 100vh;
+  &-form {
+    padding: 5%;
+    height: 100%;
+    &__center {
+      text-align: center;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%; // Asegura que ocupa toda la altura disponible
+    }
+  }
+}
+
+.login-form {
+  background: $color-white;
+  width: 40%;
+  &-header {
+    display: flex;
+    justify-content: space-around; /* Ajusta según tus preferencias */
+    align-items: center;
+    &__item {
+      width: 17%;
+      height: 20px;
+      &_1 {
+        background-color: $color-blue;
+      }
+      &_2 {
+        background-color: $color-green;
+      }
+      &_3 {
+        background-color: $color-yellow;
+      }
+      &_4 {
+        background-color: $color-orange;
+      }
+      &_5 {
+        background-color: $color-rosado;
+      }
+      &_6 {
+        background-color: $color-red;
+      }
+    }
+  }
+  &-logo {
+    margin-top: 10px;
+    &__img {
+      width: 30%;
+    }
+  }
+  &-input {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__label {
+      margin-bottom: 30px;
+      width: 60%;
+    }
+    &__button {
+      width: 60%;
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+  }
+  &__title {
+    margin-top: 10px;
+    color: $color-jelly-bean-blue;
+    font-family: $font-medium;
+    font-family: 14px;
+  }
+  &__line {
+    width: 200px;
+    height: 4px;
+    background-color: $color-tangerine-yellow;
+    margin: -10px auto 20px;
+  }
+}
+
+.icon-label {
+  color: $color-tangerine-yellow;
+  margin-right: 5px;
+  font-size: 13px;
+}

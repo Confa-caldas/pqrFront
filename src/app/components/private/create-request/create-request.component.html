@@ -1,0 +1,93 @@
+<p-card [style]="{ margin: '0 50px 100px' }">
+  <form [formGroup]="optionsRequest">
+    <p-card class="container-card">
+      <p class="m-0"></p>
+      <div class="container-card_title" [ngStyle]="{ 'text-align': 'center', 'font-size': '24px' }">
+        ¡Bienvenido a nuestro aplicativo!
+      </div>
+      <div [ngStyle]="{ 'text-align': 'center' }" class="container-card_text">
+        A través de este podrás gestionar tus solicitudes relacionadas con el área de aportes y
+        subsidios. En Tipo de solicitante selecciona si eres empresa o si eres afiliado, identifica
+        tu tipo de afiliación. En Tipo de solicitud, podrás encontrar los diferentes trámites que
+        podrás realizar. Lee atentamente el texto con las recomendaciones para validar si es la
+        gestión a realizar.
+      </div>
+      <div class="container">
+        <div class="container-select">
+          <label class="container-select-placeholder">Tipo del solicitante*</label>
+          <p-dropdown
+            (onChange)="getRequest()"
+            formControlName="applicant_id"
+            [style]="{ 'border-radius': '20px', height: 'auto' }"
+            class="container-select-options"
+            [options]="applicantList"
+            optionLabel="applicant_type_name"
+            (onChange)="changeRequest()"
+            placeholder="*Tipo del solicitante"></p-dropdown>
+
+          <label class="container-select-invalid">
+            {{
+              optionsRequest.get('applicant_id')?.hasError('required') &&
+              optionsRequest.get('applicant_id')?.touched
+                ? 'Seleccione un tipo de solicitante'
+                : ''
+            }}</label
+          >
+        </div>
+        <div class="container-select">
+          <label class="container-select-placeholder">Tipo de solicitud*</label>
+          <p-dropdown
+            formControlName="request_id"
+            [style]="{ 'border-radius': '20px', height: 'auto' }"
+            class="container-select-options"
+            [options]="requestList"
+            emptyMessage="Seleccione un tipo de solicitante"
+            optionLabel="request_type_name"
+            placeholder="*Tú solicitud esta asociada con"></p-dropdown>
+
+          <label class="container-select-invalid">
+            {{
+              optionsRequest.get('request_id')?.hasError('required') &&
+              optionsRequest.get('request_id')?.touched
+                ? 'Seleccione un tipo de solicitud'
+                : ''
+            }}</label
+          >
+        </div>
+      </div>
+    </p-card>
+    <p-card *ngIf="!optionsRequest.get('request_id')?.invalid" class="container-card">
+      <ng-template pTemplate="header">
+        <h3 class="container-card_header">
+          Conoce algunas de las recomendaciones antes de continuar
+        </h3>
+      </ng-template>
+      <div class="container-card_textRecomendations">
+        {{ optionsRequest.get('request_id')?.value?.request_type_description }}
+      </div>
+    </p-card>
+
+    <div class="container-checkbox" *ngIf="applicantId1()">
+      <p-checkbox formControlName="authorize" [value]="true" [binary]="true"></p-checkbox>
+      <p class="container-checkbox_a">
+        Autorizo
+        <a class="container-checkbox_link" (click)="openDataTreatment()"
+          >política tratamiento de datos</a
+        >
+      </p>
+    </div>
+    <p-button
+      type="button"
+      [style]="{ 'border-radius': '20px', 'background-color': '#00aeef', width: '275px' }"
+      label="Continuar"
+      [disabled]="!optionsRequest.valid"
+      (onClick)="sendOptions()"
+      class="container-button"></p-button>
+  </form>
+</p-card>
+<p-toast></p-toast>
+<app-modal-data-treatment
+  *ngIf="visibleDialogDataT"
+  [visible]="visibleDialogDataT"
+  (setRta)="closeDialogDataT($event)"
+  (setRtaParameter)="setParameterDataT($event)"></app-modal-data-treatment>

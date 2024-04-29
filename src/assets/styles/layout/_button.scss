@@ -1,0 +1,324 @@
+@import '../abstracts/variables';
+
+.button-action {
+  position: relative;
+  text-align: right;
+  padding: 10px 0px;
+}
+
+.button-action-center {
+  position: relative;
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.p-button-label {
+  // font-size: 12px;
+  font-weight: 300;
+  font-family: $font-bold;
+}
+
+.p-button.p-button-secondary {
+  background-color: $color-indigo;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.p-button {
+  background-color: $color-yellow-green;
+  border: none;
+  font-family: $font-bold;
+
+  &:hover {
+    background-color: lighten($color-yellow-green, 10%);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: darken($color-yellow-green, 10%);
+    /* Cambia el color al hacer clic */
+    box-shadow: none;
+    /* Elimina la sombra al hacer clic */
+  }
+}
+
+.p-button.p-button-primary {
+  background-color: $color-yellow-green;
+  border: 0;
+  font-family: $font-medium;
+
+  &:hover {
+    background-color: lighten($color-yellow-green, 10%);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: darken($color-yellow-green, 10%);
+    /* Cambia el color al hacer clic */
+    box-shadow: none;
+    /* Elimina la sombra al hacer clic */
+  }
+}
+
+.p-button.p-button-primary-border {
+  background-color: $color-yellow-green;
+  border-radius: 4px;
+  font-family: $font-medium;
+
+  &:hover {
+    background-color: lighten($color-yellow-green, 10%);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: darken($color-yellow-green, 10%);
+    /* Cambia el color al hacer clic */
+    box-shadow: none;
+    /* Elimina la sombra al hacer clic */
+  }
+}
+
+.p-button.p-button-danger {
+  background-color: $color-red;
+  color: $color-white;
+  border: none;
+  font-family: $font-medium;
+
+  &:hover {
+    background-color: lighten($color-red, 10%);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: darken($color-red, 10%);
+    /* Cambia el color al hacer clic */
+    box-shadow: none;
+    /* Elimina la sombra al hacer clic */
+  }
+}
+
+.pi {
+  font-size: 12px;
+}
+
+.p-button.p-button-secondary {
+  background-color: $color-dim-gray;
+  border: none;
+  font-family: $font-medium;
+
+  &:hover {
+    background-color: lighten($color-dim-gray, 10%);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: darken($color-dim-gray, 10%);
+    /* Cambia el color al hacer clic */
+    box-shadow: none;
+    /* Elimina la sombra al hacer clic */
+  }
+}
+
+.align-bottom {
+  margin-top: 20px;
+  bottom: 0px;
+}
+
+.p-button.p-button-warning {
+  background-color: $color-tangerine-yellow;
+  border: 0;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.btn-action {
+  border: 0;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-size: 13px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.declined {
+  background: $color-declined;
+  color: $color-white;
+}
+
+.waiting {
+  background: $color-waiting-request;
+  color: $color-white;
+}
+
+.approve {
+  background: $color-approved;
+  color: $color-white;
+}
+
+.close-modal {
+  background-color: $color-white;
+  color: $color-indigo;
+  float: right;
+}
+
+.btn {
+  border: 0;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: $font-light;
+  margin: 0 auto;
+  width: fit-content;
+
+  &-third {
+    width: 100%;
+    background-color: $color-ceil;
+    color: $color-indigo;
+    margin: 5px;
+
+    &:hover {
+      background-color: $color-indigo;
+      color: $color-white;
+    }
+  }
+}
+
+.btn-primary {
+  background-color: $color-yellow-green;
+  color: $color-white;
+
+  &:disabled {
+    background-color: $color-davis-gray;
+  }
+}
+
+.btn-secondary {
+  background-color: $color-jelly-bean-blue;
+  color: $color-white;
+  margin: 0 10px;
+}
+
+.btn-warning {
+  background-color: $color-tangerine-yellow;
+  color: $color-indigo;
+}
+
+.btn-danger {
+  background-color: $color-danger;
+  color: $color-white;
+  margin: 0 10px;
+}
+
+.btn-clear {
+  background-color: $color-white;
+}
+
+.rounded {
+  background-color: $color-indigo;
+  color: $color-white;
+  border-radius: 50% !important;
+  padding: 0px 13px;
+  width: fit-content;
+  margin: 6px auto;
+  border: 0;
+  font-family: $font-light;
+
+  &-plus {
+    font-size: 30px;
+  }
+}
+
+.btn-icon-warning {
+  background-color: $color-dark-orange;
+  width: 30px;
+  height: 30px;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  /* Añade transición para ambos efectos */
+  margin-left: 5px;
+  margin-right: 5px;
+
+  &:hover {
+    background-color: $color-golden-rod;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: darken($color-dark-orange, 10%);
+    /* Cambia el color al hacer clic */
+    box-shadow: none;
+    /* Elimina la sombra al hacer clic */
+  }
+
+  color: white;
+  text-align: center;
+  line-height: 30px;
+}
+
+.btn-icon-info {
+  background-color: $color-dodger-blue;
+  width: 30px;
+  height: 30px;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  /* Añade transición para ambos efectos */
+  margin-left: 5px;
+  margin-right: 5px;
+
+  &:hover {
+    background-color: $color-indigo;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: darken($color-dodger-blue, 10%);
+    /* Cambia el color al hacer clic */
+    box-shadow: none;
+    /* Elimina la sombra al hacer clic */
+  }
+
+  color: white;
+  text-align: center;
+  line-height: 30px;
+}
+
+.custom-button {
+  width: 100%;
+  padding: 5px;
+  color: white;
+  background-color: $color-yellow-green;
+  border: none;
+  font-family: $font-medium;
+
+  &:hover {
+    background-color: lighten($color-yellow-green, 10%);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: darken($color-yellow-green, 10%);
+    /* Cambia el color al hacer clic */
+    box-shadow: none;
+    /* Elimina la sombra al hacer clic */
+  }
+}
+
+.p-checkbox .p-checkbox-box {
+  border-color: #01b0ef;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  background-color: #01b0ef;
+  border-color: #01b0ef;
+}

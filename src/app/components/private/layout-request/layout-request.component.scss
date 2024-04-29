@@ -1,0 +1,211 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.container-layout {
+  position: relative;
+  background-color: $color-white-smoke;
+  overflow: hidden;
+}
+
+.body {
+  overflow-y: auto;
+  //min-height: 100vh;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1375px) {
+  .header {
+    &_img {
+      height: 200px;
+      width: 100%;
+    }
+
+    &_banner {
+      display: flex;
+      border: 5px;
+
+      &__item {
+        width: 17%;
+        height: 30px;
+
+        &_1 {
+          background-color: $color-blue;
+        }
+
+        &_2 {
+          background-color: $color-green;
+        }
+
+        &_3 {
+          background-color: $color-yellow;
+        }
+
+        &_4 {
+          background-color: $color-orange;
+        }
+
+        &_5 {
+          background-color: $color-rosado;
+        }
+
+        &_6 {
+          background-color: $color-red;
+        }
+      }
+    }
+  }
+
+  .footer {
+    background-color: $color-white;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    // position: absolute;
+    bottom: 0px;
+
+    &-img-btn {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+
+    &-button {
+      font-family: $font-bold;
+      border-radius: 50px;
+      border-style: none;
+      font-weight: bolder;
+      font-size: smaller;
+      color: $color-white;
+      background-color: $color-tab-blue;
+      height: 27pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 234pt;
+      //margin: 0 683px 0 453px;
+    }
+
+    &-img {
+      height: 40px;
+      margin: 47.3pt 63.3pt 48pt 0;
+    }
+
+    &-logo {
+      width: 114.5pt;
+      height: 50.8pt;
+      margin: 10.1pt 0 10.1pt 140pt;
+
+    }
+  }
+}
+
+/* Estilos para dispositivos grandes (escritorios) */
+@media screen and (min-width: 1376px) {
+  .header {
+    &_img {
+      height: 300px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    &_banner {
+      display: flex;
+      border: 5px;
+
+      &__item {
+        width: 17%;
+        height: 30px;
+
+        &_1 {
+          background-color: $color-blue;
+        }
+
+        &_2 {
+          background-color: $color-green;
+        }
+
+        &_3 {
+          background-color: $color-yellow;
+        }
+
+        &_4 {
+          background-color: $color-orange;
+        }
+
+        &_5 {
+          background-color: $color-rosado;
+        }
+
+        &_6 {
+          background-color: $color-red;
+        }
+      }
+    }
+  }
+
+  .footer {
+    background-color: $color-white;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    // position: absolute;
+    bottom: 0px;
+
+    &-img-btn {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+
+    &-button {
+      font-family: $font-bold;
+      border-radius: 50px;
+      border-style: none;
+      font-weight: bolder;
+      font-size: smaller;
+      color: $color-white;
+      background-color: $color-tab-blue;
+      height: 27pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 234pt;
+      //margin: 0 683px 0 453px;
+    }
+
+
+    &-img {
+      height: 40px;
+      margin: 47.3pt 63.3pt 48pt 0;
+    }
+
+    &-logo {
+      width: 114.5pt;
+      height: 50.8pt;
+      margin: 10.1pt 0 10.1pt 140pt;
+
+    }
+  }
+}
+
+
+
+.sub-header {
+  background-color: $color-title-blue ;
+  margin: 5% 4% 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5% 2%;
+
+  &_title {
+    font-family: $font-bold;
+    //font-weight: bolder;
+    color: $color-white;
+    font-size: large;
+  }
+}

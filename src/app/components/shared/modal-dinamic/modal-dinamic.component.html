@@ -1,0 +1,48 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '30vw' }" [modal]="true">
+  <ng-template pTemplate="headless">
+    <div class="modal-content">
+      <div class="login-form-header">
+        <div class="login-form-header__item login-form-header__item_1"></div>
+        <div class="login-form-header__item login-form-header__item_2"></div>
+        <div class="login-form-header__item login-form-header__item_3"></div>
+        <div class="login-form-header__item login-form-header__item_4"></div>
+        <div class="login-form-header__item login-form-header__item_5"></div>
+        <div class="login-form-header__item login-form-header__item_6"></div>
+      </div>
+      <div class="row">
+        <div class="login-form-logo d-flex justify-content-center my-4">
+          <img src="../../../assets/images/logo-login.png" class="login-form-logo__img" />
+        </div>
+      </div>
+      <div *ngIf="login">
+        <div class="row my-4 px-5">
+          <div class="col-12 text-center modal-content error-label">INGRESO INVÁLIDO</div>
+        </div>
+        <div class="row my-4 px-5">
+          <div class="col-12 text-center">{{ message }}</div>
+        </div>
+        <div class="row my-4 px-5">
+          <div class="col-12 text-center">
+            <p-button label="Cerrar" severity="danger" (click)="closeDialog(false)"></p-button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="select">
+        <div class="row my-4 px-5">
+          <div class="col-12 text-center">{{ message }}</div>
+        </div>
+        <div class="row my-4 px-5" *ngIf="!informative">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="No" severity="secondary" (click)="closeDialog(false)"></p-button>
+            <p-button label="Sí" severity="danger" (click)="closeDialog(true)"></p-button>
+          </div>
+        </div>
+        <div class="row my-4 px-5" *ngIf="informative">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="cerrar" severity="secondary" (click)="closeDialog(false)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

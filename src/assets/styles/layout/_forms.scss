@@ -1,0 +1,91 @@
+@import '../abstracts/variables';
+.p-radiobutton .p-radiobutton-box {
+  box-shadow: 0px 0px 6px $color-quick-silver;
+  border: 0;
+  padding: 0px !important;
+}
+.p-radiobutton {
+  width: 23px;
+  height: 23px;
+}
+.p-radiobutton {
+  margin-top: 20px;
+}
+
+.p-radiobutton-box.p-highlight .p-radiobutton-icon {
+  visibility: visible;
+  height: 12px;
+  width: 12px;
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  background-color: $color-jelly-bean-blue;
+}
+
+.custom-file-input {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.p-multiselect {
+  width: 100%;
+  font-size: 12px;
+  // border: 0; //TESTCRISTIAN
+  height: 46px;
+}
+.error {
+  color: $color-vermilion;
+  width: 100%;
+  display: block;
+}
+
+.input-file {
+  display: none;
+}
+
+.btn {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: $color-platinum;
+  color: $color-jelly-bean-blue;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: $color-jelly-bean-blue;
+  color: $color-white;
+}
+
+.status {
+  padding: 3px 5px;
+  color: #fff;
+  width: fit-content;
+  border-radius: 5px;
+  margin: 0 auto;
+  text-align: center;
+  border: 0;
+}
+
+.send {
+  background-color: #163a60;
+  color: $color-white;
+}
+
+.approved {
+  background-color: #629a72;
+}
+
+.review {
+  background-color: #ffce03;
+}
+.rejected {
+  background-color: #af1717;
+}
+.requested {
+  background-color: #f38430;
+}

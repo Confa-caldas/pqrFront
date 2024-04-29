@@ -1,0 +1,22 @@
+@import '../abstracts/variables';
+
+.title-page {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: 400;
+  i {
+    margin-right: 10px;
+  }
+}
+
+h6 {
+  color: $color-indigo;
+  font-family: $font-medium;
+  font-weight: 300;
+  font-size: 22px;
+  margin: 20px 0;
+}
+
+h4 {
+  font-size: 20px;
+}

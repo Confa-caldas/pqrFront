@@ -1,0 +1,240 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.custom-input {
+  font-size: small;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  color: #66798d;
+  /* Agrega cualquier otro estilo necesario */
+}
+
+@keyframes geek {
+
+  100%,
+  0% {
+    stroke: #008744;
+  }
+
+  40% {
+    stroke: #ffa700;
+  }
+
+  66% {
+    stroke: #0057e7;
+  }
+
+  80%,
+  90% {
+    stroke: #d62d20;
+  }
+}
+
+.sppinerAtta.p-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  scale: 68%;
+
+}
+
+.card {
+  &-header-container {
+    border-bottom: 2px solid $color-white-smoke;
+    margin-bottom: 50px;
+  }
+
+  &_title {
+    font-family: $font-bold;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  &-form {
+    position: relative;
+    width: 30%;
+
+
+    &-banner {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $color-tab-blue;
+      border-radius: 10px;
+      height: 50px;
+      width: 450px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &-title {
+        color: $color-white;
+      }
+    }
+
+    &-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+
+    &-input {
+      display: flex;
+      flex-direction: column;
+
+      &-placeholder {
+        font-size: x-small;
+        margin: 0 0 5px 15px;
+        color: $color-black;
+
+        &-invalid {
+          color: $color-red;
+          font-size: x-small;
+          margin: 0 0 5px 15px;
+        }
+      }
+
+      &-options {
+        width: 250px;
+        border-radius: 20px;
+        height: 30px;
+        padding-left: 9px;
+        font-size: small;
+      }
+
+      &-select {
+        width: 250px;
+
+        font-size: small;
+      }
+    }
+
+    &-button {
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+    }
+  }
+
+  &-text {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    &-placeholder {
+      margin: 0 0 5px 15px;
+      font-size: x-small;
+      color: $color-black;
+    }
+
+    &-area {
+      font-size: x-small;
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  &-buttonUp {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    &-placeholder {
+      margin: 0 0 5px 15px;
+      font-size: x-small;
+
+      color: $color-black;
+    }
+
+    &-custom-button {
+      display: inline-block;
+      position: relative;
+    }
+
+    &-custom-icon {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      display: none;
+    }
+
+    &-label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: $color-white-smoke;
+      border-radius: 5px;
+      border: 0.1px $color-davis-gray;
+      box-shadow: 2px 2px $color-white-smoke;
+      color: $color-dim-gray;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  &-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    width: 40rem;
+    margin: 0 auto;
+
+    &-header {
+      font-family: $font-bold;
+      background-color: $color-tab-blue;
+      text-align: center;
+      margin-bottom: 9px;
+      width: 100%;
+      color: $color-white;
+      font-size: medium;
+      font-size: 14px;
+      padding: 5px 0;
+      // font-weight: bold;
+    }
+
+    &-body {
+      display: flex;
+      flex-direction: row;
+      border: 1pt solid $color-tab-blue;
+      width: 100%;
+    }
+
+    &-itemName {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+      border-right: 1pt solid $color-tab-blue;
+      width: 100%;
+      text-align: left;
+      font-family: $font-light;
+      margin-left: 8px;
+
+
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      border-right: 1pt solid $color-tab-blue;
+      width: 100%;
+      text-align: left;
+      font-family: $font-light;
+    }
+  }
+}
+
+.truncate-text {
+  max-width: 300px;
+  /* Ancho máximo deseado */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+  align-items: center;
+  margin: auto 0
+}

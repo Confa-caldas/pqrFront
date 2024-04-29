@@ -1,0 +1,9 @@
+@import '../abstracts/variables';
+
+.card {
+  margin: 20px 0;
+  box-shadow: 2px 3px 5px $color-platinum;
+  border: 0;
+  padding: 20px;
+  border-radius: 10px;
+}

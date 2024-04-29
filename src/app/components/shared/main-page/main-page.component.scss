@@ -1,0 +1,72 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.container-layout {
+  position: relative;
+  background-color: $color-white-smoke;
+  overflow: hidden;
+}
+
+.body {
+  overflow-y: auto;
+  //min-height: 100vh;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1375px) {
+  .header {
+    &_img {
+      height: 777px;
+      width: 100%;
+      opacity: 0.4;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    }
+  }
+
+  .context {
+    position: relative;
+    display: inline-block;
+    margin-top: 50px
+  }
+
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
+  }
+
+}
+
+/* Estilos para dispositivos grandes (escritorios) */
+@media screen and (min-width: 1376px) {
+  .header {
+    &_img {
+      height: 930px;
+      width: 100%;
+      opacity: 0.4;
+    }
+  }
+
+  .context {
+    position: relative;
+    display: inline-block;
+
+  }
+
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
+  }
+}
