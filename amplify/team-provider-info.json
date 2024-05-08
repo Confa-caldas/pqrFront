@@ -1,5 +1,5 @@
 {
-  "dev": {
+  "devPruebas": {
     "awscloudformation": {
       "AuthRoleName": "amplify-analyzerprodev-dev-135352-authRole",
       "UnauthRoleArn": "arn:aws:iam::906218739704:role/amplify-analyzerprodev-dev-135352-unauthRole",
