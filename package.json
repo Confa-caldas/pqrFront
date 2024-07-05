@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build:develop": "ng build --configuration=develop",
+    "build:devPruebas": "ng build --configuration=devPruebas",
     "build:qa": "ng build --configuration=qa",
     "build:production": "ng build --configuration=production",
     "build:master": "ng build --configuration=master",
