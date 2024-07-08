@@ -7,23 +7,30 @@
 
 .container {
   display: flex;
+  //flex-wrap: wrap; /* Para que los elementos se ajusten a nuevas líneas si es necesario */
   justify-content: space-around;
+  justify-content: center; /* Centra los elementos horizontalmente */
 
 
   &-select {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Centra los elementos dentro de container-select */
+    width: 100%; /* Ajusta el ancho para ser responsivo */
+
 
     &-placeholder {
       color: $color-text-black;
       font-family: $font-light;
       font-size: 10px;
-      margin: 0 0 5px 15px;
+      margin: 10px 0 5px 15px;
       border-radius: 20px;
     }
 
     &-options {
-      width: 250px;
+      //width: 250px;
+      width: 100%; /* Ajusta el ancho para ser responsivo */
+      max-width: 250px; /* Ancho máximo */
     }
 
     &-invalid {
@@ -34,6 +41,8 @@
 
   &-card {
     margin: 0.5% 2%;
+    width: 100%; /* Ajusta el ancho para ser responsivo */
+    max-width: 400px; /* Ancho máximo */
 
     &_header {
       text-align: center;
@@ -63,8 +72,10 @@
       color: $color-text-black;
       font-size: 16px;
       //font-weight: normal;
-      margin-left: 200px;
-      margin-right: 200px;
+      //margin-left: 200px;
+      margin-left: 10%; /* Margen en porcentaje para ser responsivo */
+      //margin-right: 200px;
+      margin-right: 10%;
     }
   }
 
@@ -100,5 +111,42 @@
     display: flex;
     justify-content: center;
     font-size: 16px;
+  }
+}
+
+/* Media queries para ajustes responsivos */
+@media (max-width: 1200px) {
+  .container-card {
+    max-width: 100%; /* Ancho máximo ajustado */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+    align-items: center;
+  }
+
+  .container-card {
+    margin: 1% 0; /* Ajusta el margen en pantallas pequeñas */
+  }
+
+  .container-card_text {
+    margin-left: 5%; /* Ajusta el margen en pantallas pequeñas */
+    margin-right: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-select-placeholder, .container-checkbox_a, .container-checkbox_link {
+    font-size: 12px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+  }
+
+  .container-card_header {
+    font-size: 20px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+  }
+
+  .container-card_title, .container-checkbox_a, .container-checkbox_link {
+    font-size: 18px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
   }
 }

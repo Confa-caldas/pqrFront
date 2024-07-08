@@ -8,194 +8,156 @@
 
 .body {
   overflow-y: auto;
-  //min-height: 100vh;
+  margin-top: 50px;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1375px) {
-  .header {
-    &_img {
-      height: 200px;
-      width: 100%;
-    }
+.header {
+  &_img {
+    height: auto;
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+  }
 
-    &_banner {
-      display: flex;
-      border: 5px;
+  &_banner {
+    display: flex;
+    width: 100%;
 
-      &__item {
-        width: 17%;
-        height: 30px;
+    &__item {
+      flex: 1;
+      height: 30px;
 
-        &_1 {
-          background-color: $color-blue;
-        }
+      &_1 {
+        background-color: $color-blue;
+      }
 
-        &_2 {
-          background-color: $color-green;
-        }
+      &_2 {
+        background-color: $color-green;
+      }
 
-        &_3 {
-          background-color: $color-yellow;
-        }
+      &_3 {
+        background-color: $color-yellow;
+      }
 
-        &_4 {
-          background-color: $color-orange;
-        }
+      &_4 {
+        background-color: $color-orange;
+      }
 
-        &_5 {
-          background-color: $color-rosado;
-        }
+      &_5 {
+        background-color: $color-rosado;
+      }
 
-        &_6 {
-          background-color: $color-red;
-        }
+      &_6 {
+        background-color: $color-red;
       }
     }
   }
+}
 
-  .footer {
-    background-color: $color-white;
-    width: 100%;
-    height: 80px;
+.footer {
+  background-color: $color-white;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  bottom: 0px;
+
+  &-img-btn {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
     align-items: center;
-    // position: absolute;
-    bottom: 0px;
+  }
 
-    &-img-btn {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
+  &-button {
+    font-family: $font-bold;
+    border-radius: 50px;
+    border-style: none;
+    font-weight: bolder;
+    font-size: smaller;
+    color: $color-white;
+    background-color: $color-tab-blue;
+    height: 27pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 234pt;
+  }
 
+  &-img {
+    height: 40px;
+    margin: 47.3pt 63.3pt 48pt 0;
+  }
 
-    &-button {
-      font-family: $font-bold;
-      border-radius: 50px;
-      border-style: none;
-      font-weight: bolder;
-      font-size: smaller;
-      color: $color-white;
-      background-color: $color-tab-blue;
-      height: 27pt;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 234pt;
-      //margin: 0 683px 0 453px;
-    }
-
-    &-img {
-      height: 40px;
-      margin: 47.3pt 63.3pt 48pt 0;
-    }
-
-    &-logo {
-      width: 114.5pt;
-      height: 50.8pt;
-      margin: 10.1pt 0 10.1pt 140pt;
-
-    }
+  &-logo {
+    width: 114.5pt;
+    height: 50.8pt;
+    margin: 10.1pt 0 10.1pt 140pt;
   }
 }
 
-/* Estilos para dispositivos grandes (escritorios) */
-@media screen and (min-width: 1376px) {
+/* Estilos para dispositivos pequeños (por debajo de 768px) */
+@media screen and (max-width: 767px) {
   .header {
     &_img {
-      height: 300px;
+      height: auto;
+      max-height: 150px;
       width: 100%;
-      overflow: hidden;
+      object-fit: cover;
     }
 
     &_banner {
-      display: flex;
-      border: 5px;
+      flex-wrap: nowrap;
 
       &__item {
-        width: 17%;
-        height: 30px;
-
-        &_1 {
-          background-color: $color-blue;
-        }
-
-        &_2 {
-          background-color: $color-green;
-        }
-
-        &_3 {
-          background-color: $color-yellow;
-        }
-
-        &_4 {
-          background-color: $color-orange;
-        }
-
-        &_5 {
-          background-color: $color-rosado;
-        }
-
-        &_6 {
-          background-color: $color-red;
-        }
+        height: 20px;
       }
-    }
-  }
-
-  .footer {
-    background-color: $color-white;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    // position: absolute;
-    bottom: 0px;
-
-    &-img-btn {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-
-
-    &-button {
-      font-family: $font-bold;
-      border-radius: 50px;
-      border-style: none;
-      font-weight: bolder;
-      font-size: smaller;
-      color: $color-white;
-      background-color: $color-tab-blue;
-      height: 27pt;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 234pt;
-      //margin: 0 683px 0 453px;
-    }
-
-
-    &-img {
-      height: 40px;
-      margin: 47.3pt 63.3pt 48pt 0;
-    }
-
-    &-logo {
-      width: 114.5pt;
-      height: 50.8pt;
-      margin: 10.1pt 0 10.1pt 140pt;
-
     }
   }
 }
 
+/* Estilos para dispositivos medianos (entre 768px y 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .header {
+    &_img {
+      height: auto;
+      max-height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
 
+    &_banner {
+      flex-wrap: nowrap;
+
+      &__item {
+        height: 25px;
+      }
+    }
+  }
+}
+
+/* Estilos para dispositivos grandes (mayores de 1024px) */
+@media screen and (min-width: 1025px) {
+  .header {
+    &_img {
+      height: auto;
+      max-height: 300px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    &_banner {
+      flex-wrap: nowrap;
+
+      &__item {
+        height: 30px;
+      }
+    }
+  }
+}
 
 .sub-header {
-  background-color: $color-title-blue ;
+  background-color: $color-title-blue;
   margin: 5% 4% 2%;
   display: flex;
   justify-content: space-between;
@@ -204,8 +166,29 @@
 
   &_title {
     font-family: $font-bold;
-    //font-weight: bolder;
     color: $color-white;
     font-size: large;
+  }
+}
+
+.header_title {
+  background-color: $color-title-blue;
+  //margin: 5% 4% 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5% 5%;
+
+  height: 150px;
+  width: 100%;
+  font-family: $font-bold;
+  color: $color-white;
+  font-size: xx-large;
+
+  &_img {
+    height: auto;
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
   }
 }
