@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="visible" [style]="{ width: '100vw' }" [modal]="true">
+<p-dialog [(visible)]="visible" [style]="{ width: '80vw' }" [modal]="true">
   <ng-template pTemplate="headless">
     <div class="modal-content">
       <div class="login-form-header">
@@ -9,14 +9,15 @@
         <div class="login-form-header__item login-form-header__item_5"></div>
         <div class="login-form-header__item login-form-header__item_6"></div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="login-form-logo d-flex justify-content-center my-4">
           <img src="../../../assets/images/logo-login.png" class="login-form-logo__img" />
         </div>
-      </div>
+      </div> -->
       <div class="row my-4 px-5">
         <div class="col-12 container-text">
-          <ng-container *ngIf="!expandMessage; else expandedMessage">{{
+          {{ message }}
+          <!-- <ng-container *ngIf="!expandMessage; else expandedMessage">{{
             message | slice: 0 : 500
           }}</ng-container>
           <ng-template #expandedMessage>{{ message }}</ng-template>
@@ -25,20 +26,18 @@
           </button>
           <button *ngIf="!expandMessage" class="button-more" (click)="toggleExpand()">
             <span class="pi pi-angle-down"></span> Leer mas
-          </button>
+          </button> -->
         </div>
       </div>
-      <form [formGroup]="formGroup">
+      <!-- <form [formGroup]="formGroup">
         <div class="container_checkbox">
           <input type="checkbox" formControlName="inputValue" style="width: auto" />
           <label class="container_text">
             Acepto el tratamiento de datos personales de Confa
-            <!--<a href="#" class="container_link">tratamiento de datos personales </a>
-            de Confa-->
           </label>
         </div>
-      </form>
-      <div class="row my-4 px-5">
+      </form> -->
+      <!-- <div class="row my-4 px-5">
         <p class="error-label">
           {{
             formGroup.get('inputValue')?.hasError('required')
@@ -46,16 +45,16 @@
               : ''
           }}
         </p>
-      </div>
+      </div> -->
       <div>
         <div class="row my-4 px-5">
           <div class="col-12 d-flex justify-content-evenly">
             <button label="Cerrar" class="button-close" (click)="closeDialog(false)">Cerrar</button>
-            <p-button
+            <!-- <p-button
               label="Continuar"
               [style]="{ 'border-radius': '10px', 'background-color': '#00aeef', width: '275px' }"
               [disabled]="!formGroup.get('inputValue')?.valid"
-              (click)="closeDialog(true)"></p-button>
+              (click)="closeDialog(true)"></p-button> -->
           </div>
         </div>
       </div>
