@@ -2,16 +2,44 @@
   <form [formGroup]="optionsRequest">
     <p-card class="container-card">
       <p class="m-0"></p>
-      <div class="container-card_title" [ngStyle]="{ 'text-align': 'center', 'font-size': '24px' }">
+    <!-- <div class="container-card_title" [ngStyle]="{ 'text-align': 'center', 'font-size': '24px' }">
         ¡Bienvenido a nuestro aplicativo!
       </div>
-      <div [ngStyle]="{ 'text-align': 'center' }" class="container-card_text">
+      -->
+      <!-- <div [ngStyle]="{ 'text-align': 'center' }" class="container-card_text">
         A través de este podrás gestionar tus solicitudes relacionadas con el área de aportes y
         subsidios. En Tipo de solicitante selecciona si eres empresa o si eres afiliado, identifica
         tu tipo de afiliación. En Tipo de solicitud, podrás encontrar los diferentes trámites que
         podrás realizar. Lee atentamente el texto con las recomendaciones para validar si es la
         gestión a realizar.
       </div>
+    -->
+    <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+      A través de este formulario, que reemplaza los correos electrónicos, <b>podrás hacer tus solicitudes</b> relacionadas
+      con los subsidios cuota monetaria, computadores, paquete y calzado, además de gestiones como aportes, afiliaciones.
+    </div>
+
+    <br>
+
+    <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+      <b>Si eres empresa, podrás solicitar:</b> afiliación para tu empresa, novedades o actualización de información,
+      certificados empresa, devoluciones, cartera y traslado.
+    </div>
+    
+    <br>
+
+    <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+      <b>Si eres trabajador dependiente o beneficiario, trabajador independiente, pensionado o particular, podrás solicitar:</b> 
+      afiliación como independiente, afiliación pensionado, afiliación trabajadores y beneficiarios, novedades o actualización
+      de información de cualquier índole o certificados.
+    </div>
+    
+    <br>
+
+    <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+      <b>Recuerda que a través de <a href="https://app.confa.co:8376/#/login" target="_blank" rel="noopener noreferrer" style="color: #07c1ff;">Mi perfil</a></b> , podrás descargar tu certificado de afiliación, el carné digital de afiliación,
+      cambiar contraseña o actualizar tu dirección.
+    </div>
       <div class="container">
         <div class="container-select">
           <label class="container-select-placeholder">Tipo del solicitante*</label>
