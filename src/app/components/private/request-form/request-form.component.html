@@ -16,7 +16,7 @@
       <div class="card-form-row">
         <div class="card-form-input">
           <label class="card-form-input-placeholder">Tipo de documento*</label>
-          <p-dropdown
+          <!-- <p-dropdown
             *ngIf="applicantType.applicant_type_id === 1"
             id="document_type"
             formControlName="document_type"
@@ -29,9 +29,8 @@
             placeholder="*Tipo de documento"
             [options]="optionsCompany"
             [(ngModel)]="value"
-            optionLabel="catalog_item_name"></p-dropdown>
+            optionLabel="catalog_item_name"></p-dropdown> -->
           <p-dropdown
-            *ngIf="applicantType.applicant_type_id !== 1"
             id="document_type"
             formControlName="document_type"
             [style]="{
