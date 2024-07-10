@@ -95,7 +95,8 @@
       </div>
     </p-card>
 
-    <div class="container-checkbox" *ngIf="applicantId1()">
+    <!-- <div class="container-checkbox" *ngIf="applicantId1()"> -->
+    <div class="container-checkbox">
       <p-checkbox formControlName="authorize" [value]="true" [binary]="true"></p-checkbox>
       <p class="container-checkbox_a">
         Autorizo
@@ -112,6 +113,12 @@
       (onClick)="sendOptions()"
       class="container-button"></p-button>
   </form>
+  <div class="centered-box">
+    <div class="content">
+      <img src="../../../../assets/images/admiracion.svg" alt="Descripción de la imagen" class="small-image">
+      <p>Para preguntas, quejas, reclamos, sugerencias o felicitaciones, ingresa a este enlace <a href="https://app.confa.co:8376/#/login" target="_blank" rel="noopener noreferrer" style="color: #07c1ff;">PQRS</a></p>
+    </div>
+  </div>
 </p-card>
 <p-toast></p-toast>
 <app-modal-data-treatment

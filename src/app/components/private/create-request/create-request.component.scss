@@ -1,5 +1,6 @@
 @import '../../../../assets/styles/abstracts/variables.scss';
 
+
 .ui-dropdown .ui-dropdown-item.ui-state-highlight {
   background-color: #f0f0f0;
   /* Set your desired background color */
@@ -7,10 +8,8 @@
 
 .container {
   display: flex;
-  //flex-wrap: wrap; /* Para que los elementos se ajusten a nuevas líneas si es necesario */
-  justify-content: space-around;
   justify-content: center; /* Centra los elementos horizontalmente */
-
+  width: 100%;
 
   &-select {
     display: flex;
@@ -18,19 +17,28 @@
     align-items: center; /* Centra los elementos dentro de container-select */
     width: 100%; /* Ajusta el ancho para ser responsivo */
 
-
     &-placeholder {
       color: $color-text-black;
       font-family: $font-light;
       font-size: 10px;
       margin: 10px 0 5px 15px;
       border-radius: 20px;
+      text-align: left; /* Asegura que el texto dentro del label esté alineado a la izquierda */
+      width: 100%; /* Ajusta el ancho para ser responsivo */
+      max-width: 330px; /* Ancho máximo */
     }
 
     &-options {
-      //width: 250px;
       width: 100%; /* Ajusta el ancho para ser responsivo */
-      max-width: 250px; /* Ancho máximo */
+      max-width: 350px; /* Ancho máximo */
+      
+      .ui-dropdown-label {
+        width: calc(100% - 20px); /* Ajusta el ancho del label dentro del dropdown */
+      }
+
+      .ui-dropdown-trigger {
+        right: 10px; /* Ajusta la posición de la flecha */
+      }
     }
 
     &-invalid {
@@ -48,7 +56,6 @@
       text-align: center;
       font-family: $font-bold;
       font-size: 26px;
-      //font-weight: bold;
       padding-top: 2%;
       color: $color-text-black;
     }
@@ -63,7 +70,6 @@
     &_title {
       font-family: $font-bold;
       color: $color-title-blue;
-      //font-weight: bold;
       font-size: 24px;
     }
 
@@ -71,10 +77,7 @@
       font-family: $font-medium;
       color: $color-text-black;
       font-size: 16px;
-      //font-weight: normal;
-      //margin-left: 200px;
       margin-left: 10%; /* Margen en porcentaje para ser responsivo */
-      //margin-right: 200px;
       margin-right: 10%;
     }
   }
@@ -83,7 +86,6 @@
     display: flex;
     justify-content: center;
     margin: 15px;
-    //text-decoration: underline;
     cursor: pointer;
     align-items: center;
 
@@ -91,10 +93,8 @@
       font-family: $font-light;
       margin: 5px 0 5px 5px;
       font-size: 20px;
-      color: $color-text-black ;
+      color: $color-text-black;
       text-decoration: none;
-
-
     }
 
     &_link {
@@ -103,11 +103,10 @@
       color: $color-text-black;
       font-size: 20px;
     }
-
-
   }
 
   &-button {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     font-size: 16px;
@@ -118,6 +117,10 @@
 @media (max-width: 1200px) {
   .container-card {
     max-width: 100%; /* Ancho máximo ajustado */
+  }
+
+  .centered-box {
+    max-width: 100%; /* Ancho ajustado para pantallas más pequeñas */
   }
 }
 
@@ -135,10 +138,16 @@
     margin-left: 5%; /* Ajusta el margen en pantallas pequeñas */
     margin-right: 5%;
   }
+
+  .centered-box {
+    width: 95%; /* Ancho ajustado para pantallas más pequeñas */
+  }
 }
 
 @media (max-width: 480px) {
-  .container-select-placeholder, .container-checkbox_a, .container-checkbox_link {
+  .container-select-placeholder,
+  .container-checkbox_a,
+  .container-checkbox_link {
     font-size: 12px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
   }
 
@@ -146,7 +155,46 @@
     font-size: 20px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
   }
 
-  .container-card_title, .container-checkbox_a, .container-checkbox_link {
+  .container-card_title,
+  .container-checkbox_a,
+  .container-checkbox_link {
     font-size: 18px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+  }
+
+  .centered-box {
+    width: 100%; /* Ancho completo para pantallas muy pequeñas */
+    padding: 15px; /* Ajusta el padding en pantallas muy pequeñas */
+  }
+
+  .centered-box p {
+    font-size: 14px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+  }
+}
+
+.centered-box {
+  border: 2px solid #d3d3d3;
+  width: 45%; /* Ancho del cuadro */
+  padding: 10px; /* Espacio interno del cuadro */
+  margin: 0 auto; /* Centrar el cuadro horizontalmente */
+  margin-top: 30px;
+
+  .content {
+    display: flex;
+    align-items: center; /* Alinea la imagen y el texto verticalmente centrados */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    padding: 0;
+  }
+
+  p {
+    margin: 0; /* Quitar el margen del párrafo */
+    font-size: 16px;
+    color: $color-text-black;
+    font-family: $font-medium;
+  }
+
+  .small-image {
+    margin-right: 10px; /* Espacio entre la imagen y el texto */
+    width: 30px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: auto; /* Mantiene la proporción de la imagen */
   }
 }
