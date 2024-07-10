@@ -2,7 +2,7 @@
   <form [formGroup]="optionsRequest">
     <p-card class="container-card">
       <p class="m-0"></p>
-    <!-- <div class="container-card_title" [ngStyle]="{ 'text-align': 'center', 'font-size': '24px' }">
+      <!-- <div class="container-card_title" [ngStyle]="{ 'text-align': 'center', 'font-size': '24px' }">
         ¡Bienvenido a nuestro aplicativo!
       </div>
       -->
@@ -14,32 +14,46 @@
         gestión a realizar.
       </div>
     -->
-    <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
-      A través de este formulario, que reemplaza los correos electrónicos, <b>podrás hacer tus solicitudes</b> relacionadas
-      con los subsidios cuota monetaria, computadores, paquete y calzado, además de gestiones como aportes, afiliaciones.
-    </div>
+      <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+        A través de este formulario, que reemplaza los correos electrónicos,
+        <b>podrás hacer tus solicitudes</b> relacionadas con los subsidios cuota monetaria,
+        computadores, paquete y calzado, además de gestiones como aportes, afiliaciones.
+      </div>
 
-    <br>
+      <br />
 
-    <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
-      <b>Si eres empresa, podrás solicitar:</b> afiliación para tu empresa, novedades o actualización de información,
-      certificados empresa, devoluciones, cartera y traslado.
-    </div>
-    
-    <br>
+      <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+        <b>Si eres empresa, podrás solicitar:</b> afiliación para tu empresa, novedades o
+        actualización de información, certificados empresa, devoluciones, cartera y traslado.
+      </div>
 
-    <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
-      <b>Si eres trabajador dependiente o beneficiario, trabajador independiente, pensionado o particular, podrás solicitar:</b> 
-      afiliación como independiente, afiliación pensionado, afiliación trabajadores y beneficiarios, novedades o actualización
-      de información de cualquier índole o certificados.
-    </div>
-    
-    <br>
+      <br />
 
-    <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
-      <b>Recuerda que a través de <a href="https://app.confa.co:8376/#/login" target="_blank" rel="noopener noreferrer" style="color: #07c1ff;">Mi perfil</a></b> , podrás descargar tu certificado de afiliación, el carné digital de afiliación,
-      cambiar contraseña o actualizar tu dirección.
-    </div>
+      <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+        <b
+          >Si eres trabajador dependiente o beneficiario, trabajador independiente, pensionado o
+          particular, podrás solicitar:</b
+        >
+        afiliación como independiente, afiliación pensionado, afiliación trabajadores y
+        beneficiarios, novedades o actualización de información de cualquier índole o certificados.
+      </div>
+
+      <br />
+
+      <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+        <b
+          >Recuerda que a través de
+          <a
+            href="https://app.confa.co:8376/#/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #07c1ff"
+            >Mi perfil</a
+          ></b
+        >
+        , podrás descargar tu certificado de afiliación, el carné digital de afiliación, cambiar
+        contraseña o actualizar tu dirección.
+      </div>
       <div class="container">
         <div class="container-select">
           <label class="container-select-placeholder">Tipo del solicitante*</label>
@@ -84,7 +98,7 @@
         </div>
       </div>
     </p-card>
-    <p-card *ngIf="!optionsRequest.get('request_id')?.invalid" class="container-card">
+    <!-- <p-card *ngIf="!optionsRequest.get('request_id')?.invalid" class="container-card">
       <ng-template pTemplate="header">
         <h3 class="container-card_header">
           Conoce algunas de las recomendaciones antes de continuar
@@ -93,7 +107,7 @@
       <div class="container-card_textRecomendations">
         {{ optionsRequest.get('request_id')?.value?.request_type_description }}
       </div>
-    </p-card>
+    </p-card> -->
 
     <!-- <div class="container-checkbox" *ngIf="applicantId1()"> -->
     <div class="container-checkbox">
