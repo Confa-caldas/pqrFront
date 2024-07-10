@@ -52,7 +52,13 @@
           >
         </div>
         <div class="card-form-input">
-          <label class="card-form-input-placeholder">Número de documento*</label>
+          <label class="card-form-input-placeholder" [ngSwitch]="applicantType.applicant_type_id">
+            <ng-container *ngSwitchCase="1">Documento empresa*</ng-container>
+            <ng-container *ngSwitchCase="2">Documento del trabajador*</ng-container>
+            <ng-container *ngSwitchCase="3">Documento del trabajador independiente*</ng-container>
+            <ng-container *ngSwitchCase="4">Documento del pensionado*</ng-container>
+            <ng-container *ngSwitchDefault>Documento del solicitante*</ng-container>
+          </label>
 
           <input
             pInputText
@@ -80,13 +86,14 @@
       </div>
       <div class="card-form-row">
         <div class="card-form-input">
-          <label class="card-form-input-placeholder">
-            {{
-              applicantType.applicant_type_id === 1
-                ? 'Nombre de empresa*'
-                : 'Nombre de solicitante*'
-            }}</label
-          >
+          <label class="card-form-input-placeholder" [ngSwitch]="applicantType.applicant_type_id">
+            <ng-container *ngSwitchCase="1">Nombre empresa*</ng-container>
+            <ng-container *ngSwitchCase="2">Nombre del trabajador*</ng-container>
+            <ng-container *ngSwitchCase="3">Nombre del trabajador independiente*</ng-container>
+            <ng-container *ngSwitchCase="4">Nombre del pensionado*</ng-container>
+            <ng-container *ngSwitchDefault>Nombre del solicitante*</ng-container>
+          </label>
+
           <input
             formControlName="name"
             pInputText
