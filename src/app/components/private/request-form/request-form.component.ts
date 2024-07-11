@@ -327,4 +327,14 @@ export class RequestFormComponent implements OnInit {
     this.message = filing_number.toString();
     this.severity = 'danger';
   }
+
+  //Configuracion mensajes placeholder
+  getPlaceholder(): string {
+    switch(this.applicantType.applicant_type_id) {
+      case 1:
+        return '*Descripción detallada de la solicitud';
+      default:
+        return '*Descripción detallada de la solicitud incluyendo los datos de las personas a cargo';
+    }
+  }
 }
