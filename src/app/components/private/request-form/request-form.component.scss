@@ -7,10 +7,23 @@
   color: #66798d;
 }
 
+.container {
+  display: block;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 50px;
+
+  @media (max-width: 575px) {
+    width: 100%;
+    padding: 0 10px;
+  }
+}
+
 .card {
   &-form {
     position: relative;
     width: 30%;
+    margin: auto;
 
     @media (max-width: 1200px) {
       width: 80%;
@@ -19,6 +32,11 @@
     @media (max-width: 950px) {
       width: 100%;
       padding: 10px;
+    }
+
+    @media (max-width: 575px) {
+      width: 100%;
+      padding: 0 10px;
     }
 
     &-banner {
@@ -32,19 +50,27 @@
       width: 100%;
       max-width: 450px;
 
+      @media (max-width: 575px) {
+        height: 40px;
+      }
+
       &-title {
         font-size: x-large;
         color: $color-tab-blue;
         text-align: center;
         font-weight: bolder;
         margin-bottom: 20px;
+
+        @media (max-width: 575px) {
+          font-size: large;
+        }
       }
     }
 
     &-row {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-evenly;
       margin-top: 5px;
 
       @media (max-width: 480px) {
@@ -74,8 +100,12 @@
         max-width: 300px;
         border-radius: 20px;
         height: 40px;
-        padding-left: 9px;
         font-size: small;
+
+        @media (max-width: 575px) {
+          width: 100%;
+          max-width: none;
+        }
       }
     }
 
@@ -83,6 +113,10 @@
       display: flex;
       justify-content: center;
       margin: 20px auto;
+
+      @media (max-width: 575px) {
+        width: 100%;
+      }
     }
   }
 
@@ -90,6 +124,8 @@
     display: flex;
     flex-direction: column;
     margin-top: 10px;
+    margin-left: 17%;
+    margin-right: 17%;
 
     &-placeholder {
       margin: 0 0 5px 15px;
@@ -118,6 +154,10 @@
     &-custom-button {
       display: inline-block;
       position: relative;
+
+      @media (max-width: 575px) {
+        width: 100%;
+      }
     }
 
     &-custom-icon {
@@ -137,6 +177,11 @@
       box-shadow: 2px 2px $color-white-smoke;
       color: $color-dim-gray;
       cursor: pointer;
+
+      @media (max-width: 575px) {
+        padding: 8px 16px;
+        font-size: medium;
+      }
     }
   }
 
@@ -150,6 +195,10 @@
     max-width: 40rem;
     margin-top: 30px;
 
+    @media (max-width: 575px) {
+      margin-top: 20px;
+    }
+
     &-header {
       font-family: $font-bold;
       background-color: $color-tab-blue;
@@ -159,6 +208,10 @@
       color: $color-white;
       font-size: medium;
       padding: 5px 0;
+
+      @media (max-width: 575px) {
+        font-size: small;
+      }
     }
 
     &-body {
@@ -193,7 +246,7 @@
 
 @media (max-width: 768px) {
   .card-form {
-    width: 80%;
+    width: 100%;
   }
 
   .card-form-row {
@@ -236,28 +289,70 @@
   }
 
   .card-form-input-options,
-  .card-form-input-select{
-    //width: 100%;
+  .card-form-input-select {
     max-width: 200px;
     margin: 10px;
     justify-content: center;
-
   }
-  //Tamaño del boton responsive
-  .card-buttonUp-custom-button{
-    max-width: 200px;
-    margin: 10px;
-    justify-content: center;
+
+  .card-buttonUp-custom-button {
+    width: 100%;
+    margin: auto;
+    align-items: baseline;
     font-size: small;
   }
 
   .card-buttonUp-label {
     padding: 8px 16px;
-    font-size: smaller;
+    font-size: medium;
   }
 
   .card-table-header {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 575px) {
+  .custom-input {
+    font-size: smaller;
+    padding: 4px 8px;
+  }
+
+  .card-form-banner-title {
+    font-size: x-large;
+  }
+
+  .card-text-placeholder,
+  .card-text-area {
+    font-size: smaller;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select {
+    width: 250px;
+    max-width: none;
+    margin: 10px;
+    justify-content: center;
+  }
+
+  .card-form-button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .card-form-banner {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .card-table-header {
+    font-size: 12px;
+  }
+}
+
+.card-table-item .remover-text {
+  @media (max-width: 480px) {
+    display: none;
   }
 }
 
@@ -274,7 +369,19 @@
     width: 100%;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 575px) {
+    width: 100%;
     padding: 10px;
   }
 }
+
+.card-buttonUp {
+  width: 40rem;
+  margin: 10px auto;
+
+  @media (max-width: 575px) {
+    width: 100%;
+    padding: 0 10px;
+  }
+}
+
