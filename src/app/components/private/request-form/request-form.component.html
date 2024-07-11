@@ -1,17 +1,19 @@
-<p-card [style]="{ margin: '10px 50px 100px 50px' }">
+<p-card [style]="{ margin: '10px 50px 100px 50px'}">
   <!--<div class="card-header-container">
     <h3 class="card_title">
       {{ applicantType.applicant_type_id === 1 ? 'Empresa' : 'Demás Solicitudes' }}
     </h3>
   </div>-->
+
+  <h4 class="card-form-banner-title">Ingresa aquí tu solicitud</h4>
+
   <p-card class="card-form">
-    <div class="card-form-banner" [style]="{ width: '46%' }">
+    <!-- <div class="card-form-banner" [style]="{ width: '47%' }">
       <h4 class="card-form-banner-title">Ingresa aquí tu solicitud</h4>
-    </div>
+    </div> -->
 
     <form
       [formGroup]="requestForm"
-      [style]="{ width: '40rem', margin: '0 auto' }"
       class="container-card_text">
       <div class="card-form-row">
         <div class="card-form-input">
@@ -35,7 +37,7 @@
             formControlName="document_type"
             [style]="{
               'border-radius': '20px',
-              height: '30px',
+              height: '40px',
               'align-items': 'center'
             }"
             class="card-form-input-select"
@@ -189,7 +191,7 @@
           [style]="{ 'border-radius': '20px' }"
           type="text"
           class="custom-input"
-          placeholder="*Descripción detallada de la solicitud"
+          [placeholder]="getPlaceholder()"
           pInputTextarea>
         </textarea>
         <label class="card-form-input-placeholder-invalid">

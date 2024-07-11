@@ -5,54 +5,21 @@
   border: 1px solid #ccc;
   padding: 6px 10px;
   color: #66798d;
-  /* Agrega cualquier otro estilo necesario */
-}
-
-@keyframes geek {
-
-  100%,
-  0% {
-    stroke: #008744;
-  }
-
-  40% {
-    stroke: #ffa700;
-  }
-
-  66% {
-    stroke: #0057e7;
-  }
-
-  80%,
-  90% {
-    stroke: #d62d20;
-  }
-}
-
-.sppinerAtta.p-element {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  scale: 68%;
-
 }
 
 .card {
-  &-header-container {
-    border-bottom: 2px solid $color-white-smoke;
-    margin-bottom: 50px;
-  }
-
-  &_title {
-    font-family: $font-bold;
-    text-align: center;
-    font-weight: bolder;
-  }
-
   &-form {
     position: relative;
     width: 30%;
 
+    @media (max-width: 1200px) {
+      width: 80%;
+    }
+
+    @media (max-width: 950px) {
+      width: 100%;
+      padding: 10px;
+    }
 
     &-banner {
       position: absolute;
@@ -62,13 +29,15 @@
       background-color: $color-tab-blue;
       border-radius: 10px;
       height: 50px;
-      width: 450px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
+      max-width: 450px;
 
       &-title {
-        color: $color-white;
+        font-size: x-large;
+        color: $color-tab-blue;
+        text-align: center;
+        font-weight: bolder;
+        margin-bottom: 20px;
       }
     }
 
@@ -77,6 +46,10 @@
       flex-direction: row;
       justify-content: space-between;
       margin-top: 5px;
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+      }
     }
 
     &-input {
@@ -95,17 +68,13 @@
         }
       }
 
-      &-options {
-        width: 250px;
-        border-radius: 20px;
-        height: 30px;
-        padding-left: 9px;
-        font-size: small;
-      }
-
+      &-options,
       &-select {
-        width: 250px;
-
+        width: 300px;
+        max-width: 300px;
+        border-radius: 20px;
+        height: 40px;
+        padding-left: 9px;
         font-size: small;
       }
     }
@@ -143,7 +112,6 @@
     &-placeholder {
       margin: 0 0 5px 15px;
       font-size: x-small;
-
       color: $color-black;
     }
 
@@ -168,7 +136,6 @@
       border: 0.1px $color-davis-gray;
       box-shadow: 2px 2px $color-white-smoke;
       color: $color-dim-gray;
-      border-radius: 5px;
       cursor: pointer;
     }
   }
@@ -179,8 +146,9 @@
     justify-content: center;
     align-items: center;
     margin: 10px auto;
-    width: 40rem;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 40rem;
+    margin-top: 30px;
 
     &-header {
       font-family: $font-bold;
@@ -190,9 +158,7 @@
       width: 100%;
       color: $color-white;
       font-size: medium;
-      font-size: 14px;
       padding: 5px 0;
-      // font-weight: bold;
     }
 
     &-body {
@@ -202,20 +168,7 @@
       width: 100%;
     }
 
-    &-itemName {
-      display: flex;
-      flex-direction: row;
-      justify-content: start;
-      align-items: center;
-      border-right: 1pt solid $color-tab-blue;
-      width: 100%;
-      text-align: left;
-      font-family: $font-light;
-      margin-left: 8px;
-
-
-    }
-
+    &-itemName,
     &-item {
       display: flex;
       flex-direction: row;
@@ -230,11 +183,98 @@
 }
 
 .truncate-text {
-  max-width: 300px;
-  /* Ancho máximo deseado */
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis !important;
   align-items: center;
-  margin: auto 0
+  margin: auto 0;
+}
+
+@media (max-width: 768px) {
+  .card-form {
+    width: 80%;
+  }
+
+  .card-form-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select,
+  .card-text-area {
+    width: 300px;
+    max-width: 300px;
+    margin: 10px auto;
+    justify-content: center;
+  }
+
+  .card-form-button {
+    justify-content: center;
+  }
+
+  .card-form-banner {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-input {
+    font-size: smaller;
+    padding: 4px 8px;
+  }
+
+  .card-form-banner-title {
+    font-size: x-large;
+  }
+
+  .card-text-placeholder,
+  .card-text-area {
+    font-size: smaller;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select{
+    //width: 100%;
+    max-width: 200px;
+    margin: 10px;
+    justify-content: center;
+
+  }
+  //Tamaño del boton responsive
+  .card-buttonUp-custom-button{
+    max-width: 200px;
+    margin: 10px;
+    justify-content: center;
+    font-size: small;
+  }
+
+  .card-buttonUp-label {
+    padding: 8px 16px;
+    font-size: smaller;
+  }
+
+  .card-table-header {
+    font-size: 12px;
+  }
+}
+
+.container-card_text {
+  width: 40rem;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 950px) {
+    width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 }
