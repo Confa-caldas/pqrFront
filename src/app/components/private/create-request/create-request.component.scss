@@ -173,7 +173,7 @@
 
 .centered-box {
   border: 2px solid #d3d3d3;
-  //width: 45%; /* Ancho del cuadro */
+  width: 60%; /* Ancho del cuadro */
   padding: 10px; /* Espacio interno del cuadro */
   margin: 0 auto; /* Centrar el cuadro horizontalmente */
   margin-top: 30px;
@@ -196,5 +196,15 @@
     margin-right: 10px; /* Espacio entre la imagen y el texto */
     width: 30px; /* Ajusta el tamaño de la imagen según sea necesario */
     height: auto; /* Mantiene la proporción de la imagen */
+  }
+}
+
+.container{
+
+  margin-bottom: 50px;
+
+  @media (max-width: 767px) {
+    //margin: auto; // Márgenes para pantallas pequeñas
+    margin-bottom: 20px;
   }
 }
