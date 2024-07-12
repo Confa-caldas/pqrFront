@@ -74,7 +74,8 @@
     }
 
     &_text {
-      font-family: $font-medium;
+      //TIPO DE FUENTE TEXTOS
+      font-family: $font-light;
       color: $color-text-black;
       font-size: 16px;
       margin-left: 10%; /* Margen en porcentaje para ser responsivo */
@@ -140,7 +141,7 @@
   }
 
   .centered-box {
-    width: 95%; /* Ancho ajustado para pantallas más pequeñas */
+    width: 100%; /* Ancho ajustado para pantallas más pequeñas */
   }
 }
 

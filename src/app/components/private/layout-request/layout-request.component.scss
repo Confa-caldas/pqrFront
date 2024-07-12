@@ -117,7 +117,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5% 5%;
+  padding: 0.5% 16%;
   height: 150px;
   width: 100%;
   font-family: $font-bold;
@@ -301,9 +301,4 @@
     }
   }
 
-  .header_title {
-    height: 150px;
-    padding: 0.5% 5%;
-    font-size: xx-large;
-  }
 }

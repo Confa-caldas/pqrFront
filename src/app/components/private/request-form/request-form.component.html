@@ -220,5 +220,37 @@
         </div>
       </div>
     </p-card>
+    <p-button
+    type="button"
+    [style]="{ 'border-radius': '20px', 'background-color': '#00aeef' }"
+    label="Enviar formulario"
+    [disabled]="requestForm.invalid"
+    (click)="sendRequest()"
+    class="card-form-button"></p-button>
   </form>
 </p-card>
+
+<p-toast></p-toast>
+<p-progressSpinner
+*ngIf="loadingAttachments"
+class="sppinerAtta p-element"
+color="blue"></p-progressSpinner>
+
+<!--<app-modal-alert
+*ngIf="visibleDialogAlert"
+[select]="true"
+[requestCreation]="true"
+[visible]="visibleDialogAlert"
+[message]="message"
+[informative]="informative"
+[severity]="severity"
+(setRta)="closeDialogAlert($event)"></app-modal-alert>-->
+<app-modal-filing
+*ngIf="visibleDialogAlert"
+[select]="true"
+[requestCreation]="true"
+[visible]="visibleDialogAlert"
+[message]="message"
+[informative]="informative"
+[severity]="severity"
+(setRta)="closeDialogAlert($event)"></app-modal-filing>
