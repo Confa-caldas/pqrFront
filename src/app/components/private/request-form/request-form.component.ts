@@ -329,6 +329,7 @@ export class RequestFormComponent implements OnInit {
   }
 
   //Configuracion mensajes placeholder
+  /*
   getPlaceholder(): string {
     switch(this.applicantType.applicant_type_id) {
       case 1:
@@ -336,5 +337,5 @@ export class RequestFormComponent implements OnInit {
       default:
         return '*Descripción detallada de la solicitud incluyendo los datos de las personas a cargo';
     }
-  }
+  } */
 }

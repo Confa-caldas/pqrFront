@@ -45,6 +45,13 @@
   margin: 0.5rem 0; /* Márgenes ajustados */
 }
 
+.subtitle {
+  text-align: center;
+  font-family: $font-bold; /* Reemplaza $font-bold con la fuente correcta */
+  font-size: 0.5rem; /* Tamaño de fuente ajustado */
+  margin: 0.5rem 0; /* Márgenes ajustados */
+}
+
 .text {
   text-align: center;
   font-family: $font-light; /* Reemplaza $font-light con la fuente correcta */
