@@ -184,10 +184,10 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   showProcessTab(): boolean {
-    console.log(this.routeTab);
     if (
       (this.routeTab.includes(RoutesApp.PROCESS_REQUEST) ||
-        this.routeTab.includes(RoutesApp.REQUEST_DETAILS)) &&
+        this.routeTab.includes(RoutesApp.REQUEST_DETAILS) ||
+        this.routeTab.includes('')) &&
       this.user === this.requestDetails?.assigned_user &&
       this.requestDetails.status_name != 'Cerrada'
     ) {
