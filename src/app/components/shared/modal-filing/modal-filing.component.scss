@@ -40,14 +40,14 @@
 
 .title {
   text-align: center;
-  font-family: 'Bold Font', sans-serif; /* Reemplaza $font-bold con la fuente correcta */
+  font-family: $font-bold; /* Reemplaza $font-bold con la fuente correcta */
   font-size: 2rem; /* Tamaño de fuente ajustado */
   margin: 0.5rem 0; /* Márgenes ajustados */
 }
 
 .text {
   text-align: center;
-  font-family: 'Light Font', sans-serif; /* Reemplaza $font-light con la fuente correcta */
+  font-family: $font-light; /* Reemplaza $font-light con la fuente correcta */
   font-size: 1rem; /* Tamaño de fuente ajustado */
 }
 
@@ -100,8 +100,11 @@
 /* Media queries adicionales para ajustar estilos en diferentes tamaños de pantalla */
 @media screen and (max-width: 767px) {
   .modal-content {
-    width: 90%; /* Ancho casi completo para pantallas pequeñas */
+    width: 80%; /* Ancho casi completo para pantallas pequeñas */
     max-width: none; /* Sin límite de ancho máximo */
+    background-color: #ffffff; /* Usa código de color hex en lugar de variables SCSS */
+    border-radius: 5px;
+    color: #ffffff;
   }
 
   .title {
