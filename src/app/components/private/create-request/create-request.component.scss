@@ -209,3 +209,29 @@
     margin-bottom: 20px;
   }
 }
+
+/* Ajustar el panel desplegable del dropdown */
+::ng-deep .p-dropdown-panel {
+  width: auto !important;
+  max-width: 350px; /* Ajusta este valor según sea necesario */
+  overflow-x: hidden !important; /* Evita el desplazamiento horizontal */
+}
+
+/* Ajustar el estilo de los elementos de la lista */
+::ng-deep .p-dropdown-item {
+  white-space: normal !important; /* Permite que el texto se ajuste a varias líneas */
+  word-wrap: break-word !important; /* Permite que el texto largo se divida en varias líneas */
+  height: auto !important; /* Ajusta la altura automáticamente */
+  line-height: 1.5 !important; /* Aumenta la altura de línea para mayor claridad */
+}
+
+/* Opcional: Ajustar el ancho de los elementos del dropdown para asegurar que el texto se ajuste */
+::ng-deep .p-dropdown-items .p-dropdown-item {
+  max-width: 80% !important; /* Asegura que el elemento se ajuste al ancho del panel */
+}
+
+/* Ajustar la etiqueta del dropdown para texto largo */
+::ng-deep .p-dropdown-label {
+  white-space: normal !important; /* Permite que el texto se ajuste a varias líneas */
+  word-wrap: break-word !important; /* Permite que el texto largo se divida en varias líneas */
+}
