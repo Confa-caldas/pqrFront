@@ -220,13 +220,13 @@
         </div>
       </div>
     </p-card>
+    <div class="button-container">
     <p-button
-    type="button"
-    [style]="{ 'border-radius': '20px', 'background-color': '#00aeef' }"
+    [style]="{ 'border-radius': '20px', 'background-color': '#00aeef' , width: '275px' }"
     label="Enviar formulario"
     [disabled]="requestForm.invalid"
     (click)="sendRequest()"
-    class="card-form-button"></p-button>
+    class="card-form-button"></p-button></div>
   </form>
 </p-card>
 

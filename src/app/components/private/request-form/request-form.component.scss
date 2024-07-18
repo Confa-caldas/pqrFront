@@ -112,7 +112,7 @@
     &-button {
       display: flex;
       justify-content: center;
-      margin: 20px auto;
+      margin-top: 20px;
 
       @media (max-width: 575px) {
         width: 100%;
@@ -385,3 +385,12 @@
   }
 }
 
+.button-container {
+  position: relative;
+  display: flex;
+  justify-content: center; /* Centrar el botón horizontalmente */
+  align-items: center; /* Centrar el botón verticalmente */
+  width: 100%;
+  height: auto; /* Ajustar la altura automáticamente */
+  overflow: hidden; /* Evitar desbordamiento */
+}
