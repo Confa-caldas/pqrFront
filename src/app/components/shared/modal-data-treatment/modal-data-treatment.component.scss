@@ -45,6 +45,8 @@
   @media (max-width: 767px) {
     width: 100%; // Ajuste para pantallas pequeñas
     font-size: small;
+    margin-top: -20px;
+    padding: auto;
   }
 
   &-plus {
@@ -65,7 +67,8 @@
 
   @media (max-width: 767px) {
     font-size: x-small; // Ajuste para pantallas pequeñas
-    padding: 10px; // Añadir padding para mejorar la apariencia en pantallas pequeñas
+    padding: 5px; // Añadir padding para mejorar la apariencia en pantallas pequeñas
+    margin-top: 5px;
   }
 }
 
@@ -119,3 +122,4 @@
     padding: 10px; // Añadir padding para mejorar la apariencia en pantallas pequeñas
   }
 }
+

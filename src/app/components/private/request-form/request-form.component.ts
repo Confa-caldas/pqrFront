@@ -116,6 +116,13 @@ export class RequestFormComponent implements OnInit {
     });
   }
 
+  convertToLowercase(controlName: string): void {
+    const control = this.requestForm.get(controlName);
+    if (control) {
+      control.setValue(control.value.toLowerCase(), { emitEvent: false });
+    }
+  }
+
   showSuccessMessage(state: string, title: string, message: string) {
     this.messageService.add({ severity: state, summary: title, detail: message });
   }

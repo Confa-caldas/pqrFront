@@ -115,6 +115,7 @@
             pInputText
             class="card-form-input-options"
             placeholder="*Ingresa el correo electrónico"
+            (input)="convertToLowercase('email')"
             oncopy="return false;" />
           <label class="card-form-input-placeholder-invalid">
             {{
@@ -134,7 +135,8 @@
             formControlName="validator_email"
             pInputText
             class="card-form-input-options"
-            placeholder="*Confirma el correo electrónico" />
+            placeholder="*Confirma el correo electrónico"
+            (input)="convertToLowercase('validator_email')" />
           <label class="card-form-input-placeholder-invalid" for="email">
             {{
               requestForm.hasError('notMatched') && requestForm.get('validator_email')?.touched

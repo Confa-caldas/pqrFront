@@ -116,7 +116,13 @@
   }
 
   .title {
+    font-family: $font-bold;
     font-size: 1.5rem; /* Tamaño de fuente ajustado para pantallas pequeñas */
+  }
+
+  .subtitle {
+    text-align: center;
+    font-family: $font-bold; /* Reemplaza $font-bold con la fuente correcta */
   }
 
   .text {
