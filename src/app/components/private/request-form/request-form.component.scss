@@ -190,13 +190,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 10px auto;
-    width: 100%;
-    max-width: 40rem;
+    //margin: 10px auto;
+    //width: 100%;
+    //max-width: 40rem;
     margin-top: 30px;
+    margin-left: 17%;
+    margin-right: 17%;
 
     @media (max-width: 575px) {
       margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     &-header {
@@ -377,11 +381,13 @@
 
 .card-buttonUp {
   width: 40rem;
-  margin: 10px auto;
+  //margin: 10px auto;
+  margin-left: 17%;
+  margin-right: 17%;
 
   @media (max-width: 575px) {
     width: 100%;
-    padding: 0 10px;
+    //padding: 0 10px;
   }
 }
 
