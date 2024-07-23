@@ -1,0 +1,170 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '60vw' }" [modal]="true">
+  <ng-template pTemplate="headless">
+    <div class="modal-content">
+      <div class="login-form-header">
+        <div class="login-form-header__item login-form-header__item_1"></div>
+        <div class="login-form-header__item login-form-header__item_2"></div>
+        <div class="login-form-header__item login-form-header__item_3"></div>
+        <div class="login-form-header__item login-form-header__item_4"></div>
+        <div class="login-form-header__item login-form-header__item_5"></div>
+        <div class="login-form-header__item login-form-header__item_6"></div>
+      </div>
+      <div class="row my-4 px-5">
+        <div class="col-12 text-center">{{ message }}</div>
+      </div>
+      <form [formGroup]="formGroup">
+        <div class="row my-4 px-5">
+          <div class="col-6">
+            <label> *Código </label>
+            <input
+              readonly="false"
+              formControlName="notification_id"
+              pInputText
+              pKeyFilter="integer"
+              placeholder="000" />
+          </div>
+          <div class="col-6" [style]="{ display: 'flex', 'flex-direction': 'column' }">
+            <label> *Tipo de evento </label>
+            <p-dropdown
+              formControlName="action_id"
+              [options]="notificationActionsList"
+              [style]="{ width: '305px' }"
+              optionLabel="action_name"
+              [disabled]="read_only"
+              optionValue="action_id"
+              placeholder="Seleccione el tipo de evento"></p-dropdown>
+            <label class="invalid">
+              {{
+                formGroup.get('action_id')?.hasError('required') &&
+                formGroup.get('action_id')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}</label
+            >
+          </div>
+          <div class="col-12">
+            <label> *Nombre del mensaje </label>
+            <input
+              [readonly]="read_only"
+              formControlName="notification_name"
+              pInputText
+              pKeyFilter="string"
+              placeholder="Escriba el asunto del mensaje" />
+            <label class="invalid">
+              {{
+                formGroup.get('notification_name')?.hasError('required') &&
+                formGroup.get('notification_name')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}
+              {{
+                formGroup.get('notification_name')?.hasError('pattern') &&
+                formGroup.get('notification_name')?.touched
+                  ? 'Solo ingrese texto'
+                  : ''
+              }}</label
+            >
+          </div>
+          <div class="col-12">
+            <label> *Texto del mensaje </label>
+            <textarea
+              [readonly]="read_only"
+              rows="5"
+              cols="30"
+              pInputTextarea
+              [style]="{ 'font-size': '12px' }"
+              placeholder="Escriba el texto del cuerpo del mensaje"
+              formControlName="notification_message"
+              class="custom-input"></textarea>
+            <label class="invalid">
+              {{
+                formGroup.get('notification_message')?.hasError('required') &&
+                formGroup.get('notification_message')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}{{
+                formGroup.get('notification_message')?.hasError('pattern') &&
+                formGroup.get('notification_message')?.touched
+                  ? 'Solo ingrese texto'
+                  : ''
+              }}</label
+            >
+          </div>
+          <div class="col-12" [style]="{ display: 'flex', 'flex-direction': 'column' }">
+            <label> Tipos de destinatarios </label>
+            <p-dropdown
+              formControlName="notification_receiver_id"
+              [style]="{ height: '30px', width: '305px' }"
+              [options]="notificationReceiversList"
+              optionLabel="receiver_name"
+              [disabled]="read_only"
+              optionValue="receiver_id"
+              placeholder="Seleccione una opción"></p-dropdown>
+          </div>
+          <div class="col-12">
+            <div class="row-recipients">
+              <div class="row-recipients-input">
+                <label> Destinatarios específicos </label>
+                <input
+                  [readonly]="read_only"
+                  formControlName="notification_receiver"
+                  pInputText
+                  pKeyFilter="string"
+                  placeholder="Escriba los destinatarios" />
+                <label class="invalid">
+                  {{
+                    formGroup.get('notification_receiver')?.hasError('pattern') &&
+                    formGroup.get('notification_receiver')?.touched
+                      ? 'Ingrese un correo electrónico valido'
+                      : ''
+                  }}{{
+                    formGroup.get('notification_receiver')?.hasError('notInclude') &&
+                    formGroup.get('notification_receiver')?.touched
+                      ? 'Porfavor adicione el correo al listado'
+                      : ''
+                  }}</label
+                >
+              </div>
+              <p-button
+                icon="pi pi-plus"
+                (onClick)="addRecipients()"
+                [disabled]="read_only"
+                [style]="{ 'border-radius': '20px', 'background-color': '#00aeef' }"></p-button>
+            </div>
+            <div class="recipents-emails">
+              <div *ngFor="let recipent of recipients; let i = index">
+                <div class="d-inline-flex">
+                  <p class="formProcess-labelUpload-name">{{ recipent }}</p>
+                  <i
+                    (click)="clearFileInput(i)"
+                    class="formProcess-labelUpload-name pi pi-times mt-1 email-container"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div *ngIf="read_only">
+        <div class="row my-4 px-5">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cerrar" severity="secondary" (click)="closeDialog(false)"></p-button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!read_only">
+        <div class="row my-4 px-5">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cancelar" severity="secondary" (click)="closeDialog(false)"></p-button>
+            <p-button
+              [label]="buttonmsg"
+              [disabled]="
+                formGroup.invalid || formGroup.get('notification_receiver_id')?.value === null
+              "
+              (click)="closeDialog(true)">
+            </p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

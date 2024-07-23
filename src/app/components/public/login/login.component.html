@@ -1,0 +1,72 @@
+<div class="container-login">
+  <div class="container-login-form">
+    <!-- Contenido del formulario de inicio de sesión -->
+    <div class="container-login-form__center">
+      <!-- Contenido centrado dentro del formulario -->
+      <div class="login-form">
+        <div class="login-form-header">
+          <div class="login-form-header__item login-form-header__item_1"></div>
+          <div class="login-form-header__item login-form-header__item_2"></div>
+          <div class="login-form-header__item login-form-header__item_3"></div>
+          <div class="login-form-header__item login-form-header__item_4"></div>
+          <div class="login-form-header__item login-form-header__item_5"></div>
+          <div class="login-form-header__item login-form-header__item_6"></div>
+        </div>
+        <div class="login-form-logo">
+          <img src="../../../assets/images/logo-login.png" class="login-form-logo__img" />
+        </div>
+        <form [formGroup]="userForm">
+          <div class="login-form-input">
+            <div class="login-form-input__label">
+              <div class="flex flex-column gap-2">
+                <label for="username">Usuario</label>
+                <input
+                  pInputText
+                  id="username"
+                  aria-describedby="username"
+                  formControlName="usuario" />
+                <label class="invalid">
+                  {{
+                    userForm.get('usuario')?.hasError('required') &&
+                    userForm.get('usuario')?.touched
+                      ? 'Ingrese nombre de usuario'
+                      : ''
+                  }}</label
+                >
+              </div>
+            </div>
+            <div class="login-form-input__label">
+              <div class="flex flex-column gap-2">
+                <label for="password">Contraseña</label>
+                <input
+                  pInputText
+                  id="username"
+                  type="password"
+                  aria-describedby="password"
+                  formControlName="contrasena" />
+                <label class="invalid">
+                  {{
+                    userForm.get('contrasena')?.hasError('required') &&
+                    userForm.get('contrasena')?.touched
+                      ? 'Ingrese contraseña'
+                      : ''
+                  }}</label
+                >
+              </div>
+            </div>
+            <div class="login-form-input__button">
+              <p-button label="Ingresar" [disabled]="!userForm.valid" (click)="login()"></p-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-dinamic
+  *ngIf="visibleDialog"
+  [login]="true"
+  [visible]="visibleDialog"
+  [message]="message"
+  (setRta)="closeDialog()"></app-modal-dinamic>

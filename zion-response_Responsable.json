@@ -1,0 +1,35 @@
+{
+    "usuarioId":264,
+    "usuario":"ext_prueba1",
+    "contrasena":"",
+    "tema":"",
+    "plazaId":"",
+    "estado":true,
+    "fechaVencimiento":"",
+    "perfiles":[
+       {
+          "perfilId":106,
+          "sistema":{
+             "sistemaId":54,
+             "nombre":"PQRS",
+             "estado":true
+          },
+          "nombre":"RESPONSABLE",
+          "descripcion":"",
+          "estado":true
+       }
+    ],
+    "links":[
+       {
+          "modulo_id":"184",
+          "moduloNombre":"Tramitar solicitud",
+          "nombre":"Tramitar solicitud",
+          "url":"/process_request",
+          "estado":true,
+          "usuarioLinks":[
+             
+          ],
+          "perfilLinks":[]
+       }
+    ]
+ }

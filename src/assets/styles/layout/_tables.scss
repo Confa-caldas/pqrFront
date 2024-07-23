@@ -1,0 +1,113 @@
+@import '../abstracts/variables';
+
+th {
+  text-align: center;
+  background-color: $color-white-smoke;
+  color: $color-gray;
+  font-weight: 400;
+  font-size: 12px;
+  font-family: $font-medium;
+  width: 200px;
+
+  border-left: 1px solid $color-white-smoke;
+  border-right: 1px solid $color-white-smoke;
+
+}
+
+td {
+  color: $color-auro-metal-saurus;
+  font-size: 13px;
+  font-family: $font-light;
+}
+
+tr {
+  border-bottom: 1px solid $color-white-smoke;
+}
+
+thead {
+  padding: 10px 20px !important;
+  border-top-left-radius: 20px;
+
+}
+
+.action-right {
+  text-align: right;
+
+  i {
+    margin: 0px 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
+
+.action-center {
+  text-align: center;
+
+  i {
+    margin: 0px 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
+
+.p-datatable>.p-datatable-wrapper {
+  background-color: #ffffff;
+  /* Color de fondo de la tarjeta */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.p-paginator {
+  margin-top: 10px;
+  border: inherit;
+}
+
+.container-image {
+  background-color: $color-indigo;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px $color-indigo;
+  display: contents;
+
+  &__img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+  }
+
+  &__text {
+    margin-left: 10px;
+  }
+}
+
+.title-table {
+  color: $color-indigo;
+  font-size: 14px;
+  font-family: $font-medium;
+}
+
+.table-space {
+  padding: 8px 2px;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  color: $color-white;
+  background-color: $color-dodger-blue;
+  border-radius: 3em;
+  transition: color 0.5s ease;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page {
+  border-radius: 3em;
+  transition: color 0.5s ease;
+}
+
+.p-element.p-fluid {
+  width: 100px;
+  height: 30px;
+}
+
+.p-datatable .p-datatable-header {
+  background-color: transparent;
+  border: none;
+}

@@ -1,0 +1,37 @@
+{
+    "usuarioId":264,
+    "usuario":"ext_prueba1",
+    "contrasena":"",
+    "tema":"",
+    "plazaId":"",
+    "estado":true,
+    "fechaVencimiento":"",
+    "perfiles":[
+       {
+          "perfilId":106,
+          "sistema":{
+             "sistemaId":54,
+             "nombre":"PQRS",
+             "estado":true
+          },
+          "nombre":"FUNCIONAL",
+          "descripcion":"",
+          "estado":true
+       }
+    ],
+    "links":[
+       {
+          "modulo_id":"184",
+          "moduloNombre":"REPORTES",
+          "nombre":"REPORTES",
+          "url":"/reportes/reportes.xhtml",
+          "estado":true,
+          "usuarioLinks":[
+             
+          ],
+          "perfilLinks":[
+             
+          ]
+       }
+    ]
+ }

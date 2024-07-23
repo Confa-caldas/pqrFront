@@ -1,0 +1,218 @@
+<div class="row mb-2">
+  <div class="col-10">
+    <div class="title-page">Consultar solicitudes</div>
+  </div>
+</div>
+<form [formGroup]="formGroup">
+  <div class="position-relative">
+    <div class="card flex justify-content-center absolute-center">
+      <div class="filters-row">
+        <div class="filters-col">
+          <input
+            pInputText
+            class="filters-input"
+            pKeyFilter="int"
+            placeholder="Número de radicado"
+            formControlName="filing_number" />
+        </div>
+        <div class="filters-col">
+          <p-calendar
+            formControlName="dates_range"
+            selectionMode="range"
+            [readonlyInput]="true"
+            [style]="{ 'align-items': 'center', 'border-radius': '5px' }"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            placeholder="Rango de fechas "
+            class="calendar"></p-calendar>
+        </div>
+        <div class="filters-col">
+          <input
+            pInputText
+            pKeyFilter="text"
+            class="filters-input"
+            placeholder=" Número de documento"
+            formControlName="doc_id" />
+        </div>
+        <div class="filters-col">
+          <input
+            pInputText
+            pKeyFilter="text"
+            class="filters-input"
+            placeholder="Nombre solicitante"
+            formControlName="applicant_name" />
+        </div>
+      </div>
+      <div class="filters-row">
+        <div class="filters-col">
+          <p-multiSelect
+            formControlName="applicant_type_id"
+            [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
+            [options]="aplicantList"
+            optionLabel="applicant_type_name"
+            optionValue="applicant_type_id"
+            placeholder="Tipo de solicitante"></p-multiSelect>
+        </div>
+        <div class="filters-col">
+          <p-multiSelect
+            formControlName="request_status_id"
+            [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
+            [options]="statusList"
+            optionLabel="status_name"
+            optionValue="request_status_id"
+            placeholder="Tipo de estado"></p-multiSelect>
+        </div>
+        <div class="filters-col">
+          <p-multiSelect
+            formControlName="assigned_user"
+            [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
+            [options]="userList"
+            optionLabel="user_name"
+            optionValue="user_name"
+            placeholder=" Responsable solicitud"></p-multiSelect>
+        </div>
+        <div class="filters-col">
+          <p-multiSelect
+            formControlName="request_type_id"
+            [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
+            [options]="requestTypeList"
+            optionLabel="request_type_name"
+            optionValue="request_type_id"
+            placeholder="Tipo de Solicitud"></p-multiSelect>
+        </div>
+        <div>
+          <p-button
+            icon="pi pi-trash"
+            [styleClass]="'btn-icon-info'"
+            (click)="cleanForm()"></p-button>
+        </div>
+        <div>
+          <p-button
+            icon="pi pi-search"
+            [styleClass]="'btn-icon-info'"
+            (click)="initPaginador()"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="mt-auto">
+  <p-table
+    [value]="requestList"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [loading]="loading"
+    [paginator]="false"
+    currentPageReportTemplate="{first} de {totalRecords}"
+    [tableStyle]="{ 'min-width': '60rem' }"
+    [scrollable]="true"
+    scrollHeight="500px"
+    [virtualScroll]="true"
+    [virtualScrollItemSize]="80"
+    selectionMode="single"
+    [(selection)]="selectedRequests"
+    stateStorage="session"
+    stateKey="statedemo-session"
+    [exportHeader]="'customExportHeader'">
+    <ng-template pTemplate="header">
+      <tr [style]="{ height: '50px' }">
+        <th pSortableColumn="filing_number" style="min-width: 12rem">
+          Número de radicado<p-sortIcon field="filing_number"></p-sortIcon>
+        </th>
+        <th pSortableColumn="filing_date" style="min-width: 11rem">
+          Fecha de radicación<p-sortIcon field="filing_date"></p-sortIcon>
+        </th>
+        <th pSortableColumn="applicant_type_name" style="min-width: 15rem">
+          Tipo de solicitante<p-sortIcon field="applicant_type_name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="doc_id" style="min-width: 15rem">
+          Número de documento<p-sortIcon style="margin: 0 5px" field="doc_id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="applicant_name" style="min-width: 15rem">
+          Nombre empresa/Solicitante<p-sortIcon field="applicant_name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="request_type_name" style="min-width: 15rem">
+          Tipo de solicitud<p-sortIcon field="request_type_name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status_name" style="min-width: 15rem">
+          Estado solicitud<p-sortIcon field="status_name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="request_days" style="min-width: 15rem">
+          Días solicitud<p-sortIcon field="request_days"></p-sortIcon>
+        </th>
+        <th pSortableColumn="assigned_user" style="min-width: 15rem">
+          Responsable solicitud<p-sortIcon field="assigned_user"></p-sortIcon>
+        </th>
+        <th style="width: 5%"></th>
+        <th style="width: 10%"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-requestList>
+      <tr>
+        <td>{{ requestList.filing_number }}</td>
+        <td>{{ requestList.filing_date_date | date }}</td>
+        <td>{{ requestList.applicant_type_name }}</td>
+        <td>{{ requestList.doc_id }}</td>
+        <td>{{ requestList.applicant_name }}</td>
+        <td>{{ requestList.request_type_name }}</td>
+        <td>{{ requestList.status_name }}</td>
+        <td>
+          <div class="circle" [style.background-color]="getColor(requestList.request_days)"></div>
+          <div style="margin-left: 19px">{{ requestList.request_days }} día(s) hábiles</div>
+        </td>
+        <td>{{ requestList.assigned_user }}</td>
+        <td>
+          <p-button
+            icon="pi pi-eye"
+            [styleClass]="'btn-icon-info'"
+            (click)="redirectDetails(requestList.request_id)"></p-button>
+        </td>
+        <td>
+          <div *ngIf="requestList.status_name !== 'Cerrada' && PERFIL !== 'RESPONSABLE'">
+            <button class="custom-button" (click)="assignRequest(requestList)">
+              {{
+                requestList.assigned_user === null || requestList.assigned_user === ''
+                  ? 'Asignar'
+                  : 'Reasignar'
+              }}
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="totalRows"
+    [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+</div>
+
+<p-toast></p-toast>
+<app-modal-dinamic
+  *ngIf="visibleDialog"
+  [select]="true"
+  [visible]="visibleDialog"
+  [message]="message"
+  (setRta)="closeDialog($event)"></app-modal-dinamic>
+
+<app-modal-assign-selector
+  *ngIf="visibleDialogInput"
+  [visible]="visibleDialogInput"
+  [message]="message"
+  [buttonmsg]="buttonmsg"
+  [parameter]="parameter"
+  (setRta)="closeDialogInput($event)"
+  (setRtaParameter)="setParameter($event)"></app-modal-assign-selector>
+
+<app-modal-alert
+  *ngIf="visibleDialogAlert"
+  [select]="true"
+  [visible]="visibleDialogAlert"
+  [message]="message"
+  [message2]="message2"
+  [informative]="informative"
+  [severity]="severity"
+  (setRta)="closeDialogAlert($event)"></app-modal-alert>

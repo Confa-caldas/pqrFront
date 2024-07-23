@@ -1,0 +1,70 @@
+<p-dialog [(visible)]="visible" [modal]="true">
+  <ng-template pTemplate="headless">
+    <div class="modal-content">
+      <div class="login-form-header">
+        <div class="login-form-header__item login-form-header__item_1"></div>
+        <div class="login-form-header__item login-form-header__item_2"></div>
+        <div class="login-form-header__item login-form-header__item_3"></div>
+        <div class="login-form-header__item login-form-header__item_4"></div>
+        <div class="login-form-header__item login-form-header__item_5"></div>
+        <div class="login-form-header__item login-form-header__item_6"></div>
+      </div>
+      <div class="row my-4 px-5">
+        <div class="col-12 text-center">{{ message }}</div>
+      </div>
+      <form [formGroup]="formGroup">
+        <div class="row my-4 px-5">
+          <div class="col-6" [style]="{ display: 'flex', 'flex-direction': 'column' }">
+            <label>{{ parameter[0] }}</label>
+            <p-dropdown
+              formControlName="selectedApplicant"
+              (ngModelChange)="updateButtonState()"
+              [style]="{ height: '30px', width: '305px' }"
+              [options]="applicantTypeList"
+              optionLabel="applicant_type_name"
+              [placeholder]="parameter[0]"></p-dropdown>
+            <label
+              class="invalid"
+              for="document_type"
+              *ngIf="
+                formGroup.get('selectedApplicant')?.touched &&
+                formGroup.get('selectedApplicant')?.hasError('required')
+              ">
+              Campo Requerido</label
+            >
+          </div>
+          <div class="col-6" [style]="{ display: 'flex', 'flex-direction': 'column' }">
+            <label>{{ parameter[1] }}</label>
+            <p-dropdown
+              formControlName="selectedRequest"
+              (ngModelChange)="updateButtonState()"
+              [style]="{ height: '30px', width: '305px' }"
+              [options]="requestTypeList"
+              optionLabel="request_type_name"
+              [placeholder]="parameter[1]"></p-dropdown>
+            <label
+              class="invalid"
+              for="document_type"
+              *ngIf="
+                formGroup.get('selectedRequest')?.touched &&
+                formGroup.get('selectedRequest')?.hasError('required')
+              ">
+              Campo Requerido</label
+            >
+          </div>
+        </div>
+      </form>
+      <div>
+        <div class="row my-4 px-5">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cancelar" severity="secondary" (click)="closeDialog(false)"></p-button>
+            <p-button
+              [label]="buttonmsg"
+              [disabled]="isButtonDisabled"
+              (click)="closeDialog(true)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

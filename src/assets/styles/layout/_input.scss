@@ -1,0 +1,82 @@
+@import '../abstracts/variables';
+
+.input-group>.form-control {
+  height: 42px;
+  color: $color-auro-metal-saurus;
+
+  &:focus {
+    box-shadow: none;
+    border: 1px solid $color-auro-metal-saurus;
+  }
+
+  &::placeholder {
+    color: $color-auro-metal-saurus;
+    font-weight: 300;
+  }
+}
+
+input {
+  font-size: 12px;
+  border: 1px solid $color-platinum !important;
+  box-shadow: none;
+  width: 100%;
+  border: 1px solid $color-auro-metal-saurus;
+  border-radius: 5px;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  input :hover {
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+label {
+  font-size: 14px;
+  margin: 0px 0px;
+  color: $color-dodger-blue;
+  font-family: $font-medium;
+}
+
+.p-multiselect.p-multiselect-chip .p-multiselect-token {
+  background-color: $color-water;
+  color: $color-jelly-bean-blue;
+  font-size: 11px;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
+  background-color: $color-water;
+  color: $color-jelly-bean-blue;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: $color-dodger-blue;
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+  background: $color-white;
+}
+
+.p-inputswitch .p-inputswitch-slider {
+  background: $color-gray;
+}
+
+.p-inputswitch .p-inputswitch-slider:before {
+  background: $color-white;
+}
+
+.input-switch-label {
+  color: $color-dodger-blue;
+}
+
+textarea {
+  width: 100%;
+}

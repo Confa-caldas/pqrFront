@@ -1,0 +1,86 @@
+@import '../abstracts/variables';
+
+.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content {
+  border: none;
+  color: $color-auro-metal-saurus;
+  background: $color-white;
+  width: 214px;
+}
+
+.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-action {
+  color: $color-auro-metal-saurus;
+  font-family: $font-medium;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.p-icon-wrapper {
+  text-decoration: none;
+}
+
+.p-panelmenu .p-panelmenu-content {
+  padding: 0px;
+  width: 200px;
+  border: none;
+  background: $color-white;
+  color: $color-davis-gray;
+  font-size: 12px;
+}
+
+.p-panelmenu .p-panelmenu-content .p-menuitem > .p-menuitem-content .p-menuitem-link {
+  color: $color-davis-gray;
+  padding: 8px 7px 8px 28px;
+  font-family: $font-light;
+}
+
+.pi-fw {
+  font-size: 12px;
+}
+.sidebar-fix {
+  height: 100%;
+  position: fixed;
+  width: 217px;
+  padding: 12px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-right: 1px solid $color-platinum;
+  z-index: 3;
+  background-color: $color-white;
+  top: 0;
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-jelly-bean-blue;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    background: $color-jelly-bean-blue;
+    box-shadow: 0 0 2px 1px $color-shadow;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background-color: $color-jelly-bean-blue;
+  }
+}
+
+.p-panelmenu .p-submenu-list {
+  width: 220px;
+}
+
+.logo-menu {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.content-header {
+  z-index: 2;
+}
+
+.p-panelmenu
+  .p-panelmenu-header
+  .p-panelmenu-header-content
+  .p-panelmenu-header-action
+  .p-submenu-icon {
+  display: none;
+}

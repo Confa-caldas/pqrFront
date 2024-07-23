@@ -1,0 +1,13 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+.modal-content {
+  background-color: $color-white;
+}
+.error-label {
+  color: $color-red;
+}
+.success-label {
+  color: $color-green;
+}
+.filing-number {
+  color: $color-blue;
+}

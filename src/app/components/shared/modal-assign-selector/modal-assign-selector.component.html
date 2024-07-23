@@ -1,0 +1,54 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '50vw' }" [modal]="true">
+  <ng-template pTemplate="headless">
+    <div class="modal-content">
+      <div class="login-form-header">
+        <div class="login-form-header__item login-form-header__item_1"></div>
+        <div class="login-form-header__item login-form-header__item_2"></div>
+        <div class="login-form-header__item login-form-header__item_3"></div>
+        <div class="login-form-header__item login-form-header__item_4"></div>
+        <div class="login-form-header__item login-form-header__item_5"></div>
+        <div class="login-form-header__item login-form-header__item_6"></div>
+      </div>
+      <div class="row my-4 px-5">
+        <div class="col-12 text-center">{{ message }}</div>
+      </div>
+      <form [formGroup]="formGroup" style="margin: 0 auto">
+        <div class="row my-4 px-5">
+          <div class="col-12 multi">
+            <label class="label">{{ parameter[0] }}</label>
+            <p-dropdown
+              formControlName="selectedUser"
+              [options]="userList"
+              class="selector"
+              [style]="{
+                height: '40px',
+                'align-items': 'center',
+                width: '350px'
+              }"
+              optionLabel="user_name_completed"
+              [placeholder]="parameter[0]"></p-dropdown>
+            <label class="error-label">
+              {{
+                formGroup.get('selectedUser')?.hasError('required') &&
+                formGroup.get('selectedUser')?.touched
+                  ? 'Seleccione un responsable'
+                  : ''
+              }}</label
+            >
+          </div>
+        </div>
+      </form>
+      <div>
+        <div class="row my-4 px-5">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cancelar" severity="secondary" (click)="closeDialog(false)"></p-button>
+            <p-button
+              [disabled]="!formGroup.valid"
+              [label]="buttonmsg"
+              (click)="closeDialog(true)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,237 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+
+.ui-dropdown .ui-dropdown-item.ui-state-highlight {
+  background-color: #f0f0f0;
+  /* Set your desired background color */
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  width: 100%;
+
+  &-select {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos dentro de container-select */
+    width: 100%; /* Ajusta el ancho para ser responsivo */
+
+    &-placeholder {
+      color: $color-text-black;
+      font-family: $font-light;
+      font-size: 10px;
+      margin: 10px 0 5px 15px;
+      border-radius: 20px;
+      text-align: left; /* Asegura que el texto dentro del label esté alineado a la izquierda */
+      width: 100%; /* Ajusta el ancho para ser responsivo */
+      max-width: 330px; /* Ancho máximo */
+    }
+
+    &-options {
+      width: 100%; /* Ajusta el ancho para ser responsivo */
+      max-width: 350px; /* Ancho máximo */
+      
+      .ui-dropdown-label {
+        width: calc(100% - 20px); /* Ajusta el ancho del label dentro del dropdown */
+      }
+
+      .ui-dropdown-trigger {
+        right: 10px; /* Ajusta la posición de la flecha */
+      }
+    }
+
+    &-invalid {
+      color: $color-red;
+      font-size: small;
+    }
+  }
+
+  &-card {
+    margin: 0.5% 2%;
+    width: 100%; /* Ajusta el ancho para ser responsivo */
+    max-width: 400px; /* Ancho máximo */
+
+    &_header {
+      text-align: center;
+      font-family: $font-bold;
+      font-size: 26px;
+      padding-top: 2%;
+      color: $color-text-black;
+    }
+
+    &_textRecomendations {
+      font-size: 16px;
+      text-align: justify;
+      color: $color-text-black;
+      font-family: $font-medium;
+    }
+
+    &_title {
+      font-family: $font-bold;
+      color: $color-title-blue;
+      font-size: 24px;
+    }
+
+    &_text {
+      //TIPO DE FUENTE TEXTOS
+      font-family: $font-light;
+      color: $color-text-black;
+      font-size: 16px;
+      margin-left: 10%; /* Margen en porcentaje para ser responsivo */
+      margin-right: 10%;
+    }
+  }
+
+  &-checkbox {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+    cursor: pointer;
+    align-items: center;
+
+    &_a {
+      font-family: $font-light;
+      margin: 5px 0 5px 5px;
+      font-size: 20px;
+      color: $color-text-black;
+      text-decoration: none;
+    }
+
+    &_link {
+      font-family: $font-light;
+      text-decoration: underline;
+      color: $color-text-black;
+      font-size: 20px;
+    }
+  }
+
+  &-button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+  }
+}
+
+/* Media queries para ajustes responsivos */
+@media (max-width: 1200px) {
+  .container-card {
+    max-width: 100%; /* Ancho máximo ajustado */
+  }
+
+  .centered-box {
+    max-width: 100%; /* Ancho ajustado para pantallas más pequeñas */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+    align-items: center;
+  }
+
+  .container-card {
+    margin: 1% 0; /* Ajusta el margen en pantallas pequeñas */
+  }
+
+  .container-card_text {
+    margin-left: 5%; /* Ajusta el margen en pantallas pequeñas */
+    margin-right: 5%;
+  }
+
+  .centered-box {
+    width: 100%; /* Ancho ajustado para pantallas más pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .container-select-placeholder,
+  .container-checkbox_a,
+  .container-checkbox_link {
+    font-size: 12px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+  }
+
+  .container-card_header {
+    font-size: 20px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+  }
+
+  .container-card_title,
+  .container-checkbox_a,
+  .container-checkbox_link {
+    font-size: 14px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+  }
+
+  .centered-box {
+    width: 100%; /* Ancho completo para pantallas muy pequeñas */
+    padding: 15px; /* Ajusta el padding en pantallas muy pequeñas */
+  }
+
+  .centered-box p {
+    font-size: 14px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
+  }
+}
+
+.centered-box {
+  border: 2px solid #d3d3d3;
+  width: 60%; /* Ancho del cuadro */
+  padding: 10px; /* Espacio interno del cuadro */
+  margin: 0 auto; /* Centrar el cuadro horizontalmente */
+  margin-top: 30px;
+
+  .content {
+    display: flex;
+    align-items: center; /* Alinea la imagen y el texto verticalmente centrados */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    padding: 0;
+  }
+
+  p {
+    margin: 0; /* Quitar el margen del párrafo */
+    font-size: 16px;
+    color: $color-text-black;
+    font-family: $font-medium;
+  }
+
+  .small-image {
+    margin-right: 10px; /* Espacio entre la imagen y el texto */
+    width: 30px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
+}
+
+.container{
+
+  margin-bottom: 50px;
+
+  @media (max-width: 767px) {
+    //margin: auto; // Márgenes para pantallas pequeñas
+    margin-bottom: 20px;
+  }
+}
+
+/* Ajustar el panel desplegable del dropdown */
+::ng-deep .p-dropdown-panel {
+  width: auto !important;
+  max-width: 350px; /* Ajusta este valor según sea necesario */
+  overflow-x: hidden !important; /* Evita el desplazamiento horizontal */
+}
+
+/* Ajustar el estilo de los elementos de la lista */
+::ng-deep .p-dropdown-item {
+  white-space: normal !important; /* Permite que el texto se ajuste a varias líneas */
+  word-wrap: break-word !important; /* Permite que el texto largo se divida en varias líneas */
+  height: auto !important; /* Ajusta la altura automáticamente */
+  line-height: 1.5 !important; /* Aumenta la altura de línea para mayor claridad */
+}
+
+/* Opcional: Ajustar el ancho de los elementos del dropdown para asegurar que el texto se ajuste */
+::ng-deep .p-dropdown-items .p-dropdown-item {
+  max-width: 80% !important; /* Asegura que el elemento se ajuste al ancho del panel */
+}
+
+/* Ajustar la etiqueta del dropdown para texto largo */
+::ng-deep .p-dropdown-label {
+  white-space: normal !important; /* Permite que el texto se ajuste a varias líneas */
+  word-wrap: break-word !important; /* Permite que el texto largo se divida en varias líneas */
+}

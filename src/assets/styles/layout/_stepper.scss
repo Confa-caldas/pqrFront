@@ -1,0 +1,108 @@
+@import '../abstracts/variables';
+
+.p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+  color: $color-ceil;
+  font-family: $font-bold;
+  cursor: pointer;
+  &:hover {
+    background: rgba($color: $color-ceil, $alpha: 0.8);
+  }
+}
+
+.p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+  font-family: $font-light;
+  font-size: 11px;
+  white-space: pre-wrap;
+  text-align: center;
+}
+
+.p-steps-item.p-steps-current .p-menuitem-link {
+  margin-top: 0px;
+}
+
+.horizontal-stepper {
+  margin: 60px auto 20px;
+  width: fit-content;
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  border-bottom: 1px solid $color-quick-silver;
+  height: 2px;
+  &-index {
+    &__small {
+      background: rgba($color: $color-ceil, $alpha: 0.9);
+      border: 1px solid $color-ceil;
+      color: $color-ceil;
+      width: 20px;
+      height: 20px;
+      padding: 3px;
+      border-radius: 50%;
+      margin: 8px 40px;
+      cursor: pointer;
+    }
+    &__btn {
+      background-color: $color-white;
+      border: 1px solid $color-ceil;
+      color: $color-ceil;
+      width: 35px;
+      height: 35px;
+      text-align: center;
+      font-size: 18px;
+      padding: 3px;
+      border-radius: 50%;
+      margin: 0 40px;
+      cursor: pointer;
+      font-family: $font-bold;
+      &:hover {
+        background: rgba($color: $color-ceil, $alpha: 0.9);
+        color: $color-white;
+      }
+    }
+  }
+}
+.stepper {
+  width: 20px;
+  border-right: 1px solid $color-quick-silver;
+  position: absolute;
+  height: auto;
+  &-index {
+    position: relative;
+    &:nth-last-child(1) {
+      margin-bottom: 0px;
+    }
+    &__text {
+      margin-left: 25px;
+      font-size: 11px;
+      width: 120px;
+      margin-bottom: 15px;
+      position: absolute;
+      top: -2px;
+      left: 20px;
+      color: $color-auro-metal-saurus;
+    }
+    &__btn {
+      background-color: $color-white;
+      border: 1px solid $color-ceil;
+      color: $color-ceil;
+      width: 35px;
+      height: 35px;
+      text-align: center;
+      font-size: 18px;
+      padding: 3px;
+      border-radius: 50%;
+      margin-left: 2px;
+      margin-bottom: 25px;
+      cursor: pointer;
+      font-family: $font-bold;
+      &:hover {
+        background: rgba($color: $color-ceil, $alpha: 0.9);
+        color: $color-white;
+      }
+    }
+  }
+}
+
+.p-tooltip {
+  font-family: $font-light;
+  font-size: 13px;
+}

@@ -1,0 +1,402 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.custom-input {
+  font-size: small;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  color: #66798d;
+}
+
+.container {
+  display: block;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 50px;
+
+  @media (max-width: 575px) {
+    width: 100%;
+    padding: 0 10px;
+  }
+}
+
+.card {
+  &-form {
+    position: relative;
+    width: 30%;
+    margin: auto;
+
+    @media (max-width: 1200px) {
+      width: 80%;
+    }
+
+    @media (max-width: 950px) {
+      width: 100%;
+      padding: 10px;
+    }
+
+    @media (max-width: 575px) {
+      width: 100%;
+      padding: 0 10px;
+    }
+
+    &-banner {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $color-tab-blue;
+      border-radius: 10px;
+      height: 50px;
+      width: 100%;
+      max-width: 450px;
+
+      @media (max-width: 575px) {
+        height: 40px;
+      }
+
+      &-title {
+        font-size: x-large;
+        color: $color-tab-blue;
+        text-align: center;
+        font-weight: bolder;
+        margin-bottom: 20px;
+
+        @media (max-width: 575px) {
+          font-size: large;
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin-top: 5px;
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+      }
+    }
+
+    &-input {
+      display: flex;
+      flex-direction: column;
+
+      &-placeholder {
+        font-size: x-small;
+        margin: 0 0 5px 15px;
+        color: $color-black;
+
+        &-invalid {
+          color: $color-red;
+          font-size: x-small;
+          margin: 0 0 5px 15px;
+        }
+      }
+
+      &-options,
+      &-select {
+        width: 300px;
+        max-width: 300px;
+        border-radius: 20px;
+        height: 40px;
+        font-size: small;
+
+        @media (max-width: 575px) {
+          width: 100%;
+          max-width: none;
+        }
+      }
+    }
+
+    &-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+
+      @media (max-width: 575px) {
+        width: 100%;
+      }
+    }
+  }
+
+  &-text {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 17%;
+    margin-right: 17%;
+
+    &-placeholder {
+      margin: 0 0 5px 15px;
+      font-size: x-small;
+      color: $color-black;
+    }
+
+    &-area {
+      font-size: x-small;
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  &-buttonUp {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    &-placeholder {
+      margin: 0 0 5px 15px;
+      font-size: x-small;
+      color: $color-black;
+    }
+
+    &-custom-button {
+      display: inline-block;
+      position: relative;
+
+      @media (max-width: 575px) {
+        width: 100%;
+      }
+    }
+
+    &-custom-icon {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      display: none;
+    }
+
+    &-label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: $color-white-smoke;
+      border-radius: 5px;
+      border: 0.1px $color-davis-gray;
+      box-shadow: 2px 2px $color-white-smoke;
+      color: $color-dim-gray;
+      cursor: pointer;
+
+      @media (max-width: 575px) {
+        padding: 8px 16px;
+        font-size: medium;
+      }
+    }
+  }
+
+  &-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    //margin: 10px auto;
+    //width: 100%;
+    //max-width: 40rem;
+    margin-top: 30px;
+    margin-left: 17%;
+    margin-right: 17%;
+
+    @media (max-width: 575px) {
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &-header {
+      font-family: $font-bold;
+      background-color: $color-tab-blue;
+      text-align: center;
+      margin-bottom: 9px;
+      width: 100%;
+      color: $color-white;
+      font-size: medium;
+      padding: 5px 0;
+
+      @media (max-width: 575px) {
+        font-size: small;
+      }
+    }
+
+    &-body {
+      display: flex;
+      flex-direction: row;
+      border: 1pt solid $color-tab-blue;
+      width: 100%;
+    }
+
+    &-itemName,
+    &-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      border-right: 1pt solid $color-tab-blue;
+      width: 100%;
+      text-align: left;
+      font-family: $font-light;
+    }
+  }
+}
+
+.truncate-text {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+  align-items: center;
+  margin: auto 0;
+}
+
+@media (max-width: 768px) {
+  .card-form {
+    width: 100%;
+  }
+
+  .card-form-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select,
+  .card-text-area {
+    width: 300px;
+    max-width: 300px;
+    margin: 10px auto;
+    justify-content: center;
+  }
+
+  .card-form-button {
+    justify-content: center;
+  }
+
+  .card-form-banner {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-input {
+    font-size: smaller;
+    padding: 4px 8px;
+  }
+
+  .card-form-banner-title {
+    font-size: x-large;
+  }
+
+  .card-text-placeholder,
+  .card-text-area {
+    font-size: smaller;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select {
+    max-width: 200px;
+    margin: 10px;
+    justify-content: center;
+  }
+
+  .card-buttonUp-custom-button {
+    width: 100%;
+    margin: auto;
+    align-items: baseline;
+    font-size: small;
+  }
+
+  .card-buttonUp-label {
+    padding: 8px 16px;
+    font-size: medium;
+  }
+
+  .card-table-header {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 575px) {
+  .custom-input {
+    font-size: smaller;
+    padding: 4px 8px;
+  }
+
+  .card-form-banner-title {
+    font-size: x-large;
+  }
+
+  .card-text-placeholder,
+  .card-text-area {
+    font-size: smaller;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select {
+    width: 250px;
+    max-width: none;
+    margin: 10px;
+    justify-content: center;
+  }
+
+  .card-form-button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .card-form-banner {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .card-table-header {
+    font-size: 12px;
+  }
+}
+
+.card-table-item .remover-text {
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+.container-card_text {
+  width: 40rem;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 950px) {
+    width: 100%;
+  }
+
+  @media (max-width: 575px) {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+.card-buttonUp {
+  width: 40rem;
+  //margin: 10px auto;
+  margin-left: 17%;
+  margin-right: 17%;
+
+  @media (max-width: 575px) {
+    width: 100%;
+    //padding: 0 10px;
+  }
+}
+
+.button-container {
+  position: relative;
+  display: flex;
+  justify-content: center; /* Centrar el botón horizontalmente */
+  align-items: center; /* Centrar el botón verticalmente */
+  width: 100%;
+  height: auto; /* Ajustar la altura automáticamente */
+  overflow: hidden; /* Evitar desbordamiento */
+}

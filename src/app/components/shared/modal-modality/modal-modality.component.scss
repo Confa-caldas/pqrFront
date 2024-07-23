@@ -1,0 +1,14 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.modal-content {
+  background-color: $color-white;
+}
+
+.error-label {
+  color: $color-red;
+}
+
+.invalid {
+  color: $color-red;
+  font-size: small;
+}

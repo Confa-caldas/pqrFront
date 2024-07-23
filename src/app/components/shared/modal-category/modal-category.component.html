@@ -1,0 +1,143 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '40vw' }" [modal]="true">
+  <ng-template pTemplate="headless">
+    <div class="modal-content">
+      <div class="login-form-header">
+        <div class="login-form-header__item login-form-header__item_1"></div>
+        <div class="login-form-header__item login-form-header__item_2"></div>
+        <div class="login-form-header__item login-form-header__item_3"></div>
+        <div class="login-form-header__item login-form-header__item_4"></div>
+        <div class="login-form-header__item login-form-header__item_5"></div>
+        <div class="login-form-header__item login-form-header__item_6"></div>
+      </div>
+      <div class="row my-4 px-5">
+        <div class="col-12 text-center">{{ message }}</div>
+      </div>
+      <form [formGroup]="formGroup">
+        <div class="row my-4 px-5">
+          <div class="col-12">
+            <label> *Código </label>
+            <input
+              [readonly]="this.buttonmsg !== 'Crear' ? true : false"
+              formControlName="category_id"
+              pInputText
+              pKeyFilter="integer"
+              placeholder="000" />
+            <label class="invalid">
+              {{
+                formGroup.get('category_id')?.hasError('required') &&
+                formGroup.get('category_id')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}{{
+                formGroup.get('category_id')?.hasError('pattern') &&
+                formGroup.get('category_id')?.touched
+                  ? 'Solo ingrese numeros'
+                  : ''
+              }}</label
+            >
+          </div>
+          <div class="col-12">
+            <label> *Nombre de categoría </label>
+            <input
+              [readonly]="read_only"
+              formControlName="category_name"
+              pInputText
+              pKeyFilter="string"
+              placeholder="Escriba nombre" />
+            <label class="invalid">
+              {{
+                formGroup.get('category_name')?.hasError('required') &&
+                formGroup.get('category_name')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}
+              {{
+                formGroup.get('category_name')?.hasError('pattern') &&
+                formGroup.get('category_name')?.touched
+                  ? 'Solo ingrese texto'
+                  : ''
+              }}</label
+            >
+          </div>
+          <div class="col-12">
+            <label> *Nombre de tipología </label>
+            <input
+              [readonly]="read_only"
+              formControlName="tipology_name"
+              pInputText
+              pKeyFilter="string"
+              placeholder="Escriba nombre" />
+            <label class="invalid">
+              {{
+                formGroup.get('tipology_name')?.hasError('required') &&
+                formGroup.get('tipology_name')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}{{
+                formGroup.get('tipology_name')?.hasError('pattern') &&
+                formGroup.get('tipology_name')?.touched
+                  ? 'Solo ingrese texto'
+                  : ''
+              }}</label
+            >
+          </div>
+          <div class="col-12">
+            <label> *Nombre de causa </label>
+            <textarea
+              [readonly]="read_only"
+              rows="5"
+              cols="30"
+              pInputTextarea
+              placeholder="Escriba nombre"
+              formControlName="cause_name"
+              class="custom-input"></textarea>
+            <label class="invalid">
+              {{
+                formGroup.get('cause_name')?.hasError('required') &&
+                formGroup.get('cause_name')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}</label
+            >
+          </div>
+          <div class="col-12" [style]="{ display: 'flex', 'flex-direction': 'column' }">
+            <label> *Modalidad </label>
+            <p-dropdown
+              formControlName="modality_id"
+              [options]="modalityList"
+              optionLabel="modality_name"
+              optionValue="modality_id"
+              [style]="{ height: '30px', width: '305px' }"
+              placeholder="Seleccione una opción"></p-dropdown>
+            <label class="invalid">
+              {{
+                formGroup.get('modality_id')?.hasError('required') &&
+                formGroup.get('modality_id')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}</label
+            >
+          </div>
+        </div>
+      </form>
+      <div *ngIf="read_only">
+        <div class="row my-4 px-5">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cerrar" severity="secondary" (click)="closeDialog(false)"></p-button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!read_only">
+        <div class="row my-4 px-5">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cancelar" severity="secondary" (click)="closeDialog(false)"></p-button>
+            <p-button
+              [label]="buttonmsg"
+              [disabled]="formGroup.invalid"
+              (click)="closeDialog(true)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

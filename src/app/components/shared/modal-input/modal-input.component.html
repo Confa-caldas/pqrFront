@@ -1,0 +1,88 @@
+<p-dialog [(visible)]="visible" [style]="{ width: '60vw' }" [modal]="true">
+  <ng-template pTemplate="headless">
+    <div class="modal-content">
+      <div class="login-form-header">
+        <div class="login-form-header__item login-form-header__item_1"></div>
+        <div class="login-form-header__item login-form-header__item_2"></div>
+        <div class="login-form-header__item login-form-header__item_3"></div>
+        <div class="login-form-header__item login-form-header__item_4"></div>
+        <div class="login-form-header__item login-form-header__item_5"></div>
+        <div class="login-form-header__item login-form-header__item_6"></div>
+      </div>
+      <div class="row my-4 px-5">
+        <div class="col-12 text-center">{{ message }}</div>
+      </div>
+      <form [formGroup]="formGroup">
+        <div class="row my-4 px-5">
+          <div class="col-12">
+            <label>{{ parameter[0] }}</label>
+            <input
+              pInputText
+              pKeyFilter="string"
+              [placeholder]="parameter[1]"
+              formControlName="inputValue1"
+              class="custom-input" />
+            <label class="invalid">
+              {{
+                formGroup.get('inputValue1')?.hasError('required') &&
+                formGroup.get('inputValue1')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}{{
+                formGroup.get('inputValue1')?.hasError('pattern') &&
+                formGroup.get('inputValue1')?.touched
+                  ? 'No es válido'
+                  : ''
+              }}
+            </label>
+          </div>
+        </div>
+        <div class="row my-4 px-5" *ngIf="!oneField">
+          <div class="col-12">
+            <label>{{ parameter[2] }}</label>
+            <textarea
+              rows="5"
+              cols="30"
+              pInputTextarea
+              [placeholder]="parameter[3]"
+              formControlName="inputValue2"
+              class="custom-input"></textarea>
+            <label class="invalid">
+              {{
+                formGroup.get('inputValue2')?.hasError('required') &&
+                formGroup.get('inputValue2')?.touched
+                  ? 'Campo requerido'
+                  : ''
+              }}{{
+                formGroup.get('inputValue2')?.hasError('pattern') &&
+                formGroup.get('inputValue2')?.touched
+                  ? 'No es válido'
+                  : ''
+              }}
+            </label>
+          </div>
+        </div>
+      </form>
+      <div>
+        <div class="row my-4 px-5" *ngIf="!oneField">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cancelar" severity="secondary" (click)="closeDialog(false)"></p-button>
+            <p-button
+              [label]="buttonmsg"
+              [disabled]="!formGroup.valid"
+              (click)="closeDialog(true)"></p-button>
+          </div>
+        </div>
+        <div class="row my-4 px-5" *ngIf="oneField">
+          <div class="col-12 d-flex justify-content-evenly">
+            <p-button label="Cancelar" severity="secondary" (click)="closeDialog(false)"></p-button>
+            <p-button
+              [label]="buttonmsg"
+              [disabled]="!formGroup.get('inputValue1')?.valid"
+              (click)="closeDialog(true)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

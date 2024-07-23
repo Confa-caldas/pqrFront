@@ -1,0 +1,139 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+.container-layout {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.icons {
+  text-align: center;
+  color: $color-gray;
+  margin: 20px auto;
+}
+
+.colNotExpanded {
+  flex: 0 0 auto;
+  width: 5.333333%
+}
+
+.menu {
+  background-color: $color-white-smoke !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  //height: calc(100vh - 50px);
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.itemsNotExpanded {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white-smoke !important;
+  align-items: center;
+  width: auto;
+}
+
+.main {
+  flex: 0 0 auto;
+  width: 94.333333%;
+  overflow-x: hidden;
+}
+
+.iconsToggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin: 56px 13px;
+
+}
+
+.iconsToggleExpanded {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: flex-start;
+  margin: 56px 13px;
+}
+
+.iconsBox {
+  display: flex;
+  flex-direction: row;
+  /* align-content: center; */
+  align-items: center;
+}
+
+.label-logout {
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 30px;
+  padding-left: 20px;
+  cursor: pointer;
+  color: $color-gray;
+}
+
+:host {
+  ::ng-deep .p-tree {
+    border: initial !important;
+    background: initial !important;
+    color: initial !important;
+    padding: initial !important;
+    border-radius: initial !important;
+  }
+
+  ::ng-deep .p-treenode[aria-expanded='true']>.p-treenode-content {
+    transition: color 0.5s ease;
+    color: $color-dodger-blue !important;
+    background-color: $color-light-gray;
+    font-weight: 500;
+  }
+
+  ::ng-deep .ui-panel .ui-panel-titlebar-icon {
+    float: left;
+  }
+}
+
+.p-tree .p-component {
+  border: initial !important;
+  background: initial !important;
+  color: initial !important;
+  padding: initial !important;
+  border-radius: initial !important;
+}
+
+.header {
+  height: 50px;
+  background-color: $color-dodger-blue;
+
+  &-img {
+    margin: 0px 20px;
+    height: 40px;
+  }
+}
+
+.item-label {
+  color: $color-gray;
+}
+
+.item-label-select {
+  color: $color-dodger-blue !important;
+}
+
+.content-data {
+  padding: 20px;
+  padding-right: 30px;
+  background-color: $color-white-blur-smoke;
+  overflow-y: hidden;
+  // height: max-content;
+}
+
+.menuList {
+  cursor: pointer;
+}

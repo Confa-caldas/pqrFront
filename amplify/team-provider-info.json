@@ -1,0 +1,49 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-analyzerprodev-dev-135352-authRole",
+      "UnauthRoleArn": "arn:aws:iam::906218739704:role/amplify-analyzerprodev-dev-135352-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::906218739704:role/amplify-analyzerprodev-dev-135352-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-analyzerprodev-dev-135352-deployment",
+      "UnauthRoleName": "amplify-analyzerprodev-dev-135352-unauthRole",
+      "StackName": "amplify-analyzerprodev-dev-135352",
+      "StackId": "arn:aws:cloudformation:us-east-1:906218739704:stack/amplify-analyzerprodev-dev-135352/7fd9be70-fb2d-11ed-a1a3-0e1f0a384537",
+      "AmplifyAppId": "d1733k7c08e66j"
+    },
+    "categories": {
+      "auth": {
+        "analyzerprodev42f8dbe8": {}
+      }
+    }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "AWSServiceAmplifySubsidiosPQR",
+      "UnauthRoleArn": "arn:aws:iam::758324485493:role/AWSServiceAmplifySubsidiosPQR",
+      "AuthRoleArn": "arn:aws:iam::758324485493:role/AWSServiceAmplifySubsidiosPQR",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "AWSServiceAmplifySubsidiosPQR-deployment",
+      "UnauthRoleName": "AWSServiceAmplifySubsidiosPQR",
+      "StackName": "AWSServiceAmplifySubsidiosPQR",
+      "StackId": "arn:aws:cloudformation:us-east-1:758324485493:stack/AWSServiceAmplifySubsidiosPQR/4fa62b70-e872-11ee-9866-0afff44e5709",
+      "AmplifyAppId": "dsolq6ov616dc"
+    }
+  },
+  "production": {
+    "awscloudformation": {}
+  },
+  "master": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-analyzerprodev-master-122841-authRole",
+      "UnauthRoleArn": "arn:aws:iam::758324485493:role/amplify-analyzerprodev-master-122841-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::758324485493:role/amplify-analyzerprodev-master-122841-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-analyzerprodev-master-122841-deployment",
+      "UnauthRoleName": "amplify-analyzerprodev-master-122841-unauthRole",
+      "StackName": "amplify-analyzerprodev-master-122841",
+      "StackId": "arn:aws:cloudformation:us-east-1:758324485493:stack/amplify-analyzerprodev-master-122841/c8a79f00-f2a8-11ee-b73a-12a10af9837d",
+      "AmplifyAppId": "d3avo25bjup8t5"
+    }
+  }
+}
