@@ -150,7 +150,7 @@
       </p-tabPanel>
       <p-tabPanel header="Adjuntos" headerStyleClass="p-tabview-nav-link-2 ">
         <div class="p-tab-view">
-          <p-tabView class="p-tabview-nav-tabs">
+          <p-tabView class="p-tabview-nav-tabs" [style]="{ 'margin-top': '25px' }">
             <p-tabPanel header="Adjunto de solicitante" headerStyleClass="p-tabview-nav-link-sub">
               <p-table
                 [value]="requestApplicantAttachmentsList"

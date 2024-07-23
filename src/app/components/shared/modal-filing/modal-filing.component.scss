@@ -1,42 +1,33 @@
 @import '../../../../assets/styles/abstracts/variables.scss';
 
+/* Ajustes para tamaños de pantalla medianos (768px - 1375px) */
 @media screen and (min-width: 768px) and (max-width: 1375px) {
   .modal-content {
-    background-color: $color-white;
+    background-color: #ffffff; /* Usa código de color hex en lugar de variables SCSS */
     border-radius: 5px;
-    color: $color-white;
-    width: 410pt;
-    // height: 385pt;
-    //
+    color: #ffffff;
+    width: 50vw; /* Ancho ajustado proporcionalmente a la pantalla */
+    max-width: 410px; /* Ancho máximo para evitar desbordamiento */
   }
 }
 
+/* Ajustes para tamaños de pantalla grandes (1376px y superiores) */
 @media screen and (min-width: 1376px) {
   .modal-content {
-    background-color: $color-white;
+    background-color: #ffffff;
     border-radius: 5px;
-    color: $color-white;
-    width: 410pt;
-    // height: 485pt;
-    //
+    color: #ffffff;
+    width: 30vw; /* Ancho ajustado proporcionalmente a la pantalla */
+    max-width: 410px; /* Ancho máximo para evitar desbordamiento */
   }
 }
 
-// .modal-content {
-//   background-color: $color-white;
-//   border-radius: 5px;
-//   color: $color-white;
-//   width: 410pt;
-//   height: 485pt;
-//   //
-// }
-
 .error-label {
-  color: $color-red;
+  color: #ff0000; /* Rojo */
 }
 
 .success-label {
-  color: $color-green;
+  color: #00ff00; /* Verde */
 }
 
 .filing-number {
@@ -44,20 +35,27 @@
 }
 
 .card-background {
-  color: $color-blue;
+  color: #0000ff; /* Azul */
 }
 
 .title {
   text-align: center;
-  font-family: $font-bold;
-  font-size: 32pt;
-  margin: 8px 0;
+  font-family: $font-bold; /* Reemplaza $font-bold con la fuente correcta */
+  font-size: 2rem; /* Tamaño de fuente ajustado */
+  margin: 0.5rem 0; /* Márgenes ajustados */
+}
+
+.subtitle {
+  text-align: center;
+  font-family: $font-bold; /* Reemplaza $font-bold con la fuente correcta */
+  font-size: 0.5rem; /* Tamaño de fuente ajustado */
+  margin: 0.5rem 0; /* Márgenes ajustados */
 }
 
 .text {
   text-align: center;
-  font-family: $font-light;
-  font-size: 17pt;
+  font-family: $font-light; /* Reemplaza $font-light con la fuente correcta */
+  font-size: 1rem; /* Tamaño de fuente ajustado */
 }
 
 .modal-white {
@@ -67,12 +65,16 @@
 
 .modal-blue {
   flex: 1;
-  padding: 20px;
+  padding: 1.25rem; /* Ajuste de relleno */
   box-sizing: border-box;
-  background-color: #04aeef;
+  background-color: #04aeef; /* Azul */
   transition: box-shadow 0.3s ease-in-out;
   border-radius: 5px;
-  height: 302pt;
+  height: 50vh; /* Altura ajustada proporcionalmente a la pantalla */
+
+  @media screen and (max-width: 575px) {
+    height: auto; /* Ajuste de altura para pantallas pequeñas */
+  }
 }
 
 .modal-blue:hover {
@@ -82,21 +84,62 @@
 .button {
   display: flex;
   justify-content: center;
-  margin: 17px auto;
-  width: 225pt;
-  height: 41pt;
-  color: #4face9;
-  font-size: 20pt;
+  margin: 1rem auto; /* Ajuste de margen */
+  width: 50%; /* Ancho ajustado */
+  max-width: 225px; /* Ancho máximo */
+  height: 2.5rem; /* Altura ajustada */
+  color: #4face9; /* Azul claro */
+  font-size: 1.25rem; /* Tamaño de fuente ajustado */
 }
 
 .login-logo {
-  width: 134.3pt;
-  height: 63.6pt;
-  margin: 23.4pt auto 18.1pt auto;
+  width: 8.375rem; /* Ancho ajustado */
+  height: 3.975rem; /* Altura ajustada */
+  margin: 1.5rem auto; /* Ajuste de márgenes */
 }
 
 /* Center the check button image */
 .login-form-logo-check {
-  width: 59.3pt;
-  margin: 18.1pt auto 17.7pt auto;
+  width: 3.75rem; /* Ancho ajustado */
+  margin: 1rem auto; /* Ajuste de márgenes */
+}
+
+/* Media queries adicionales para ajustar estilos en diferentes tamaños de pantalla */
+@media screen and (max-width: 767px) {
+  .modal-content {
+    width: 80%; /* Ancho casi completo para pantallas pequeñas */
+    max-width: none; /* Sin límite de ancho máximo */
+    background-color: #ffffff; /* Usa código de color hex en lugar de variables SCSS */
+    border-radius: 5px;
+    color: #ffffff;
+    margin: auto;
+  }
+
+  .title {
+    font-family: $font-bold;
+    font-size: 1.5rem; /* Tamaño de fuente ajustado para pantallas pequeñas */
+  }
+
+  .subtitle {
+    text-align: center;
+    font-family: $font-bold; /* Reemplaza $font-bold con la fuente correcta */
+  }
+
+  .text {
+    font-size: 0.875rem; /* Tamaño de fuente ajustado para pantallas pequeñas */
+  }
+
+  .button {
+    width: 80%; /* Ancho ajustado para pantallas pequeñas */
+    font-size: 1rem; /* Tamaño de fuente ajustado para pantallas pequeñas */
+  }
+
+  .login-logo {
+    width: 6.5rem; /* Ancho ajustado para pantallas pequeñas */
+    height: 3rem; /* Altura ajustada para pantallas pequeñas */
+  }
+
+  .login-form-logo-check {
+    width: 2.5rem; /* Ancho ajustado para pantallas pequeñas */
+  }
 }

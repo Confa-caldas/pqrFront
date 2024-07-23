@@ -1,9 +1,55 @@
 @import '../../../../assets/styles/abstracts/variables.scss';
 
-.modal-content {
-  background-color: $color-white;
+/* Estilos para el overlay del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que el modal esté por encima de otros elementos */
 }
 
+/* Estilos para el contenido del modal */
+.modal-content {
+  background-color: $color-white;
+  padding: 20px; /* Ajuste del padding para un diseño más espacioso */
+  border-radius: 5px; /* Ajusta el radio del borde */
+  width: 60%; /* Ancho por defecto */
+  //max-width: 600px; /* Ancho máximo */
+  box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+  box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+  overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado grande */
+  max-height: 90vh; /* Limita la altura máxima del modal para mantenerlo dentro de la vista */
+
+}
+
+/* Consultas de medios para dispositivos medianos y pequeños */
+@media (max-width: 992px) {
+  .modal-content {
+    width: 90%; /* Ancho para pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%; /* Ancho para pantallas pequeñas */
+    padding: 15px; /* Ajusta el padding */
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-content {
+    width: 100%; /* Ancho completo para pantallas muy pequeñas */
+    padding: 10px; /* Ajusta el padding */
+  }
+}
+
+/* Estilos para etiquetas de error */
 .error-label {
   color: $color-red;
   font-weight: 500;
@@ -11,17 +57,38 @@
   font-size: 14px;
 }
 
+@media (max-width: 767px) {
+  .error-label {
+    font-size: 12px; /* Ajuste para pantallas pequeñas */
+  }
+}
+
+/* Estilos para elementos inválidos */
 .invalid {
   color: $color-red;
   font-size: small;
 }
 
+@media (max-width: 767px) {
+  .invalid {
+    font-size: x-small; /* Ajuste para pantallas pequeñas */
+  }
+}
+
+/* Estilos para botones más */
 .button-more {
   background-color: transparent;
   border: none;
   text-decoration: underline;
 }
 
+@media (max-width: 767px) {
+  .button-more {
+    font-size: small; /* Ajuste para pantallas pequeñas */
+  }
+}
+
+/* Estilos para el botón de cerrar */
 .button-close {
   background-color: $color-gray;
   color: white;
@@ -29,12 +96,28 @@
   border-radius: 5px;
   border: none;
   cursor: pointer;
+}
 
-  &-plus {
-    font-size: 15px;
+@media (max-width: 767px) {
+  .button-close {
+    width: 100%; /* Ajuste para pantallas pequeñas */
+    font-size: small;
+    margin-top: -20px;
+    padding: 10px; /* Ajuste del padding */
   }
 }
 
+.button-close-plus {
+  font-size: 15px;
+}
+
+@media (max-width: 767px) {
+  .button-close-plus {
+    font-size: 12px; /* Ajuste para pantallas pequeñas */
+  }
+}
+
+/* Estilos para el texto dentro del contenedor */
 .container-text {
   display: flex;
   flex-direction: column;
@@ -43,32 +126,153 @@
   font-size: small;
 }
 
-.container {
-  &_checkbox {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+@media (max-width: 767px) {
+  .container-text {
+    font-size: x-small; /* Ajuste para pantallas pequeñas */
+    padding: 5px; /* Añadir padding para mejorar la apariencia */
+    margin-top: 5px;
   }
-
-  &_text {
-    color: black;
-  }
-
-  &_link {
-    font-weight: 700;
-    color: $color-tab-blue;
-  }
-
-  &-button {
-    display: flex;
-    justify-content: center;
-    color: $color-blue;
-  }
-
 }
 
+/* Estilos para el contenedor de checkbox */
+.container-checkbox {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
+@media (max-width: 767px) {
+  .container-checkbox {
+    flex-direction: column; /* Ajuste para pantallas pequeñas */
+    align-items: center;
+  }
+}
+
+/* Estilos para el texto del contenedor */
+.container-text {
+  color: black;
+}
+
+@media (max-width: 767px) {
+  .container-text {
+    font-size: small; /* Ajuste para pantallas pequeñas */
+  }
+}
+
+/* Estilos para el enlace del contenedor */
+.container-link {
+  font-weight: 700;
+  color: $color-tab-blue;
+}
+
+@media (max-width: 767px) {
+  .container-link {
+    font-size: small; /* Ajuste para pantallas pequeñas */
+  }
+}
+
+/* Estilos para el botón dentro del contenedor */
+.container-button {
+  display: flex;
+  justify-content: center;
+  color: $color-blue;
+}
+
+@media (max-width: 767px) {
+  .container-button {
+    width: 100%; /* Ajuste para pantallas pequeñas */
+    font-size: small;
+  }
+}
+
+/* Estilos para el texto justificado */
 .text-justify {
   text-align: justify;
+}
+
+@media (max-width: 767px) {
+  .text-justify {
+    font-size: small; /* Ajuste para pantallas pequeñas */
+    padding: 10px; /* Añadir padding para mejorar la apariencia */
+  }
+}
+
+/* Estilos para las imágenes en el modal de políticas */
+div.modal-policies div.card-politica div img {
+  width: 80px;
+}
+
+div.modal-policies div.card-politica-body div span {
+  font-size: 17px;
+  color: #03a9f4;
+  font-weight: bold;
+}
+
+div.modal-policies div.card-politica-body div h4 {
+  font-weight: bold;
+  font-size: 30px;
+  width: 80%;
+  line-height: normal;
+}
+
+div.modal-policies div.card-politica-body div p {
+  font-size: 18px;
+  text-align: justify;
+  line-height: 18px;
+}
+
+#imag-h4 {
+  align-items: center;
+}
+
+div.modal-policies div.modal-body img {
+  max-width: 160px;
+  max-height: 77.83px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+div.modal-policies div.modal-body h4 {
+  color: #858585;
+  margin-left: 20px;
+  font-size: 25px;
+}
+
+div.modal-policies div.modal-body p,
+div.modal-policies div.modal-body ul li {
+  font-size: 15px;
+  text-align: justify;
+  line-height: 18px;
+}
+
+div.modal-policies div.modal-body img {
+  max-width: 160px;
+  max-height: 77.83px;
+  font-weight: 700;
+}
+
+/* Estilos para el botón de cerrar */
+.close {
+  background: none; /* Elimina el fondo del botón */
+  border: none; /* Elimina el borde del botón */
+  font-size: 45px; /* Ajusta el tamaño del icono */
+  color: #000; /* Cambia el color del icono */
+  cursor: pointer; /* Cambia el cursor para que se vea como un botón */
+  margin-top: -100px;
+  font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  .close {
+    font-size: 30px; /* Ajuste del tamaño del icono para pantallas pequeñas */
+    margin-top: -300px; /* Ajuste del margen superior */
+  }
+}
+
+/* Estilos para el divisor */
+.divider {
+  height: 2px;
+  background-color: #a8a8a8; /* Color de la línea */
+  width: 100%; /* Asegura que la línea se extienda a lo ancho del contenedor */
 }

@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="visible" [style]="{ width: '30vw' }" [modal]="true">
+<p-dialog [(visible)]="visible" [style]="{ width: '50vw' }" [modal]="true">
   <ng-template pTemplate="headless">
     <div class="modal-content">
       <div class="login-form-header">
@@ -20,7 +20,12 @@
               formControlName="selectedUser"
               [options]="userList"
               class="selector"
-              optionLabel="user_name"
+              [style]="{
+                height: '40px',
+                'align-items': 'center',
+                width: '350px'
+              }"
+              optionLabel="user_name_completed"
               [placeholder]="parameter[0]"></p-dropdown>
             <label class="error-label">
               {{

@@ -5,54 +5,39 @@
   border: 1px solid #ccc;
   padding: 6px 10px;
   color: #66798d;
-  /* Agrega cualquier otro estilo necesario */
 }
 
-@keyframes geek {
+.container {
+  display: block;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 50px;
 
-  100%,
-  0% {
-    stroke: #008744;
+  @media (max-width: 575px) {
+    width: 100%;
+    padding: 0 10px;
   }
-
-  40% {
-    stroke: #ffa700;
-  }
-
-  66% {
-    stroke: #0057e7;
-  }
-
-  80%,
-  90% {
-    stroke: #d62d20;
-  }
-}
-
-.sppinerAtta.p-element {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  scale: 68%;
-
 }
 
 .card {
-  &-header-container {
-    border-bottom: 2px solid $color-white-smoke;
-    margin-bottom: 50px;
-  }
-
-  &_title {
-    font-family: $font-bold;
-    text-align: center;
-    font-weight: bolder;
-  }
-
   &-form {
     position: relative;
     width: 30%;
+    margin: auto;
 
+    @media (max-width: 1200px) {
+      width: 80%;
+    }
+
+    @media (max-width: 950px) {
+      width: 100%;
+      padding: 10px;
+    }
+
+    @media (max-width: 575px) {
+      width: 100%;
+      padding: 0 10px;
+    }
 
     &-banner {
       position: absolute;
@@ -62,21 +47,35 @@
       background-color: $color-tab-blue;
       border-radius: 10px;
       height: 50px;
-      width: 450px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
+      max-width: 450px;
+
+      @media (max-width: 575px) {
+        height: 40px;
+      }
 
       &-title {
-        color: $color-white;
+        font-size: x-large;
+        color: $color-tab-blue;
+        text-align: center;
+        font-weight: bolder;
+        margin-bottom: 20px;
+
+        @media (max-width: 575px) {
+          font-size: large;
+        }
       }
     }
 
     &-row {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-evenly;
       margin-top: 5px;
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+      }
     }
 
     &-input {
@@ -95,25 +94,29 @@
         }
       }
 
-      &-options {
-        width: 250px;
-        border-radius: 20px;
-        height: 30px;
-        padding-left: 9px;
-        font-size: small;
-      }
-
+      &-options,
       &-select {
-        width: 250px;
-
+        width: 300px;
+        max-width: 300px;
+        border-radius: 20px;
+        height: 40px;
         font-size: small;
+
+        @media (max-width: 575px) {
+          width: 100%;
+          max-width: none;
+        }
       }
     }
 
     &-button {
       display: flex;
       justify-content: center;
-      margin: 20px auto;
+      margin-top: 20px;
+
+      @media (max-width: 575px) {
+        width: 100%;
+      }
     }
   }
 
@@ -121,6 +124,8 @@
     display: flex;
     flex-direction: column;
     margin-top: 10px;
+    margin-left: 17%;
+    margin-right: 17%;
 
     &-placeholder {
       margin: 0 0 5px 15px;
@@ -143,13 +148,16 @@
     &-placeholder {
       margin: 0 0 5px 15px;
       font-size: x-small;
-
       color: $color-black;
     }
 
     &-custom-button {
       display: inline-block;
       position: relative;
+
+      @media (max-width: 575px) {
+        width: 100%;
+      }
     }
 
     &-custom-icon {
@@ -168,8 +176,12 @@
       border: 0.1px $color-davis-gray;
       box-shadow: 2px 2px $color-white-smoke;
       color: $color-dim-gray;
-      border-radius: 5px;
       cursor: pointer;
+
+      @media (max-width: 575px) {
+        padding: 8px 16px;
+        font-size: medium;
+      }
     }
   }
 
@@ -178,9 +190,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 10px auto;
-    width: 40rem;
-    margin: 0 auto;
+    //margin: 10px auto;
+    //width: 100%;
+    //max-width: 40rem;
+    margin-top: 30px;
+    margin-left: 17%;
+    margin-right: 17%;
+
+    @media (max-width: 575px) {
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     &-header {
       font-family: $font-bold;
@@ -190,9 +211,11 @@
       width: 100%;
       color: $color-white;
       font-size: medium;
-      font-size: 14px;
       padding: 5px 0;
-      // font-weight: bold;
+
+      @media (max-width: 575px) {
+        font-size: small;
+      }
     }
 
     &-body {
@@ -202,20 +225,7 @@
       width: 100%;
     }
 
-    &-itemName {
-      display: flex;
-      flex-direction: row;
-      justify-content: start;
-      align-items: center;
-      border-right: 1pt solid $color-tab-blue;
-      width: 100%;
-      text-align: left;
-      font-family: $font-light;
-      margin-left: 8px;
-
-
-    }
-
+    &-itemName,
     &-item {
       display: flex;
       flex-direction: row;
@@ -230,11 +240,163 @@
 }
 
 .truncate-text {
-  max-width: 300px;
-  /* Ancho máximo deseado */
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis !important;
   align-items: center;
-  margin: auto 0
+  margin: auto 0;
+}
+
+@media (max-width: 768px) {
+  .card-form {
+    width: 100%;
+  }
+
+  .card-form-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select,
+  .card-text-area {
+    width: 300px;
+    max-width: 300px;
+    margin: 10px auto;
+    justify-content: center;
+  }
+
+  .card-form-button {
+    justify-content: center;
+  }
+
+  .card-form-banner {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-input {
+    font-size: smaller;
+    padding: 4px 8px;
+  }
+
+  .card-form-banner-title {
+    font-size: x-large;
+  }
+
+  .card-text-placeholder,
+  .card-text-area {
+    font-size: smaller;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select {
+    max-width: 200px;
+    margin: 10px;
+    justify-content: center;
+  }
+
+  .card-buttonUp-custom-button {
+    width: 100%;
+    margin: auto;
+    align-items: baseline;
+    font-size: small;
+  }
+
+  .card-buttonUp-label {
+    padding: 8px 16px;
+    font-size: medium;
+  }
+
+  .card-table-header {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 575px) {
+  .custom-input {
+    font-size: smaller;
+    padding: 4px 8px;
+  }
+
+  .card-form-banner-title {
+    font-size: x-large;
+  }
+
+  .card-text-placeholder,
+  .card-text-area {
+    font-size: smaller;
+  }
+
+  .card-form-input-options,
+  .card-form-input-select {
+    width: 250px;
+    max-width: none;
+    margin: 10px;
+    justify-content: center;
+  }
+
+  .card-form-button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .card-form-banner {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .card-table-header {
+    font-size: 12px;
+  }
+}
+
+.card-table-item .remover-text {
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+.container-card_text {
+  width: 40rem;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 950px) {
+    width: 100%;
+  }
+
+  @media (max-width: 575px) {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+.card-buttonUp {
+  width: 40rem;
+  //margin: 10px auto;
+  margin-left: 17%;
+  margin-right: 17%;
+
+  @media (max-width: 575px) {
+    width: 100%;
+    //padding: 0 10px;
+  }
+}
+
+.button-container {
+  position: relative;
+  display: flex;
+  justify-content: center; /* Centrar el botón horizontalmente */
+  align-items: center; /* Centrar el botón verticalmente */
+  width: 100%;
+  height: auto; /* Ajustar la altura automáticamente */
+  overflow: hidden; /* Evitar desbordamiento */
 }

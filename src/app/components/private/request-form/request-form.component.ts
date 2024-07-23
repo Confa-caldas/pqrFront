@@ -116,6 +116,13 @@ export class RequestFormComponent implements OnInit {
     });
   }
 
+  convertToLowercase(controlName: string): void {
+    const control = this.requestForm.get(controlName);
+    if (control) {
+      control.setValue(control.value.toLowerCase(), { emitEvent: false });
+    }
+  }
+
   showSuccessMessage(state: string, title: string, message: string) {
     this.messageService.add({ severity: state, summary: title, detail: message });
   }
@@ -327,4 +334,15 @@ export class RequestFormComponent implements OnInit {
     this.message = filing_number.toString();
     this.severity = 'danger';
   }
+
+  //Configuracion mensajes placeholder
+  /*
+  getPlaceholder(): string {
+    switch(this.applicantType.applicant_type_id) {
+      case 1:
+        return '*Descripción detallada de la solicitud';
+      default:
+        return '*Descripción detallada de la solicitud incluyendo los datos de las personas a cargo';
+    }
+  } */
 }

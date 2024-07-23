@@ -12,11 +12,16 @@
       <div class="modal-blue">
         <div *ngIf="requestCreation">
           <div class="col-12 title" style="font-size: 23pt">
-            Su solicitud ha sido enviada exitosamente
+            ¡Solicitud enviada con éxito!
+          </div>
+          <div class="col-12 subtitle">
+            <span class="text">Radicado N°. </span>
+            <span class="text">{{ message }}</span>
           </div>
           <div class="col-12 text">
-            <span class="text">Número de radicado: </span>
-            <span class="text">{{ message }}</span>
+            <span class="text">Revisa el correo electrónico registrado,
+              incluída la bandeja de spam, para que verifiques la confirmación.
+            </span>
           </div>
           <div class="col-12 text-center">
             <p-button

@@ -1,64 +1,51 @@
-<p-dialog [(visible)]="visible" [style]="{ width: '100vw' }" [modal]="true">
+<p-dialog [(visible)]="visible" [style]="{ width: '80vw' }" [modal]="true">
   <ng-template pTemplate="headless">
-    <div class="modal-content">
-      <div class="login-form-header">
-        <div class="login-form-header__item login-form-header__item_1"></div>
-        <div class="login-form-header__item login-form-header__item_2"></div>
-        <div class="login-form-header__item login-form-header__item_3"></div>
-        <div class="login-form-header__item login-form-header__item_4"></div>
-        <div class="login-form-header__item login-form-header__item_5"></div>
-        <div class="login-form-header__item login-form-header__item_6"></div>
-      </div>
-      <div class="row">
-        <div class="login-form-logo d-flex justify-content-center my-4">
-          <img src="../../../assets/images/logo-login.png" class="login-form-logo__img" />
-        </div>
-      </div>
-      <div class="row my-4 px-5">
-        <div class="col-12 container-text">
-          <ng-container *ngIf="!expandMessage; else expandedMessage">{{
-            message | slice: 0 : 500
-          }}</ng-container>
-          <ng-template #expandedMessage>{{ message }}</ng-template>
-          <button *ngIf="expandMessage" class="button-more" (click)="toggleExpand()">
-            <span class="pi pi-angle-up"></span> Leer menos
-          </button>
-          <button *ngIf="!expandMessage" class="button-more" (click)="toggleExpand()">
-            <span class="pi pi-angle-down"></span> Leer mas
-          </button>
-        </div>
-      </div>
-      <form [formGroup]="formGroup">
-        <div class="container_checkbox">
-          <input type="checkbox" formControlName="inputValue" style="width: auto" />
-          <label class="container_text">
-            Acepto el tratamiento de datos personales de Confa
-            <!--<a href="#" class="container_link">tratamiento de datos personales </a>
-            de Confa-->
-          </label>
-        </div>
-      </form>
-      <div class="row my-4 px-5">
-        <p class="error-label">
-          {{
-            formGroup.get('inputValue')?.hasError('required')
-              ? 'Para continuar con la creación de su solicitud, es importante que acepte el tratamiento de sus datos'
-              : ''
-          }}
-        </p>
-      </div>
-      <div>
-        <div class="row my-4 px-5">
-          <div class="col-12 d-flex justify-content-evenly">
-            <button label="Cerrar" class="button-close" (click)="closeDialog(false)">Cerrar</button>
-            <p-button
-              label="Continuar"
-              [style]="{ 'border-radius': '10px', 'background-color': '#00aeef', width: '275px' }"
-              [disabled]="!formGroup.get('inputValue')?.valid"
-              (click)="closeDialog(true)"></p-button>
+    <div class="modal-overlay">
+    <div class="modal-content modal-policies">
+      <div class="modal-header p-2">
+        <div class="p-1 col-md-11">
+          <div class="card-politica">
+            <div class="row no-gutters">
+              <div class="col-md-2 d-flex justify-content-center align-items-center">
+                <img src="../../../../assets/images/politicaDatos.png" class="card-img m-3" alt="" />
+              </div>
+              <div class="card-politica-body col-md-10">
+                <div class="p-2">
+                  <span>Tómate un momento para leer nuestra</span>
+                  <h4 class="modal-title" id="modalPoliticaTratamientoDatosTitle">
+                    Autorización de tratamiento de datos y de habeas Data
+                  </h4>
+                  <p class="text-break m-0">
+                    Para leer nuestra política completa 
+                    <a href="https://56a.4c4.myftpupload.com/wp-content/uploads/2022/05/POLI%CC%81TICA-DE-TRATAMIENTO-DE-LA-INFORMACIO%CC%81N-1-1.pdf"
+                      target="_blank" class="link-politicas">ingresa aqui.
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close" (click)="closeDialog(false)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="divider"></div>
+      <div class="modal-body p-4 contenidopolicies">
+        <div class="row d-flex m-0" id="imag-h4">
+          <img class="col-12 p-0" src="../../../../assets/images/logo_reverse.png" alt="" />
+          <h4 class="col-12 col-sm-5 col-md-5 col-lg-3 col-xl-3">Política de Habeas Data:</h4>
+        </div>
+        <div style="height: 80% !important; overflow: auto">
+          <p>
+            Acepto todos los requisitos y recomendaciones. Así mismo, autorizo de manera libre, previa, expresa e informada a la Caja de Compensación Familiar de Caldas, Confa para que trate mis datos personales o sensibles que llegase a recolectar, para procesarla, recolectarla, almacenarla, usarla, circularla, suprimirla, compartirla, actualizarla, transmitirla y transferirla de acuerdo con los términos y condiciones de las políticas de tratamiento vigentes (www.confa.co), con el fin de hacer posible la presentación de los servicios propios, reportes a autoridades de control y vigilancia y para uso de fines administrativo, comercial, de publicidad y contacto frente a los titulares de los mismos.
+          </p>
+          <p>
+            Como titular de la información tengo derecho a consultar, conocer, actualizar y rectificar mis datos personales, ser informado sobre el uso que se ha dado a los mismos en el momento que los solicite, presentar quejas, revocar la autorización y/o solicitar la supresión de mis datos en los casos en que sea procedente y acceder en forma gratuita a los mismos, a través de las líneas de atención 8783111 ext 2790 o al correo proteccion.datosconfa.co. Conozco que como titular de datos sensibles no estoy obligado a autorizar el tratamiento.
+          </p>
         </div>
       </div>
     </div>
+  </div>
   </ng-template>
 </p-dialog>
