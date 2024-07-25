@@ -100,6 +100,8 @@ export class RequestDetailsComponent implements OnInit {
   ngOnInit() {
     this.PERFIL = sessionStorage.getItem(SessionStorageItems.PERFIL) || '';
     this.user = sessionStorage.getItem(SessionStorageItems.USER) || '';
+
+    console.log(localStorage.getItem);
     let routeIf = localStorage.getItem('route');
     if (routeIf?.includes(RoutesApp.SEARCH_REQUEST)) {
       this.routeTab = routeIf;
