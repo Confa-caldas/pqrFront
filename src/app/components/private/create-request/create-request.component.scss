@@ -3,6 +3,7 @@
 
 .ui-dropdown .ui-dropdown-item.ui-state-highlight {
   background-color: #f0f0f0;
+  max-height: 500px;
   /* Set your desired background color */
 }
 
@@ -34,6 +35,7 @@
       
       .ui-dropdown-label {
         width: calc(100% - 20px); /* Ajusta el ancho del label dentro del dropdown */
+        
       }
 
       .ui-dropdown-trigger {
@@ -215,6 +217,8 @@
   width: auto !important;
   max-width: 350px; /* Ajusta este valor según sea necesario */
   overflow-x: hidden !important; /* Evita el desplazamiento horizontal */
+  max-height: 500px;
+  width: auto !important;
 }
 
 /* Ajustar el estilo de los elementos de la lista */
@@ -234,4 +238,12 @@
 ::ng-deep .p-dropdown-label {
   white-space: normal !important; /* Permite que el texto se ajuste a varias líneas */
   word-wrap: break-word !important; /* Permite que el texto largo se divida en varias líneas */
+}
+
+::ng-deep .container-select-options .p-dropdown-item.p-highlight {
+  background-color: lightblue !important;
+}
+
+::ng-deep .container-select-options .p-dropdown-item {
+  white-space: normal !important;
 }
