@@ -59,6 +59,7 @@ export interface RequestsDetails {
   form_id: number;
   updated_by?: string;
   updated_date?: string;
+  user_name_completed?: string;
 }
 export interface RequestAttachmentsList {
   url: string;
