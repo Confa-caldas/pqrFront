@@ -82,6 +82,7 @@ export interface RequestHistoric {
   status_name: string;
   assigned_user: string;
   difference: string[];
+  user_name_completed: string;
 }
 export interface AssignUserRequest {
   request_id: number;

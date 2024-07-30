@@ -203,7 +203,7 @@ export class ProcessRequestComponent implements OnInit {
       request_days: this.filterForm.controls['request_days'].value || null,
       applicant_type_id: this.filterForm.controls['applicant_type_id'].value || null,
       request_type_id: this.filterForm.controls['request_type_id'].value || null,
-      assigned_user: this.filterForm.controls['assigned_user'].value?.user_name || null,
+      assigned_user: this.filterForm.controls['assigned_user'].value || null,
       status_id: this.filterForm.controls['request_status_id'].value || null,
       page: this.page,
       page_size: this.rows,
