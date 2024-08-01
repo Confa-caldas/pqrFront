@@ -455,6 +455,10 @@ header="Previsualización del Documento"
     <img [src]="preSignedUrlDownload" alt="Preview" style="width:100%; height:500px;"/>
   </div>
 
+  <div *ngIf="viewerType === 'pdf'">
+    <ngx-doc-viewer [url]="preSignedUrlDownload" viewer="google" style="width:100%; height:500px;"></ngx-doc-viewer>
+  </div>
+
 </p-dialog>
 
 <app-modal-dinamic

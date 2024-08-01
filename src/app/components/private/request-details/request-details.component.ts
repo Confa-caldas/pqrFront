@@ -29,7 +29,7 @@ export class RequestDetailsComponent implements OnInit {
   @ViewChild('archive_request') fileInput!: ElementRef;
 
   displayPreviewModal: boolean = false;
-  viewerType: 'google' | 'office' | 'image' = 'google'; 
+  viewerType: 'google' | 'office' | 'image' | 'pdf' = 'google'; 
 
   requestList: RequestsList[] = [];
   requestDetails?: RequestsDetails;
@@ -698,11 +698,11 @@ export class RequestDetailsComponent implements OnInit {
       });
     }
   
-    getViewerType(file_name: string): 'google' | 'office' | 'image' {
+    getViewerType(file_name: string): 'google' | 'office' | 'image' | 'pdf' {
       const extension = file_name.split('.').pop()?.toLowerCase();
       switch (extension) {
         case 'pdf':
-          return 'google';
+          return 'pdf';
         case 'docx':
         case 'doc':
         case 'xlsx':
