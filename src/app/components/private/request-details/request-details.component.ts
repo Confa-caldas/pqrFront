@@ -674,15 +674,10 @@ export class RequestDetailsComponent implements OnInit {
     async getPreSignedUrlToDownload(url: string, file_name: string, is_download: boolean) {
       const payload = { url: url };
       this.userService.getUrlSigned(payload, 'download').subscribe({
-        next: (response: any): void => {
+        next: (response: BodyResponse<string>): void => {
           if (response.code === 200) {
             this.preSignedUrlDownload = response.data;
-            this.viewerType = this.getViewerType(file_name);
-            if (!is_download) {
-              this.displayPreviewModal = true;
-            } else {
-              this.downloadFileS3(this.preSignedUrlDownload, file_name);
-            }
+            
           } else {
             this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
           }
@@ -692,6 +687,13 @@ export class RequestDetailsComponent implements OnInit {
         },
         complete: () => {
           console.log('La suscripción ha sido completada.');
+          this.viewerType = this.getViewerType(file_name);
+          if (!is_download) {
+            this.displayPreviewModal = true;
+          } else {
+            this.downloadFileS3(this.preSignedUrlDownload, file_name);
+          }
+          return this.preSignedUrlDownload;
         },
       });
     }
