@@ -44,7 +44,7 @@ export class RequestDetailsComponent implements OnInit {
   message2 = '';
   buttonmsg = '';
   parameter = [''];
-  request_details?: RequestsDetails;
+  request_details!: RequestsDetails;
   selectedRequests: RequestsList[] = [];
   request_id: number = 0;
   tabWidth!: number;
@@ -353,9 +353,9 @@ export class RequestDetailsComponent implements OnInit {
   closeDialogCharacterization(value: boolean) {
     this.visibleCharacterization = false;
   }
-  setParameter(inputValue: string) {
-    if (!this.request_details || !this.enableAssign) return;
-    if (this.request_details['assigned_user'] == inputValue) {
+  setParameter(inputValue: { userName: string, userNameCompleted: string }) {
+    if (!this.enableAssign) return;
+    if (this.request_details['assigned_user'] == inputValue.userName) {
       this.visibleDialogAlert = true;
       this.informative = true;
       this.message = 'Verifique el responsable a asignar';
@@ -364,7 +364,8 @@ export class RequestDetailsComponent implements OnInit {
       this.severity = 'danger';
       return;
     }
-    this.request_details['assigned_user'] = inputValue;
+    this.request_details['assigned_user'] = inputValue.userName;
+    this.request_details['user_name_completed'] = inputValue.userNameCompleted;
     if (inputValue) {
       this.userService.assignUserToRequest(this.request_details).subscribe({
         next: (response: BodyResponse<string>) => {
