@@ -52,7 +52,7 @@
 
   <div class="container-button" *ngIf="!showProcessTab()">
     <p-button
-      *ngIf="requestDetails.status_name !== 'Cerrada' && PERFIL !== 'RESPONSABLE'"
+      *ngIf="requestDetails.status_name !== 'Cerrada' && PERFIL !== 'CONSULTANTE'"
       [label]="
         requestDetails.assigned_user === null || requestDetails.assigned_user === ''
           ? 'Asignar'
@@ -433,32 +433,39 @@
 }
 <p-toast></p-toast>
 
-<p-dialog 
-header="Previsualización del Documento" 
-  [(visible)]="displayPreviewModal" 
-  [modal]="true" 
-  [style]="{width: '80vw'}" 
-  [contentStyle]="{padding: '1em'}"
+<p-dialog
+  header="Previsualización del Documento"
+  [(visible)]="displayPreviewModal"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+  [contentStyle]="{ padding: '1em' }"
   [responsive]="true"
   [styleClass]="'custom-dialog'"
   (onHide)="displayPreviewModal = false">
-  
   <div *ngIf="viewerType === 'google'">
-    <ngx-doc-viewer [url]="preSignedUrlDownload" viewer="google" style="width:100%; height:500px;"></ngx-doc-viewer>
+    <ngx-doc-viewer
+      [url]="preSignedUrlDownload"
+      viewer="google"
+      style="width: 100%; height: 500px"></ngx-doc-viewer>
   </div>
-  
+
   <div *ngIf="viewerType === 'office'">
-    <ngx-doc-viewer [url]="preSignedUrlDownload" viewer="office" style="width:100%; height:500px;"></ngx-doc-viewer>
+    <ngx-doc-viewer
+      [url]="preSignedUrlDownload"
+      viewer="office"
+      style="width: 100%; height: 500px"></ngx-doc-viewer>
   </div>
-  
+
   <div *ngIf="viewerType === 'image'">
-    <img [src]="preSignedUrlDownload" alt="Preview" style="width:100%; height:500px;"/>
+    <img [src]="preSignedUrlDownload" alt="Preview" style="width: 100%; height: 500px" />
   </div>
 
   <div *ngIf="viewerType === 'pdf'">
-    <ngx-doc-viewer [url]="preSignedUrlDownload" viewer="google" style="width:100%; height:500px;"></ngx-doc-viewer>
+    <ngx-doc-viewer
+      [url]="preSignedUrlDownload"
+      viewer="google"
+      style="width: 100%; height: 500px"></ngx-doc-viewer>
   </div>
-
 </p-dialog>
 
 <app-modal-dinamic
