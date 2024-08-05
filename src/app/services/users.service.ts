@@ -374,9 +374,7 @@ export class Users {
     );
   }
   downloadFileFromS3(preSignedUrl: string): Observable<Blob> {
-    const headers = new HttpHeaders({
-      responseType: 'blob',
-    });
-    return this.http.get(preSignedUrl, { headers: headers, responseType: 'blob' });
-  }
+    return this.http.get(preSignedUrl, { responseType: 'blob' });
+}
+
 }
