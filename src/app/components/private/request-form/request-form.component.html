@@ -1,9 +1,11 @@
 <p-card class="container">
+  <div class="container-principal">
   <form [formGroup]="requestForm">
     <h4 class="card-form-banner-title">Ingresa aquí tu solicitud</h4>
+    
     <p-card class="container-card">
       
-      
+      <div class="rows">
       <div class="card-form-row">
         <div class="card-form-input">
           <label class="card-form-input-placeholder">Tipo de documento*</label>
@@ -204,8 +206,8 @@
           <div class="card-table-itemName">
             <p class="truncate-text">{{ fileName === '' ? 'Nombre de Archivo' : fileName }}</p>
           </div>
-          <div class="card-table-item">
-            <span class="remover-text">Remover</span>
+          <div class="card-table-item" >
+            <span class="remover-text">Remover archivo</span>
             <p-button
               icon="pi pi-times"
               [style]="{
@@ -213,7 +215,8 @@
                 height: '20px',
                 width: '20px',
                 'background-color': '#ebebeb',
-                color: 'red'
+                color: 'red',
+                'margin-right': '20px'
               }"
               [text]="true"
               severity="danger"
@@ -221,6 +224,7 @@
           </div>
         </div>
       </div>
+    </div>
     </p-card>
     <div class="button-container">
     <p-button
@@ -230,6 +234,7 @@
     (click)="sendRequest()"
     class="card-form-button"></p-button></div>
   </form>
+</div>
 </p-card>
 
 <p-toast></p-toast>

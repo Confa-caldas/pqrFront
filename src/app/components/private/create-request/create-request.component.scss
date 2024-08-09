@@ -10,13 +10,19 @@
 .container {
   display: flex;
   justify-content: center; /* Centra los elementos horizontalmente */
-  width: 100%;
+  width: 1200px;
+  max-width: 1200px;
+  padding-left: 0px;
+  padding-right: 0px;
 
   &-select {
+    margin-top: 30px;
+    margin-left: 65px;
+    margin-right: 65px;
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra los elementos dentro de container-select */
-    width: 100%; /* Ajusta el ancho para ser responsivo */
+    flex-direction: row;
+    //align-items: center; /* Centra los elementos dentro de container-select */
+    width: 100px; /* Ajusta el ancho para ser responsivo */
 
     &-placeholder {
       color: $color-text-black;
@@ -32,6 +38,7 @@
     &-options {
       width: 100%; /* Ajusta el ancho para ser responsivo */
       max-width: 350px; /* Ancho máximo */
+      height: 40px;
       
       .ui-dropdown-label {
         width: calc(100% - 20px); /* Ajusta el ancho del label dentro del dropdown */
@@ -46,11 +53,15 @@
     &-invalid {
       color: $color-red;
       font-size: small;
+      margin-top: 5px;
+      margin-left: 15px;
     }
   }
 
   &-card {
-    margin: 0.5% 2%;
+    //margin-top: 40px;
+    margin-left: 47px;
+    //margin: 0.5% 2%;
     width: 100%; /* Ajusta el ancho para ser responsivo */
     max-width: 400px; /* Ancho máximo */
 
@@ -80,15 +91,15 @@
       font-family: $font-light;
       color: $color-text-black;
       font-size: 16px;
-      margin-left: 10%; /* Margen en porcentaje para ser responsivo */
-      margin-right: 10%;
+      margin-left: 40px;
+      margin-right: 40px;
     }
   }
 
   &-checkbox {
     display: flex;
     justify-content: center;
-    margin: 15px;
+    margin: 20px;
     cursor: pointer;
     align-items: center;
 
@@ -109,77 +120,23 @@
   }
 
   &-button {
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     font-size: 16px;
+    margin-bottom: 20px;
   }
 }
 
-/* Media queries para ajustes responsivos */
-@media (max-width: 1200px) {
-  .container-card {
-    max-width: 100%; /* Ancho máximo ajustado */
-  }
 
-  .centered-box {
-    max-width: 100%; /* Ancho ajustado para pantallas más pequeñas */
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
-    align-items: center;
-  }
-
-  .container-card {
-    margin: 1% 0; /* Ajusta el margen en pantallas pequeñas */
-  }
-
-  .container-card_text {
-    margin-left: 5%; /* Ajusta el margen en pantallas pequeñas */
-    margin-right: 5%;
-  }
-
-  .centered-box {
-    width: 100%; /* Ancho ajustado para pantallas más pequeñas */
-  }
-}
-
-@media (max-width: 480px) {
-  .container-select-placeholder,
-  .container-checkbox_a,
-  .container-checkbox_link {
-    font-size: 12px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
-  }
-
-  .container-card_header {
-    font-size: 20px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
-  }
-
-  .container-card_title,
-  .container-checkbox_a,
-  .container-checkbox_link {
-    font-size: 14px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
-  }
-
-  .centered-box {
-    width: 100%; /* Ancho completo para pantallas muy pequeñas */
-    padding: 15px; /* Ajusta el padding en pantallas muy pequeñas */
-  }
-
-  .centered-box p {
-    font-size: 14px; /* Ajusta el tamaño de fuente en pantallas muy pequeñas */
-  }
-}
 
 .centered-box {
   border: 2px solid #d3d3d3;
-  width: 60%; /* Ancho del cuadro */
+  width: 751px; /* Ancho del cuadro */
   padding: 10px; /* Espacio interno del cuadro */
   margin: 0 auto; /* Centrar el cuadro horizontalmente */
   margin-top: 30px;
+  margin-bottom: 40px;
 
   .content {
     display: flex;
@@ -206,44 +163,460 @@
 
   margin-bottom: 50px;
 
-  @media (max-width: 767px) {
-    //margin: auto; // Márgenes para pantallas pequeñas
-    margin-bottom: 20px;
-  }
 }
 
 /* Ajustar el panel desplegable del dropdown */
 ::ng-deep .p-dropdown-panel {
   width: auto !important;
-  max-width: 350px; /* Ajusta este valor según sea necesario */
+  max-width: auto !important; /* Ajusta este valor según sea necesario */
   overflow-x: hidden !important; /* Evita el desplazamiento horizontal */
   max-height: 500px;
   width: auto !important;
+  //overflow-y: auto;
+  border-radius: 16px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+  margin-top: 3px;
 }
 
 /* Ajustar el estilo de los elementos de la lista */
 ::ng-deep .p-dropdown-item {
-  white-space: normal !important; /* Permite que el texto se ajuste a varias líneas */
-  word-wrap: break-word !important; /* Permite que el texto largo se divida en varias líneas */
   height: auto !important; /* Ajusta la altura automáticamente */
   line-height: 1.5 !important; /* Aumenta la altura de línea para mayor claridad */
 }
 
-/* Opcional: Ajustar el ancho de los elementos del dropdown para asegurar que el texto se ajuste */
-::ng-deep .p-dropdown-items .p-dropdown-item {
-  max-width: 80% !important; /* Asegura que el elemento se ajuste al ancho del panel */
-}
-
-/* Ajustar la etiqueta del dropdown para texto largo */
-::ng-deep .p-dropdown-label {
-  white-space: normal !important; /* Permite que el texto se ajuste a varias líneas */
-  word-wrap: break-word !important; /* Permite que el texto largo se divida en varias líneas */
-}
-
 ::ng-deep .container-select-options .p-dropdown-item.p-highlight {
-  background-color: lightblue !important;
+  font-family: $font-bold;
+  border-radius: 5px;
 }
 
-::ng-deep .container-select-options .p-dropdown-item {
-  white-space: normal !important;
+
+.container-content{
+  margin-left: 45px;
+  margin-right: 45px;
+}
+
+.p-card .p-card-body {
+  padding: 0 !important;
+}
+
+.container-card-select {
+  //TIPO DE FUENTE TEXTOS
+  font-family: $font-light;
+  color: $color-text-black;
+  font-size: 16px;
+  margin-left: 40px; /* Margen en porcentaje para ser responsivo */
+  margin-right: 40px;
+  display: flex;
+  justify-content: space-between; /* Espacio entre los elementos */
+  flex-wrap: wrap;
+}
+
+.container-select {
+  display: flex;
+  gap: 110px; /* Espacio entre los elementos, ajusta según sea necesario */
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+}
+
+.container-select-item {
+  flex: 1; /* Permite que los elementos hijos crezcan de manera uniforme */
+  min-width: 200px; /* Asegura un ancho mínimo para cada elemento */
+}
+
+::ng-deep .p-card .p-card-body {
+  padding: 0 !important;
+}
+
+::ng-deep .p-dropdown .p-dropdown-label.p-placeholder {
+  padding-left: 20px;
+}
+
+::ng-deep .p-dropdown {
+  //width: 100%;
+  width: 395px;
+  height: 40px;
+
+
+  &:focus {
+    border: 0;
+  }
+}
+
+
+
+/* Media queries para ajustes responsivos */
+@media (max-width: 1360px){
+  .container {
+    width: 95%;
+    //max-width: 100%;
+  }
+
+  .container-select {
+    //flex-direction: column;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .container-card {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .container-checkbox {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .centered-box {
+    width: 70%;
+    //padding: 15px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .container-card-select {
+    //TIPO DE FUENTE TEXTOS
+    font-family: $font-light;
+    color: $color-text-black;
+    font-size: 16px;
+    margin-left: 40px; /* Margen en porcentaje para ser responsivo */
+    margin-right: 40px;
+    display: flex;
+    justify-content: space-between; /* Espacio entre los elementos */
+    flex-wrap: wrap;
+  }
+
+  .container-select {
+    //flex-direction: column;
+    margin: 20px 0;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    &-item {
+      width: 100%;
+      margin-bottom: 15px; /* Espacio entre los items */
+      //display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-placeholder {
+      //font-size: 14px;
+      margin-bottom: 5px; /* Espacio entre el placeholder y el elemento */
+      align-self: flex-start; /* Alinea el placeholder a la izquierda del contenedor */
+    }
+
+    &-options {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .container-card {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .container-checkbox {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .centered-box {
+    width: 70%;
+  }
+
+  ::ng-deep .p-dropdown {
+    width: 100%;
+    height: 40px;
+  }
+
+  ::ng-deep .p-overlay-content {
+    width: 90%;
+    max-width: 100%;
+  }
+
+  ::ng-deep .p-dropdown-item {
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  ::ng-deep .p-dropdown-panel {
+    overflow-y: auto;
+  }
+
+  ::ng-deep .p-dropdown-label, .p-dropdown-item {
+    font-size: 0.875rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    //width: 100%;
+    flex-direction: column;
+    max-width: 90%;
+  }
+
+  .container-content{
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+
+
+  .container-card-select {
+    //TIPO DE FUENTE TEXTOS
+    font-family: $font-light;
+    color: $color-text-black;
+    font-size: 16px;
+    margin-left: 5%; /* Margen en porcentaje para ser responsivo */
+    margin-right: 5%;
+    display: flex;
+    justify-content: space-between; /* Espacio entre los elementos */
+    flex-wrap: wrap;
+  }
+
+  .container-select-item {
+    flex: 1; /* Permite que los elementos hijos crezcan de manera uniforme */
+    max-width: 100%; /* Asegura un ancho mínimo para cada elemento */
+  }
+
+  .container-select {
+    flex-direction: column;
+    margin: 20px 0;
+    align-items: center;
+
+    &-item {
+      width: 100%;
+      //margin-bottom: 15px; /* Espacio entre los items */
+    }
+
+    &-placeholder,
+    &-options {
+      width: 100%;
+    }
+
+    &-placeholder {
+      //font-size: 14px;
+    }
+
+    &-options {
+      max-width: 100%;
+    }
+
+  }
+
+  .container-card {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+
+    &_header {
+      font-size: 20px;
+    }
+
+    &_text {
+      margin: 0 20px;
+      font-size: 16px;;
+    }
+
+    &_textRecomendations {
+      font-size: 16px;;
+    }
+
+    &_title {
+      font-size: 18px;
+    }
+  }
+  
+
+  .container-checkbox {
+    margin-left: 10%;
+    margin-right: 10%;
+    flex-direction: row;
+  }
+
+  .centered-box {
+    width: 70%;
+    //padding: 15px;
+  }
+
+  ::ng-deep .p-dropdown {
+    width: 100%;
+    height: 40px;
+  
+  
+    &:focus {
+      border: 0;
+    }
+  }
+
+  ::ng-deep .p-overlay-content {
+    width: 90%;
+    max-width: 100%;
+  }
+
+  ::ng-deep .p-dropdown-item {
+    white-space: normal; // Permite que el texto se ajuste y haga salto de línea.
+    //max-width: 95%; // Ajusta según lo necesites.
+    overflow-wrap: break-word; // Asegura que las palabras largas se ajusten.
+  }
+
+  ::ng-deep .p-dropdown-panel {
+    //max-height: 200px; /* Limita la altura máxima del panel de dropdown */
+    overflow-y: auto; /* Permite el scroll si el contenido excede la altura */
+  }
+
+  ::ng-deep .p-dropdown-label, .p-dropdown-item {
+    font-size: 0.875rem; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+    //padding: 8px; /* Ajusta el espaciado interno */
+  }
+}
+
+
+
+
+
+/* Ajustes para pantallas de móviles (menos de 480px) */
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .container-content{
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .container-card-select {
+    //TIPO DE FUENTE TEXTOS
+    font-family: $font-light;
+    color: $color-text-black;
+    font-size: 16px;
+    margin-left: 5%; /* Margen en porcentaje para ser responsivo */
+    margin-right: 5%;
+    display: flex;
+    justify-content: space-between; /* Espacio entre los elementos */
+    flex-wrap: wrap;
+  }
+
+  .container-select-item {
+    flex: 1; /* Permite que los elementos hijos crezcan de manera uniforme */
+    max-width: 100%; /* Asegura un ancho mínimo para cada elemento */
+  }
+
+  .container-select {
+    flex-direction: column;
+    margin: 20px 0;
+    align-items: center;
+
+    &-item {
+      width: 100%;
+      //margin-bottom: 15px; /* Espacio entre los items */
+    }
+
+    &-placeholder,
+    &-options {
+      width: 100%;
+    }
+
+    &-placeholder {
+      //font-size: 14px;
+    }
+
+    &-options {
+      max-width: 100%;
+    }
+
+  }
+
+  .container-card {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+
+    &_header {
+      font-size: 20px;
+    }
+
+    &_text {
+      margin: 0 20px;
+      font-size: 14px;
+    }
+
+    &_textRecomendations {
+      font-size: 14px;
+    }
+
+    &_title {
+      font-size: 18px;
+    }
+  }
+
+  .container-checkbox {
+    margin: 20px 0;
+
+    &_a,
+    &_link {
+      font-size: 14px;
+    }
+  }
+
+  .container-button {
+    font-size: 14px;
+  }
+
+  .centered-box {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .centered-box p {
+    font-size: 12px;
+  }
+
+  .centered-box .small-image {
+    width: 20px;
+    margin-right: 5px;
+  }
+
+  ::ng-deep .p-dropdown {
+    width: 100%;
+    height: 40px;
+  
+  
+    &:focus {
+      border: 0;
+    }
+  }
+
+  ::ng-deep .p-overlay-content {
+    width: 290px;
+  }
+
+  ::ng-deep .p-dropdown-item {
+    white-space: normal; // Permite que el texto se ajuste y haga salto de línea.
+    max-width: 70%; // Ajusta según lo necesites.
+    overflow-wrap: break-word; // Asegura que las palabras largas se ajusten.
+  }
+
+  ::ng-deep .p-dropdown-panel {
+    //max-height: 200px; /* Limita la altura máxima del panel de dropdown */
+    overflow-y: auto; /* Permite el scroll si el contenido excede la altura */
+  }
+
+  ::ng-deep .p-dropdown-label, .p-dropdown-item {
+    font-size: 0.875rem; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+    padding: 8px; /* Ajusta el espaciado interno */
+  }
+
 }

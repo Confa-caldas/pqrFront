@@ -1,5 +1,6 @@
 @import '../../../../assets/styles/abstracts/variables.scss';
 
+/* Estilos generales que se mantienen para todas las pantallas mayores de 1360px */
 .custom-input {
   font-size: small;
   border: 1px solid #ccc;
@@ -8,15 +9,13 @@
 }
 
 .container {
-  display: block;
+  display: flex;
   justify-content: center;
-  width: 100%;
+  width: 1200px;
+  max-width: 1200px;
+  padding-left: 0px;
+  padding-right: 0px;
   margin-bottom: 50px;
-
-  @media (max-width: 575px) {
-    width: 100%;
-    padding: 0 10px;
-  }
 }
 
 .card {
@@ -24,20 +23,6 @@
     position: relative;
     width: 30%;
     margin: auto;
-
-    @media (max-width: 1200px) {
-      width: 80%;
-    }
-
-    @media (max-width: 950px) {
-      width: 100%;
-      padding: 10px;
-    }
-
-    @media (max-width: 575px) {
-      width: 100%;
-      padding: 0 10px;
-    }
 
     &-banner {
       position: absolute;
@@ -50,32 +35,20 @@
       width: 100%;
       max-width: 450px;
 
-      @media (max-width: 575px) {
-        height: 40px;
-      }
-
       &-title {
         font-size: x-large;
         color: $color-tab-blue;
         text-align: center;
         font-weight: bolder;
         margin-bottom: 20px;
-
-        @media (max-width: 575px) {
-          font-size: large;
-        }
       }
     }
 
     &-row {
       display: flex;
       flex-direction: row;
-      justify-content: space-evenly;
+      justify-content: space-between;
       margin-top: 5px;
-
-      @media (max-width: 480px) {
-        flex-direction: column;
-      }
     }
 
     &-input {
@@ -84,39 +57,37 @@
 
       &-placeholder {
         font-size: x-small;
-        margin: 0 0 5px 15px;
+        margin: 0 0 5px 20px;
         color: $color-black;
 
         &-invalid {
           color: $color-red;
           font-size: x-small;
-          margin: 0 0 5px 15px;
+          margin: 0 0 5px 20px;
         }
       }
 
-      &-options,
-      &-select {
-        width: 300px;
-        max-width: 300px;
+      &-options {
+        width: 325px;
+        max-width: 325px;
         border-radius: 20px;
         height: 40px;
         font-size: small;
+        padding-left: 20px;
+      }
 
-        @media (max-width: 575px) {
-          width: 100%;
-          max-width: none;
-        }
+      &-select {
+        width: 325px;
+        max-width: 325px;
+        border-radius: 20px;
+        height: 40px;
+        font-size: small;
       }
     }
 
     &-button {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
-
-      @media (max-width: 575px) {
-        width: 100%;
-      }
     }
   }
 
@@ -124,11 +95,9 @@
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-    margin-left: 17%;
-    margin-right: 17%;
 
     &-placeholder {
-      margin: 0 0 5px 15px;
+      margin: 0 0 5px 20px;
       font-size: x-small;
       color: $color-black;
     }
@@ -146,7 +115,7 @@
     margin-top: 10px;
 
     &-placeholder {
-      margin: 0 0 5px 15px;
+      margin: 0 0 5px 20px;
       font-size: x-small;
       color: $color-black;
     }
@@ -154,10 +123,6 @@
     &-custom-button {
       display: inline-block;
       position: relative;
-
-      @media (max-width: 575px) {
-        width: 100%;
-      }
     }
 
     &-custom-icon {
@@ -177,11 +142,6 @@
       box-shadow: 2px 2px $color-white-smoke;
       color: $color-dim-gray;
       cursor: pointer;
-
-      @media (max-width: 575px) {
-        padding: 8px 16px;
-        font-size: medium;
-      }
     }
   }
 
@@ -190,32 +150,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    //margin: 10px auto;
-    //width: 100%;
-    //max-width: 40rem;
     margin-top: 30px;
-    margin-left: 17%;
-    margin-right: 17%;
-
-    @media (max-width: 575px) {
-      margin-top: 20px;
-      margin-left: auto;
-      margin-right: auto;
-    }
 
     &-header {
       font-family: $font-bold;
       background-color: $color-tab-blue;
       text-align: center;
-      margin-bottom: 9px;
+      margin-bottom: 30px;
       width: 100%;
       color: $color-white;
       font-size: medium;
       padding: 5px 0;
-
-      @media (max-width: 575px) {
-        font-size: small;
-      }
     }
 
     &-body {
@@ -223,24 +168,33 @@
       flex-direction: row;
       border: 1pt solid $color-tab-blue;
       width: 100%;
+      height: 46px;
     }
 
     &-itemName,
     &-item {
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: left;
       align-items: center;
       border-right: 1pt solid $color-tab-blue;
       width: 100%;
       text-align: left;
       font-family: $font-light;
+      margin-left: 20px;
     }
   }
 }
 
+.card-table-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .truncate-text {
   max-width: 100%;
+  width: 364px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis !important;
@@ -248,147 +202,13 @@
   margin: auto 0;
 }
 
-@media (max-width: 768px) {
-  .card-form {
-    width: 100%;
-  }
-
-  .card-form-row {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card-form-input-options,
-  .card-form-input-select,
-  .card-text-area {
-    width: 300px;
-    max-width: 300px;
-    margin: 10px auto;
-    justify-content: center;
-  }
-
-  .card-form-button {
-    justify-content: center;
-  }
-
-  .card-form-banner {
-    width: 100%;
-    max-width: 450px;
-  }
-}
-
-@media (max-width: 480px) {
-  .custom-input {
-    font-size: smaller;
-    padding: 4px 8px;
-  }
-
-  .card-form-banner-title {
-    font-size: x-large;
-  }
-
-  .card-text-placeholder,
-  .card-text-area {
-    font-size: smaller;
-  }
-
-  .card-form-input-options,
-  .card-form-input-select {
-    max-width: 200px;
-    margin: 10px;
-    justify-content: center;
-  }
-
-  .card-buttonUp-custom-button {
-    width: 100%;
-    margin: auto;
-    align-items: baseline;
-    font-size: small;
-  }
-
-  .card-buttonUp-label {
-    padding: 8px 16px;
-    font-size: medium;
-  }
-
-  .card-table-header {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 575px) {
-  .custom-input {
-    font-size: smaller;
-    padding: 4px 8px;
-  }
-
-  .card-form-banner-title {
-    font-size: x-large;
-  }
-
-  .card-text-placeholder,
-  .card-text-area {
-    font-size: smaller;
-  }
-
-  .card-form-input-options,
-  .card-form-input-select {
-    width: 250px;
-    max-width: none;
-    margin: 10px;
-    justify-content: center;
-  }
-
-  .card-form-button {
-    justify-content: center;
-    width: 100%;
-  }
-
-  .card-form-banner {
-    width: 100%;
-    max-width: 450px;
-  }
-
-  .card-table-header {
-    font-size: 12px;
-  }
-}
-
-.card-table-item .remover-text {
-  @media (max-width: 480px) {
-    display: none;
-  }
-}
-
 .container-card_text {
   width: 40rem;
   margin: 0 auto;
-
-  @media (max-width: 1200px) {
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  @media (max-width: 950px) {
-    width: 100%;
-  }
-
-  @media (max-width: 575px) {
-    width: 100%;
-    padding: 10px;
-  }
 }
 
 .card-buttonUp {
   width: 40rem;
-  //margin: 10px auto;
-  margin-left: 17%;
-  margin-right: 17%;
-
-  @media (max-width: 575px) {
-    width: 100%;
-    //padding: 0 10px;
-  }
 }
 
 .button-container {
@@ -399,4 +219,222 @@
   width: 100%;
   height: auto; /* Ajustar la altura automáticamente */
   overflow: hidden; /* Evitar desbordamiento */
+}
+
+.container-principal {
+  margin-left: 45px;
+  margin-right: 45px;
+}
+
+.container-card {
+  width: 100%;
+}
+
+::ng-deep .p-card {
+  width: 100%;
+}
+
+::ng-deep .p-card .p-card-body {
+  padding: 0 !important;
+  margin-bottom: 50px;
+}
+
+::ng-deep .p-card-body {
+  padding: 0 !important;
+}
+
+.rows {
+  margin-left: 192px;
+  margin-right: 192px;
+}
+
+::ng-deep .p-dropdown {
+  width: 325px !important;
+}
+
+::ng-deep .p-dropdown .p-dropdown-label.p-placeholder {
+  padding-left: 20px;
+}
+
+::ng-deep .p-dropdown-panel {
+  width: auto !important;
+  max-width: auto !important; /* Ajusta este valor según sea necesario */
+  overflow-x: hidden !important; /* Evita el desplazamiento horizontal */
+  max-height: 500px;
+  overflow-y: auto;
+  border-radius: 16px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+  margin-top: 3px;
+}
+
+/* Media queries para ajustes responsivos */
+
+/* Pantallas entre 1024px y 1360px */
+@media (max-width: 1360px) and (min-width: 1024px) {
+  .container {
+    width: 95%;
+  }
+
+  .card-form {
+    width: 40%; /* Ajusta según sea necesario */
+  }
+
+  .card-form-input,
+  .card-form-select {
+    //width: 100%;
+  }
+
+  .rows {
+    margin-left: 192px;
+    margin-right: 192px;
+  }
+}
+
+/* Pantallas entre 768px y 1024px */
+@media (max-width: 1024px) and (min-width: 1200px) {
+  .container {
+    width: 95%;
+  }
+
+  .card-form {
+    width: 100%; /* Ajusta según sea necesario */
+  }
+
+  .card-form-input,
+  .card-form-select {
+    width: 100%;
+  }
+
+  .rows {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 95%;
+  }
+
+  .card-form {
+    width: 10%; /* Ajusta según sea necesario */
+  }
+
+  .card-form-input,
+  .card-form-select {
+    //width: 100%;
+  }
+
+  .rows {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+@media (max-width: 968px) {
+  .container {
+    width: 95%;
+  }
+
+  .container-principal {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  .card-form {
+    width: 80%; /* Ajusta según sea necesario */
+  }
+
+  .card-form-input,
+  .card-form-select {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .rows {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+/* Pantallas menores a 768px */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .card-form {
+    width: 80%; /* Ajusta según sea necesario */
+  }
+
+  .card-form-banner {
+    width: 100%;
+    font-size: large;
+  }
+
+  .card-form-input,
+  .card-form-select {
+    width: 100%;
+  }
+
+  .rows {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+}
+
+/* Pantallas menores a 480px */
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .card-form {
+    width: 100%; /* Ajusta según sea necesario */
+  }
+
+  .card-form-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .card-form-banner {
+    font-size: medium;
+  }
+
+  .card-form-input,
+  .card-form-select {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .card-form-input-options {
+    width: 100%;
+  }
+
+  .rows {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  ::ng-deep .p-dropdown {
+    //width: 100%;
+    width: 100% !important;
+    height: 40px;
+  
+  
+    &:focus {
+      border: 0;
+    }
+  }
+
+  ::ng-deep .p-overlay-content {
+    width: 290px;
+  }
+
 }

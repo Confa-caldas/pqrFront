@@ -1,19 +1,8 @@
 <p-card class="container">
+  <div class="container-content">
   <form [formGroup]="optionsRequest">
     <p-card class="container-card">
-      <p class="m-0"></p>
-      <!-- <div class="container-card_title" [ngStyle]="{ 'text-align': 'center', 'font-size': '24px' }">
-        ¡Bienvenido a nuestro aplicativo!
-      </div>
-      -->
-      <!-- <div [ngStyle]="{ 'text-align': 'center' }" class="container-card_text">
-        A través de este podrás gestionar tus solicitudes relacionadas con el área de aportes y
-        subsidios. En Tipo de solicitante selecciona si eres empresa o si eres afiliado, identifica
-        tu tipo de afiliación. En Tipo de solicitud, podrás encontrar los diferentes trámites que
-        podrás realizar. Lee atentamente el texto con las recomendaciones para validar si es la
-        gestión a realizar.
-      </div>
-    -->
+      
       <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
         A través de este formulario, que reemplaza los correos electrónicos,
         <b>podrás hacer tus solicitudes</b> relacionadas con los subsidios cuota monetaria,
@@ -54,13 +43,14 @@
         , podrás descargar tu certificado de afiliación, el carné digital de afiliación, cambiar
         contraseña o actualizar tu dirección.
       </div>
-      <div class="container">
+      <div class="container-card-select">
         <div class="container-select">
+          <div class="container-select-item">
           <label class="container-select-placeholder">Tipo del solicitante*</label>
           <p-dropdown
             (onChange)="getRequest()"
             formControlName="applicant_id"
-            [style]="{ 'border-radius': '20px', height: 'auto' }"
+            [style]="{ 'border-radius': '20px'}"
             class="container-select-options"
             [options]="applicantList"
             optionLabel="applicant_type_name"
@@ -76,16 +66,17 @@
             }}</label
           >
         </div>
-        <div class="container-select">
+        <div class="container-select-item">
           <label class="container-select-placeholder">Tipo de solicitud*</label>
           <p-dropdown
             formControlName="request_id"
-            [style]="{ 'border-radius': '20px', height: 'auto' }"
+            [style]="{ 'border-radius': '20px'}"
             class="container-select-options"
             [options]="requestList"
             emptyMessage="Seleccione un tipo de solicitante"
             optionLabel="request_type_name"
-            placeholder="*Tú solicitud esta asociada con"></p-dropdown>
+            placeholder="*Tú solicitud esta asociada con"
+            [panelStyle]="{'max-height': 'none'}"></p-dropdown>
 
           <label class="container-select-invalid">
             {{
@@ -95,6 +86,7 @@
                 : ''
             }}</label
           >
+        </div>
         </div>
       </div>
     </p-card>
@@ -125,7 +117,8 @@
       (onClick)="sendOptions()"
       class="container-button"></p-button>
   </form>
-  <div class="centered-box">
+</div>
+  <!-- <div class="centered-box">
     <div class="content">
       <img
         src="../../../../assets/images/admiracion.svg"
@@ -141,8 +134,8 @@
           >PQRS</a
         >
       </p>
-    </div>
-  </div>
+    </div> 
+  </div> -->
 </p-card>
 <p-toast></p-toast>
 <app-modal-data-treatment
