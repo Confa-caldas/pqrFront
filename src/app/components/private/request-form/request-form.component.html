@@ -1,247 +1,268 @@
 <p-card class="container">
   <div class="container-principal">
-  <form [formGroup]="requestForm">
-    <h4 class="card-form-banner-title">Ingresa aquí tu solicitud</h4>
-    
-    <p-card class="container-card">
-      
-      <div class="rows">
-      <div class="card-form-row">
-        <div class="card-form-input">
-          <label class="card-form-input-placeholder">Tipo de documento*</label>
-          <p-dropdown
-            id="document_type"
-            formControlName="document_type"
-            [style]="{
-              'border-radius': '20px',
-              height: '40px',
-              'align-items': 'center'
-            }"
-            class="card-form-input-select"
-            placeholder="*Tipo de documento"
-            [options]="documentList"
-            optionLabel="catalog_item_name"></p-dropdown>
-          <label class="card-form-input-placeholder-invalid">
-            {{
-              requestForm.get('document_type')?.hasError('required') &&
-              requestForm.get('document_type')?.touched
-                ? 'Campo Requerido'
-                : ''
-            }}</label>
-        </div>
-        <div class="card-form-input">
-          <label class="card-form-input-placeholder" [ngSwitch]="applicantType.applicant_type_id">
-            <ng-container *ngSwitchCase="1">Documento empresa*</ng-container>
-            <ng-container *ngSwitchCase="2">Documento del trabajador*</ng-container>
-            <ng-container *ngSwitchCase="3">Documento del trabajador independiente*</ng-container>
-            <ng-container *ngSwitchCase="4">Documento del pensionado*</ng-container>
-            <ng-container *ngSwitchDefault>Documento del solicitante*</ng-container>
-          </label>
-          <input
-            pInputText
-            type="text"
-            formControlName="number_id"
-            class="card-form-input-options"
-            placeholder="*Ingresa el número de documento" />
-          <label class="card-form-input-placeholder-invalid">
-            {{
-              requestForm.get('number_id')?.hasError('pattern') &&
-              requestForm.get('number_id')?.touched
-                ? errorMensaje
-                : ''
-            }}
-            {{ requestForm.get('number_id')?.disabled ? 'Seleccione tipo de documento' : '' }}{{
-              requestForm.get('number_id')?.hasError('required') &&
-              requestForm.get('number_id')?.touched
-                ? 'Campo Requerido'
-                : ''
-            }}</label>
-        </div>
-      </div>
-      
-      <div class="card-form-row">
-        <div class="card-form-input">
-          <label class="card-form-input-placeholder" [ngSwitch]="applicantType.applicant_type_id">
-            <ng-container *ngSwitchCase="1">Nombre empresa*</ng-container>
-            <ng-container *ngSwitchCase="2">Nombre del trabajador*</ng-container>
-            <ng-container *ngSwitchCase="3">Nombre del trabajador independiente*</ng-container>
-            <ng-container *ngSwitchCase="4">Nombre del pensionado*</ng-container>
-            <ng-container *ngSwitchDefault>Nombre del solicitante*</ng-container>
-          </label>
-          <input
-            formControlName="name"
-            pInputText
-            id="name"
-            class="card-form-input-options"
-            placeholder="*Ingresa el nombre completo" />
-          <label class="card-form-input-placeholder-invalid">
-            {{
-              requestForm.get('name')?.hasError('pattern') && requestForm.get('name')?.touched
-                ? 'Ingrese solo letras'
-                : ''
-            }}{{
-              requestForm.get('name')?.hasError('required') && requestForm.get('name')?.touched
-                ? 'Campo Requerido'
-                : ''
-            }}</label>
-        </div>
-        <div class="card-form-input">
-          <label class="card-form-input-placeholder">Celular*</label>
-          <input
-            type="text"
-            pInputText
-            formControlName="cellphone"
-            class="card-form-input-options"
-            placeholder="*Ingresa el número de celular" />
-          <label class="card-form-input-placeholder-invalid">
-            {{
-              requestForm.get('cellphone')?.hasError('pattern') &&
-              requestForm.get('cellphone')?.touched
-                ? 'Ingrese solo números y máximo 10 dígitos'
-                : ''
-            }}{{
-              requestForm.get('cellphone')?.hasError('required') &&
-              requestForm.get('cellphone')?.touched
-                ? 'Campo Requerido'
-                : ''
-            }}</label>
-        </div>
-      </div>
-      
-      <div class="card-form-row">
-        <div class="card-form-input">
-          <label class="card-form-input-placeholder">Correo electrónico*</label>
-          <input
-            id="email"
-            formControlName="email"
-            pInputText
-            class="card-form-input-options"
-            placeholder="*Ingresa el correo electrónico"
-            (input)="convertToLowercase('email')"
-            oncopy="return false;" />
-          <label class="card-form-input-placeholder-invalid">
-            {{
-              requestForm.get('email')?.hasError('pattern') && requestForm.get('email')?.touched
-                ? 'Correo electrónico inválido'
-                : ''
-            }}{{
-              requestForm.get('email')?.hasError('required') && requestForm.get('email')?.touched
-                ? 'Campo Requerido'
-                : ''
-            }}</label>
-        </div>
-        <div class="card-form-input">
-          <label class="card-form-input-placeholder">Confirma el correo electrónico*</label>
-          <input
-            type="text"
-            formControlName="validator_email"
-            pInputText
-            class="card-form-input-options"
-            placeholder="*Confirma el correo electrónico"
-            (input)="convertToLowercase('validator_email')" />
-          <label class="card-form-input-placeholder-invalid" for="email">
-            {{
-              requestForm.hasError('notMatched') && requestForm.get('validator_email')?.touched
-                ? ' No coindice el correo.'
-                : ''
-            }}{{
-              requestForm.get('validator_email')?.hasError('required') &&
-              requestForm.get('validator_email')?.touched
-                ? ' Campo Requerido'
-                : ''
-            }}</label>
-        </div>
-      </div>
-      
-      <div class="card-text">
-        <label class="card-text-placeholder">Mensaje*</label>
-        <textarea
-          rows="5"
-          cols="30"
-          id="mensage"
-          formControlName="mensage"
-          [style]="{ 'border-radius': '20px' }"
-          type="text"
-          class="custom-input"
-          placeholder="*Incluir en este espacio los datos de las personas a cargo si el tipo de solicitud aplica"
-          pInputTextarea>
-        </textarea>
-        <label class="card-form-input-placeholder-invalid">
-          {{
-            requestForm.get('mensage')?.hasError('required') && requestForm.get('mensage')?.touched
-              ? ' Campo Requerido'
-              : ''
-          }}
-          {{
-            requestForm.get('mensage')?.hasError('maxlength') ? ' Máximo 1000 caracteres' : ''
-          }}</label>
-      </div>
-      
-      <div class="card-buttonUp">
-        <label class="card-buttonUp-placeholder">Adjuntar archivo</label>
-        <div class="card-buttonUp-custom-button">
-          <input
-            type="file"
-            #archive_request
-            class="card-buttonUp-custom-icon"
-            name="archive_request"
-            (change)="onFileSelected($event)"
-            accept=".jpg,.png,.pdf,.xls,.xlsx,.doc,.docx"
-            maxFileSize="20971520"
-            multiple />
-          <label class="card-buttonUp-label" (click)="openFileInput()">
-            <i class="pi pi-file-pdf" [style]="{ 'font-size': '19px', 'margin-right': '8px' }"></i>
-            Adjuntar archivo
-            <i class="pi pi-upload" [style]="{ 'margin-left': '69px', 'font-size': '19px' }"></i>
-          </label>
-          <label class="card-form-input-placeholder-invalid">
-            {{ errorSizeFile ? errorMensajeFile : '' }}{{ errorExtensionFile ? errorMensajeFile : ''
-            }}{{ errorRepeatFile ? errorMensajeFile : '' }}</label>
-        </div>
-      </div>
-      
-      <div class="card-table">
-        <div class="card-table-header">Tabla de Adjuntos</div>
-        <div class="card-table-body" *ngFor="let fileName of fileNameList; let i = index">
-          <div class="card-table-itemName">
-            <p class="truncate-text">{{ fileName === '' ? 'Nombre de Archivo' : fileName }}</p>
+    <form [formGroup]="requestForm">
+      <h4 class="card-form-banner-title">Ingresa aquí tu solicitud</h4>
+
+      <p-card class="container-card">
+        <div class="rows">
+          <div class="card-form-row">
+            <div class="card-form-input">
+              <label class="card-form-input-placeholder">Tipo de documento*</label>
+              <p-dropdown
+                id="document_type"
+                formControlName="document_type"
+                [style]="{
+                  'border-radius': '20px',
+                  height: '40px',
+                  'align-items': 'center'
+                }"
+                class="card-form-input-select"
+                placeholder="*Tipo de documento"
+                [options]="documentList"
+                optionLabel="catalog_item_name"></p-dropdown>
+              <label class="card-form-input-placeholder-invalid">
+                {{
+                  requestForm.get('document_type')?.hasError('required') &&
+                  requestForm.get('document_type')?.touched
+                    ? 'Campo Requerido'
+                    : ''
+                }}</label
+              >
+            </div>
+            <div class="card-form-input">
+              <label
+                class="card-form-input-placeholder"
+                [ngSwitch]="applicantType.applicant_type_id">
+                <ng-container *ngSwitchCase="1">Documento empresa*</ng-container>
+                <ng-container *ngSwitchCase="2">Documento del trabajador*</ng-container>
+                <ng-container *ngSwitchCase="3"
+                  >Documento del trabajador independiente*</ng-container
+                >
+                <ng-container *ngSwitchCase="4">Documento del pensionado*</ng-container>
+                <ng-container *ngSwitchDefault>Documento del solicitante*</ng-container>
+              </label>
+              <input
+                pInputText
+                type="text"
+                formControlName="number_id"
+                class="card-form-input-options"
+                placeholder="*Ingresa el número de documento" />
+              <label class="card-form-input-placeholder-invalid">
+                {{
+                  requestForm.get('number_id')?.hasError('pattern') &&
+                  requestForm.get('number_id')?.touched
+                    ? errorMensaje
+                    : ''
+                }}
+                {{ requestForm.get('number_id')?.disabled ? 'Seleccione tipo de documento' : ''
+                }}{{
+                  requestForm.get('number_id')?.hasError('required') &&
+                  requestForm.get('number_id')?.touched
+                    ? 'Campo Requerido'
+                    : ''
+                }}</label
+              >
+            </div>
           </div>
-          <div class="card-table-item" >
-            <span class="remover-text">Remover archivo</span>
-            <p-button
-              icon="pi pi-times"
-              [style]="{
-                'border-radius': '50%',
-                height: '20px',
-                width: '20px',
-                'background-color': '#ebebeb',
-                color: 'red',
-                'margin-right': '20px'
-              }"
-              [text]="true"
-              severity="danger"
-              (click)="clearFileInput(i)"></p-button>
+
+          <div class="card-form-row">
+            <div class="card-form-input">
+              <label
+                class="card-form-input-placeholder"
+                [ngSwitch]="applicantType.applicant_type_id">
+                <ng-container *ngSwitchCase="1">Nombre empresa*</ng-container>
+                <ng-container *ngSwitchCase="2">Nombre del trabajador*</ng-container>
+                <ng-container *ngSwitchCase="3">Nombre del trabajador independiente*</ng-container>
+                <ng-container *ngSwitchCase="4">Nombre del pensionado*</ng-container>
+                <ng-container *ngSwitchDefault>Nombre del solicitante*</ng-container>
+              </label>
+              <input
+                formControlName="name"
+                pInputText
+                id="name"
+                class="card-form-input-options"
+                placeholder="*Ingresa el nombre completo" />
+              <label class="card-form-input-placeholder-invalid">
+                {{
+                  requestForm.get('name')?.hasError('pattern') && requestForm.get('name')?.touched
+                    ? 'Ingrese solo letras'
+                    : ''
+                }}{{
+                  requestForm.get('name')?.hasError('required') && requestForm.get('name')?.touched
+                    ? 'Campo Requerido'
+                    : ''
+                }}</label
+              >
+            </div>
+            <div class="card-form-input">
+              <label class="card-form-input-placeholder">Celular*</label>
+              <input
+                type="text"
+                pInputText
+                formControlName="cellphone"
+                class="card-form-input-options"
+                placeholder="*Ingresa el número de celular" />
+              <label class="card-form-input-placeholder-invalid">
+                {{
+                  requestForm.get('cellphone')?.hasError('pattern') &&
+                  requestForm.get('cellphone')?.touched
+                    ? 'Ingrese solo números y máximo 10 dígitos'
+                    : ''
+                }}{{
+                  requestForm.get('cellphone')?.hasError('required') &&
+                  requestForm.get('cellphone')?.touched
+                    ? 'Campo Requerido'
+                    : ''
+                }}</label
+              >
+            </div>
+          </div>
+
+          <div class="card-form-row">
+            <div class="card-form-input">
+              <label class="card-form-input-placeholder">Correo electrónico*</label>
+              <input
+                id="email"
+                formControlName="email"
+                pInputText
+                class="card-form-input-options"
+                placeholder="*Ingresa el correo electrónico"
+                (input)="convertToLowercase('email')"
+                oncopy="return false;" />
+              <label class="card-form-input-placeholder-invalid">
+                {{
+                  requestForm.get('email')?.hasError('pattern') && requestForm.get('email')?.touched
+                    ? 'Correo electrónico inválido'
+                    : ''
+                }}{{
+                  requestForm.get('email')?.hasError('required') &&
+                  requestForm.get('email')?.touched
+                    ? 'Campo Requerido'
+                    : ''
+                }}</label
+              >
+            </div>
+            <div class="card-form-input">
+              <label class="card-form-input-placeholder">Confirma el correo electrónico*</label>
+              <input
+                type="text"
+                formControlName="validator_email"
+                pInputText
+                class="card-form-input-options"
+                placeholder="*Confirma el correo electrónico"
+                (input)="convertToLowercase('validator_email')" />
+              <label class="card-form-input-placeholder-invalid" for="email">
+                {{
+                  requestForm.hasError('notMatched') && requestForm.get('validator_email')?.touched
+                    ? ' No coindice el correo.'
+                    : ''
+                }}{{
+                  requestForm.get('validator_email')?.hasError('required') &&
+                  requestForm.get('validator_email')?.touched
+                    ? ' Campo Requerido'
+                    : ''
+                }}</label
+              >
+            </div>
+          </div>
+
+          <div class="card-text">
+            <label class="card-text-placeholder">Mensaje*</label>
+            <textarea
+              rows="5"
+              cols="30"
+              id="mensage"
+              formControlName="mensage"
+              [style]="{ 'border-radius': '20px' }"
+              type="text"
+              class="custom-input"
+              placeholder="*Incluir en este espacio los datos de las personas a cargo si el tipo de solicitud aplica"
+              pInputTextarea>
+            </textarea>
+            <label class="card-form-input-placeholder-invalid">
+              {{
+                requestForm.get('mensage')?.hasError('required') &&
+                requestForm.get('mensage')?.touched
+                  ? ' Campo Requerido'
+                  : ''
+              }}
+              {{
+                requestForm.get('mensage')?.hasError('maxlength') ? ' Máximo 1000 caracteres' : ''
+              }}</label
+            >
+          </div>
+
+          <div class="card-buttonUp">
+            <label class="card-buttonUp-placeholder">Adjuntar archivo</label>
+            <div class="card-buttonUp-custom-button">
+              <input
+                type="file"
+                #archive_request
+                class="card-buttonUp-custom-icon"
+                name="archive_request"
+                (change)="onFileSelected($event)"
+                accept=".jpg,.png,.pdf,.xls,.xlsx,.doc,.docx"
+                maxFileSize="20971520"
+                multiple />
+              <label class="card-buttonUp-label" (click)="openFileInput()">
+                <i
+                  class="pi pi-file-pdf"
+                  [style]="{ 'font-size': '19px', 'margin-right': '8px' }"></i>
+                Adjuntar archivo
+                <i
+                  class="pi pi-upload"
+                  [style]="{ 'margin-left': '69px', 'font-size': '19px' }"></i>
+              </label>
+              <label class="card-form-input-placeholder-invalid">
+                {{ errorSizeFile ? errorMensajeFile : ''
+                }}{{ errorExtensionFile ? errorMensajeFile : ''
+                }}{{ errorRepeatFile ? errorMensajeFile : '' }}</label
+              >
+            </div>
+          </div>
+          <div class="card-table">
+            <div class="card-table-header">Tabla de Adjuntos</div>
+            <div class="card-table-body" *ngFor="let fileName of fileNameList; let i = index">
+              <div class="card-table-itemName">
+                <p class="truncate-text">{{ fileName === '' ? 'Nombre de Archivo' : fileName }}</p>
+              </div>
+              <div class="card-table-item">
+                <span class="remover-text">Remover archivo</span>
+                <p-button
+                  icon="pi pi-times"
+                  [style]="{
+                    'border-radius': '50%',
+                    height: '20px',
+                    width: '20px',
+                    'background-color': '#ebebeb',
+                    color: 'red',
+                    'margin-right': '20px'
+                  }"
+                  [text]="true"
+                  severity="danger"
+                  (click)="clearFileInput(i)"></p-button>
+              </div>
+            </div>
           </div>
         </div>
+      </p-card>
+      <div class="button-container">
+        <p-button
+          [style]="{ 'border-radius': '20px', 'background-color': '#00aeef', width: '275px' }"
+          label="Enviar formulario"
+          [disabled]="requestForm.invalid"
+          (click)="sendRequest()"
+          class="card-form-button"></p-button>
       </div>
-    </div>
-    </p-card>
-    <div class="button-container">
-    <p-button
-    [style]="{ 'border-radius': '20px', 'background-color': '#00aeef' , width: '275px' }"
-    label="Enviar formulario"
-    [disabled]="requestForm.invalid"
-    (click)="sendRequest()"
-    class="card-form-button"></p-button></div>
-  </form>
-</div>
+    </form>
+  </div>
 </p-card>
 
 <p-toast></p-toast>
 <p-progressSpinner
-*ngIf="loadingAttachments"
-class="sppinerAtta p-element"
-color="blue"></p-progressSpinner>
+  *ngIf="loadingAttachments"
+  class="sppinerAtta p-element"
+  color="blue"></p-progressSpinner>
 
 <!--<app-modal-alert
 *ngIf="visibleDialogAlert"
@@ -253,11 +274,11 @@ color="blue"></p-progressSpinner>
 [severity]="severity"
 (setRta)="closeDialogAlert($event)"></app-modal-alert>-->
 <app-modal-filing
-*ngIf="visibleDialogAlert"
-[select]="true"
-[requestCreation]="true"
-[visible]="visibleDialogAlert"
-[message]="message"
-[informative]="informative"
-[severity]="severity"
-(setRta)="closeDialogAlert($event)"></app-modal-filing>
+  *ngIf="visibleDialogAlert"
+  [select]="true"
+  [requestCreation]="true"
+  [visible]="visibleDialogAlert"
+  [message]="message"
+  [informative]="informative"
+  [severity]="severity"
+  (setRta)="closeDialogAlert($event)"></app-modal-filing>

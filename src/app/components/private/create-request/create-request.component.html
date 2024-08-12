@@ -11,14 +11,14 @@
         computadores, paquete y calzado, además de gestiones como aportes, afiliaciones.
       </div>
 
-      <br />
+        <br />
 
-      <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
-        <b>Si eres empresa, podrás solicitar:</b> afiliación para tu empresa, novedades o
-        actualización de información, certificados empresa, devoluciones, cartera y traslado.
-      </div>
+        <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+          <b>Si eres empresa, podrás solicitar:</b> afiliación para tu empresa, novedades o
+          actualización de información, certificados empresa, devoluciones, cartera y traslado.
+        </div>
 
-      <br />
+        <br />
 
       <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
         <b
@@ -28,70 +28,70 @@
         afiliación trabajadores y beneficiarios, afiliación como independiente, afiliación pensionado, novedades o certificados.
       </div>
 
-      <br />
+        <br />
 
-      <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
-        <b
-          >Recuerda que a través de
-          <a
-            href="https://app.confa.co:8376/#/login"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="color: #07c1ff"
-            >Mi perfil</a
-          ></b
-        >
-        , podrás descargar tu certificado de afiliación, el carné digital de afiliación, cambiar
-        contraseña o actualizar tu dirección.
-      </div>
-      <div class="container-card-select">
-        <div class="container-select">
-          <div class="container-select-item">
-          <label class="container-select-placeholder">Tipo del solicitante*</label>
-          <p-dropdown
-            (onChange)="getRequest()"
-            formControlName="applicant_id"
-            [style]="{ 'border-radius': '20px'}"
-            class="container-select-options"
-            [options]="applicantList"
-            optionLabel="applicant_type_name"
-            (onChange)="changeRequest()"
-            placeholder="*Tipo del solicitante"></p-dropdown>
-
-          <label class="container-select-invalid">
-            {{
-              optionsRequest.get('applicant_id')?.hasError('required') &&
-              optionsRequest.get('applicant_id')?.touched
-                ? 'Seleccione un tipo de solicitante'
-                : ''
-            }}</label
+        <div [ngStyle]="{ 'text-align': 'left' }" class="container-card_text">
+          <b
+            >Recuerda que a través de
+            <a
+              href="https://app.confa.co:8376/#/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #07c1ff"
+              >Mi perfil</a
+            ></b
           >
+          , podrás descargar tu certificado de afiliación, el carné digital de afiliación, cambiar
+          contraseña o actualizar tu dirección.
         </div>
-        <div class="container-select-item">
-          <label class="container-select-placeholder">Tipo de solicitud*</label>
-          <p-dropdown
-            formControlName="request_id"
-            [style]="{ 'border-radius': '20px'}"
-            class="container-select-options"
-            [options]="requestList"
-            emptyMessage="Seleccione un tipo de solicitante"
-            optionLabel="request_type_name"
-            placeholder="*Tú solicitud esta asociada con"
-            [panelStyle]="{'max-height': 'none'}"></p-dropdown>
+        <div class="container-card-select">
+          <div class="container-select">
+            <div class="container-select-item">
+              <label class="container-select-placeholder">Tipo del solicitante*</label>
+              <p-dropdown
+                (onChange)="getRequest()"
+                formControlName="applicant_id"
+                [style]="{ 'border-radius': '20px' }"
+                class="container-select-options"
+                [options]="applicantList"
+                optionLabel="applicant_type_name"
+                (onChange)="changeRequest()"
+                placeholder="*Tipo del solicitante"></p-dropdown>
 
-          <label class="container-select-invalid">
-            {{
-              optionsRequest.get('request_id')?.hasError('required') &&
-              optionsRequest.get('request_id')?.touched
-                ? 'Seleccione un tipo de solicitud'
-                : ''
-            }}</label
-          >
+              <label class="container-select-invalid">
+                {{
+                  optionsRequest.get('applicant_id')?.hasError('required') &&
+                  optionsRequest.get('applicant_id')?.touched
+                    ? 'Seleccione un tipo de solicitante'
+                    : ''
+                }}</label
+              >
+            </div>
+            <div class="container-select-item">
+              <label class="container-select-placeholder">Tipo de solicitud*</label>
+              <p-dropdown
+                formControlName="request_id"
+                [style]="{ 'border-radius': '20px' }"
+                class="container-select-options"
+                [options]="requestList"
+                emptyMessage="Seleccione un tipo de solicitante"
+                optionLabel="request_type_name"
+                placeholder="*Tú solicitud esta asociada con"
+                [panelStyle]="{ 'max-height': 'none' }"></p-dropdown>
+
+              <label class="container-select-invalid">
+                {{
+                  optionsRequest.get('request_id')?.hasError('required') &&
+                  optionsRequest.get('request_id')?.touched
+                    ? 'Seleccione un tipo de solicitud'
+                    : ''
+                }}</label
+              >
+            </div>
+          </div>
         </div>
-        </div>
-      </div>
-    </p-card>
-    <!-- <p-card *ngIf="!optionsRequest.get('request_id')?.invalid" class="container-card">
+      </p-card>
+      <!-- <p-card *ngIf="!optionsRequest.get('request_id')?.invalid" class="container-card">
       <ng-template pTemplate="header">
         <h3 class="container-card_header">
           Conoce algunas de las recomendaciones antes de continuar
@@ -102,23 +102,23 @@
       </div>
     </p-card> -->
 
-    <div class="container-checkbox" *ngIf="applicantId1()">
-      <p-checkbox formControlName="authorize" [value]="true" [binary]="true"></p-checkbox>
-      <p class="container-checkbox_a">
-        Si, autorizo el
-        <a class="container-checkbox_link" (click)="openDataTreatment()" style="color: #07c1ff"
-          >tratamiento de datos personales</a
-        >
-      </p>
-    </div>
-    <p-button
-      [style]="{ 'border-radius': '20px', 'background-color': '#00aeef', width: '275px' }"
-      label="Continuar"
-      [disabled]="!optionsRequest.valid"
-      (onClick)="sendOptions()"
-      class="container-button"></p-button>
-  </form>
-</div>
+      <div class="container-checkbox" *ngIf="applicantId1()">
+        <p-checkbox formControlName="authorize" [value]="true" [binary]="true"></p-checkbox>
+        <p class="container-checkbox_a">
+          Si, autorizo el
+          <a class="container-checkbox_link" (click)="openDataTreatment()" style="color: #07c1ff"
+            >tratamiento de datos personales</a
+          >
+        </p>
+      </div>
+      <p-button
+        [style]="{ 'border-radius': '20px', 'background-color': '#00aeef', width: '275px' }"
+        label="Continuar"
+        [disabled]="!optionsRequest.valid"
+        (onClick)="sendOptions()"
+        class="container-button"></p-button>
+    </form>
+  </div>
   <!-- <div class="centered-box">
     <div class="content">
       <img
