@@ -104,6 +104,11 @@
   margin: 1rem auto; /* Ajuste de márgenes */
 }
 
+.spinner-modal{
+  width: 3.75rem;
+  margin: 1rem auto;
+}
+
 /* Media queries adicionales para ajustar estilos en diferentes tamaños de pantalla */
 @media screen and (max-width: 767px) {
   .modal-content {
