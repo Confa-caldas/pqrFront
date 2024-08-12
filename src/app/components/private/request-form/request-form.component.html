@@ -2,8 +2,6 @@
   <form [formGroup]="requestForm">
     <h4 class="card-form-banner-title">Ingresa aquí tu solicitud</h4>
     <p-card class="container-card">
-      
-      
       <div class="card-form-row">
         <div class="card-form-input">
           <label class="card-form-input-placeholder">Tipo de documento*</label>
@@ -25,7 +23,8 @@
               requestForm.get('document_type')?.touched
                 ? 'Campo Requerido'
                 : ''
-            }}</label>
+            }}</label
+          >
         </div>
         <div class="card-form-input">
           <label class="card-form-input-placeholder" [ngSwitch]="applicantType.applicant_type_id">
@@ -48,15 +47,17 @@
                 ? errorMensaje
                 : ''
             }}
-            {{ requestForm.get('number_id')?.disabled ? 'Seleccione tipo de documento' : '' }}{{
+            {{ requestForm.get('number_id')?.disabled ? 'Seleccione tipo de documento' : ''
+            }}{{
               requestForm.get('number_id')?.hasError('required') &&
               requestForm.get('number_id')?.touched
                 ? 'Campo Requerido'
                 : ''
-            }}</label>
+            }}</label
+          >
         </div>
       </div>
-      
+
       <div class="card-form-row">
         <div class="card-form-input">
           <label class="card-form-input-placeholder" [ngSwitch]="applicantType.applicant_type_id">
@@ -81,7 +82,8 @@
               requestForm.get('name')?.hasError('required') && requestForm.get('name')?.touched
                 ? 'Campo Requerido'
                 : ''
-            }}</label>
+            }}</label
+          >
         </div>
         <div class="card-form-input">
           <label class="card-form-input-placeholder">Celular*</label>
@@ -102,10 +104,11 @@
               requestForm.get('cellphone')?.touched
                 ? 'Campo Requerido'
                 : ''
-            }}</label>
+            }}</label
+          >
         </div>
       </div>
-      
+
       <div class="card-form-row">
         <div class="card-form-input">
           <label class="card-form-input-placeholder">Correo electrónico*</label>
@@ -126,7 +129,8 @@
               requestForm.get('email')?.hasError('required') && requestForm.get('email')?.touched
                 ? 'Campo Requerido'
                 : ''
-            }}</label>
+            }}</label
+          >
         </div>
         <div class="card-form-input">
           <label class="card-form-input-placeholder">Confirma el correo electrónico*</label>
@@ -147,10 +151,11 @@
               requestForm.get('validator_email')?.touched
                 ? ' Campo Requerido'
                 : ''
-            }}</label>
+            }}</label
+          >
         </div>
       </div>
-      
+
       <div class="card-text">
         <label class="card-text-placeholder">Mensaje*</label>
         <textarea
@@ -172,9 +177,10 @@
           }}
           {{
             requestForm.get('mensage')?.hasError('maxlength') ? ' Máximo 1000 caracteres' : ''
-          }}</label>
+          }}</label
+        >
       </div>
-      
+
       <div class="card-buttonUp">
         <label class="card-buttonUp-placeholder">Adjuntar archivo</label>
         <div class="card-buttonUp-custom-button">
@@ -193,11 +199,12 @@
             <i class="pi pi-upload" [style]="{ 'margin-left': '69px', 'font-size': '19px' }"></i>
           </label>
           <label class="card-form-input-placeholder-invalid">
-            {{ errorSizeFile ? errorMensajeFile : '' }}{{ errorExtensionFile ? errorMensajeFile : ''
-            }}{{ errorRepeatFile ? errorMensajeFile : '' }}</label>
+            {{ errorSizeFile ? errorMensajeFile : ''
+            }}{{ errorExtensionFile ? errorMensajeFile : ''
+            }}{{ errorRepeatFile ? errorMensajeFile : '' }}</label
+          >
         </div>
       </div>
-      
       <div class="card-table">
         <div class="card-table-header">Tabla de Adjuntos</div>
         <div class="card-table-body" *ngFor="let fileName of fileNameList; let i = index">
@@ -223,20 +230,21 @@
       </div>
     </p-card>
     <div class="button-container">
-    <p-button
-    [style]="{ 'border-radius': '20px', 'background-color': '#00aeef' , width: '275px' }"
-    label="Enviar formulario"
-    [disabled]="requestForm.invalid"
-    (click)="sendRequest()"
-    class="card-form-button"></p-button></div>
+      <p-button
+        [style]="{ 'border-radius': '20px', 'background-color': '#00aeef', width: '275px' }"
+        label="Enviar formulario"
+        [disabled]="requestForm.invalid"
+        (click)="sendRequest()"
+        class="card-form-button"></p-button>
+    </div>
   </form>
 </p-card>
 
 <p-toast></p-toast>
 <p-progressSpinner
-*ngIf="loadingAttachments"
-class="sppinerAtta p-element"
-color="blue"></p-progressSpinner>
+  *ngIf="loadingAttachments"
+  class="sppinerAtta p-element"
+  color="blue"></p-progressSpinner>
 
 <!--<app-modal-alert
 *ngIf="visibleDialogAlert"
@@ -248,11 +256,11 @@ color="blue"></p-progressSpinner>
 [severity]="severity"
 (setRta)="closeDialogAlert($event)"></app-modal-alert>-->
 <app-modal-filing
-*ngIf="visibleDialogAlert"
-[select]="true"
-[requestCreation]="true"
-[visible]="visibleDialogAlert"
-[message]="message"
-[informative]="informative"
-[severity]="severity"
-(setRta)="closeDialogAlert($event)"></app-modal-filing>
+  *ngIf="visibleDialogAlert"
+  [select]="true"
+  [requestCreation]="true"
+  [visible]="visibleDialogAlert"
+  [message]="message"
+  [informative]="informative"
+  [severity]="severity"
+  (setRta)="closeDialogAlert($event)"></app-modal-filing>

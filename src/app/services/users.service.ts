@@ -375,6 +375,5 @@ export class Users {
   }
   downloadFileFromS3(preSignedUrl: string): Observable<Blob> {
     return this.http.get(preSignedUrl, { responseType: 'blob' });
-}
-
+  }
 }
