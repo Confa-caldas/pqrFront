@@ -290,26 +290,7 @@
   }
 }
 
-/* Pantallas entre 768px y 1024px */
-@media (max-width: 1024px) and (min-width: 1200px) {
-  .container {
-    width: 95%;
-  }
 
-  .card-form {
-    width: 100%; /* Ajusta según sea necesario */
-  }
-
-  .card-form-input,
-  .card-form-select {
-    width: 100%;
-  }
-
-  .rows {
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-}
 
 @media (max-width: 1200px) {
   .container {
@@ -329,9 +310,19 @@
     margin-left: 10%;
     margin-right: 10%;
   }
+
+  .truncate-text {
+    max-width: 100%;
+    width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    align-items: center;
+    margin: auto 0;
+  }
 }
 
-@media (max-width: 968px) {
+@media (max-width: 960px) {
   .container {
     width: 95%;
   }
@@ -356,10 +347,20 @@
     margin-left: 10%;
     margin-right: 10%;
   }
+
+  .truncate-text {
+    max-width: 100%;
+    width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    align-items: center;
+    margin: auto 0;
+  }
 }
 
 /* Pantallas menores a 768px */
-@media (max-width: 768px) {
+@media (max-width: 900px) and (min-width: 480px) {
   .container {
     flex-direction: column;
     width: 95%;
@@ -369,6 +370,15 @@
     width: 80%; /* Ajusta según sea necesario */
   }
 
+  .card-form-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100%;
+  }
+
   .card-form-banner {
     width: 100%;
     font-size: large;
@@ -376,13 +386,20 @@
 
   .card-form-input,
   .card-form-select {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
   }
 
   .rows {
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
+}
+
+.card-form-input-select{
+  max-width: 100%;
+  width: 100%;
 }
 
 /* Pantallas menores a 480px */
@@ -415,16 +432,55 @@
 
   .card-form-input-options {
     width: 100%;
+    max-width: 100%;
   }
 
   .rows {
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
+
+  .card-buttonUp {
+    width: 100%;
+  }
+
+  .card-buttonUp-placeholder {
+    text-align: left;
+  }
+
+  .card-buttonUp-label {
+    width: 100%;
+    text-align: center;
+  }
+
+  .card-table-body {
+    width: 100%;
+  }
+
+  .card-table-itemName {
+    width: 4000px;
+    max-width: 100%;
+  }
+
+  .truncate-text {
+    max-width: 100%;
+    width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    align-items: center;
+    margin: auto 0;
+  }
+
+  .remover-text {
+    display: none;
+  }
+
 
   ::ng-deep .p-dropdown {
     //width: 100%;
     width: 100% !important;
+    max-width: 100% !important;
     height: 40px;
   
   
@@ -437,4 +493,9 @@
     width: 290px;
   }
 
+}
+
+.card-form-input-select{
+  max-width: 100%;
+  width: 100%;
 }

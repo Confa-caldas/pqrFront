@@ -96,6 +96,14 @@
     }
   }
 
+  .card-form-banner-title {
+    font-size: x-large;
+    color: $color-tab-blue;
+    text-align: center;
+    font-weight: bolder;
+    margin-bottom: 20px;
+  }
+
   &-checkbox {
     display: flex;
     justify-content: center;
