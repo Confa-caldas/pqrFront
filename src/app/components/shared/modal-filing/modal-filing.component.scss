@@ -7,7 +7,7 @@
     border-radius: 5px;
     color: #ffffff;
     width: 50vw; /* Ancho ajustado proporcionalmente a la pantalla */
-    max-width: 410px; /* Ancho máximo para evitar desbordamiento */
+    max-width: 500px; /* Ancho máximo para evitar desbordamiento */
   }
 }
 
@@ -19,6 +19,7 @@
     color: #ffffff;
     width: 30vw; /* Ancho ajustado proporcionalmente a la pantalla */
     max-width: 410px; /* Ancho máximo para evitar desbordamiento */
+    max-width: 500px;
   }
 }
 
@@ -47,9 +48,10 @@
 
 .subtitle {
   text-align: center;
-  font-family: $font-bold; /* Reemplaza $font-bold con la fuente correcta */
+  //font-family: $font-bold; /* Reemplaza $font-bold con la fuente correcta */
   font-size: 0.5rem; /* Tamaño de fuente ajustado */
   margin: 0.5rem 0; /* Márgenes ajustados */
+  font-weight: 700;
 }
 
 .text {
