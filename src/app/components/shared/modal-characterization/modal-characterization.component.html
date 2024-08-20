@@ -12,7 +12,7 @@
         </div>
 
         <div class="row my-4 px-5">
-          <div class="col-12 title">Caracterizar solicitud</div>
+          <div class="col-12 title" style="margin-top: 50px">Caracterizar solicitud</div>
         </div>
         <form [formGroup]="formGroup">
           <div class="container-row">
@@ -54,7 +54,7 @@
               >
             </div>
           </div>
-          <div class="row my-4 px-5">
+          <div class="row my-4 px-5" style="margin-top: 50px">
             <label class="label-select"> ¿La solicitud corresponde a PQR? </label>
             <div class="container-group">
               <div class="container-group-checkbox">
@@ -152,9 +152,16 @@
           </div>
           <div class="container-rowCauses" *ngIf="causeBoolean && modalBoolean">
             <div class="container-colCauses">
-              <label class="label-select"> Causas</label>
+              <label class="label-select" style="margin-left: 110px; margin-top: 50px">
+                Causas</label
+              >
               <p-dropdown
-                [style]="{ width: '300px', height: '30px', 'align-items': 'center' }"
+                [style]="{
+                  width: '300px',
+                  height: '30px',
+                  'align-items': 'center',
+                  'margin-left': '115px'
+                }"
                 formControlName="cause_id"
                 [options]="CauseList"
                 optionLabel="cause_name"
@@ -173,7 +180,7 @@
           </div>
         </form>
         <div>
-          <div class="row my-4 px-5" style="margin: 10px auto">
+          <div class="row my-4 px-5" style="margin: 10px auto; margin-top: 50px">
             <div class="col-12 d-flex justify-content-evenly">
               <p-button
                 label="Cerrar solicitud"
