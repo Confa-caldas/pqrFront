@@ -114,7 +114,10 @@
       </ng-template>
       <ng-template pTemplate="body" let-requestReportList let-columns="columns">
         <tr [pSelectableRow]="requestReportList" style="height: 80px">
-          <td *ngFor="let col of columns">
+          <td
+            class="response-column"
+            *ngFor="let col of columns"
+            [ngClass]="{ 'response-column': col.header === 'Respuesta solicitud' }">
             <div
               *ngIf="col.header === 'Días solicitud'"
               class="circle"
@@ -122,7 +125,12 @@
             <div *ngIf="col.header === 'Días solicitud'" style="margin-left: 19px">
               {{ requestReportList[col.field] }} días hábiles
             </div>
-            {{ col.header !== 'Días solicitud' ? requestReportList[col.field] : '' }}
+            <div *ngIf="col.header === 'Respuesta solicitud'">
+              {{ requestReportList[col.field] }}
+            </div>
+            <div *ngIf="col.header !== 'Días solicitud' && col.header !== 'Respuesta solicitud'">
+              {{ requestReportList[col.field] }}
+            </div>
           </td>
         </tr>
       </ng-template>

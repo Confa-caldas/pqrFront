@@ -139,8 +139,19 @@ tr {
 }
 
 td {
-  max-width: 180px;
+  max-width: 250px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.response-column {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-width: 250px; /* Ajusta según sea necesario */
+  max-width: 500px; /* Ajusta según sea necesario */
+  padding: 8px; /* Asegura un espacio adecuado dentro de la celda */
+}
+
+
