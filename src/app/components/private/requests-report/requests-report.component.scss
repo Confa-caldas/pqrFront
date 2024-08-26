@@ -149,9 +149,20 @@ td {
   white-space: normal;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  min-width: 250px; /* Ajusta según sea necesario */
-  max-width: 500px; /* Ajusta según sea necesario */
+  min-width: 500px; /* Ajusta según sea necesario */
+  max-width: 1200px; /* Ajusta según sea necesario */
   padding: 8px; /* Asegura un espacio adecuado dentro de la celda */
+
+  width: 100%;
 }
 
+.otras-column {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-width: 250px; /* Ajusta según sea necesario */
+  max-width: 1200px; /* Ajusta según sea necesario */
+  padding: 8px; /* Asegura un espacio adecuado dentro de la celda */
+  width: 100%;
+}
 

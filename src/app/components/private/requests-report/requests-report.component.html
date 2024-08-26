@@ -117,7 +117,15 @@
           <td
             class="response-column"
             *ngFor="let col of columns"
-            [ngClass]="{ 'response-column': col.header === 'Respuesta solicitud' }">
+            [ngClass]="{
+              'response-column': col.header === 'Respuesta solicitud',
+              'otras-column':
+                col.header === 'Tipo de solicitante' ||
+                col.header === 'Tipo de solicitud' ||
+                col.header === 'Descripción de solicitud' ||
+                col.header === 'Tipo solicitante reclasificación' ||
+                col.header === 'Tipo solicitud reclasificación'
+            }">
             <div
               *ngIf="col.header === 'Días solicitud'"
               class="circle"
