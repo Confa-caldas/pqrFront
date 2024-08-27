@@ -29,7 +29,7 @@ export class RequestDetailsComponent implements OnInit {
   @ViewChild('archive_request') fileInput!: ElementRef;
 
   displayPreviewModal: boolean = false;
-  viewerType: 'google' | 'office' | 'image' | 'pdf' = 'google'; 
+  viewerType: 'google' | 'office' | 'image' | 'pdf' = 'google';
 
   requestList: RequestsList[] = [];
   requestDetails?: RequestsDetails;
@@ -352,7 +352,7 @@ export class RequestDetailsComponent implements OnInit {
   closeDialogCharacterization(value: boolean) {
     this.visibleCharacterization = false;
   }
-  setParameter(inputValue: { userName: string, userNameCompleted: string }) {
+  setParameter(inputValue: { userName: string; userNameCompleted: string }) {
     if (!this.enableAssign) return;
     if (this.request_details['assigned_user'] == inputValue.userName) {
       this.visibleDialogAlert = true;
@@ -670,50 +670,49 @@ export class RequestDetailsComponent implements OnInit {
       },
     });
   } */
-  
-    async getPreSignedUrlToDownload(url: string, file_name: string, is_download: boolean) {
-      const payload = { url: url };
-      this.userService.getUrlSigned(payload, 'download').subscribe({
-        next: (response: BodyResponse<string>): void => {
-          if (response.code === 200) {
-            this.preSignedUrlDownload = response.data;
-            
-          } else {
-            this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
-          }
-        },
-        error: (err: any) => {
-          console.log(err);
-        },
-        complete: () => {
-          console.log('La suscripción ha sido completada.');
-          this.viewerType = this.getViewerType(file_name);
-          if (!is_download) {
-            this.displayPreviewModal = true;
-          } else {
-            this.downloadFileS3(this.preSignedUrlDownload, file_name);
-          }
-          return this.preSignedUrlDownload;
-        },
-      });
+
+  async getPreSignedUrlToDownload(url: string, file_name: string, is_download: boolean) {
+    const payload = { url: url };
+    this.userService.getUrlSigned(payload, 'download').subscribe({
+      next: (response: BodyResponse<string>): void => {
+        if (response.code === 200) {
+          this.preSignedUrlDownload = response.data;
+        } else {
+          this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('La suscripción ha sido completada.');
+        this.viewerType = this.getViewerType(file_name);
+        if (!is_download) {
+          this.displayPreviewModal = true;
+        } else {
+          this.downloadFileS3(this.preSignedUrlDownload, file_name);
+        }
+        return this.preSignedUrlDownload;
+      },
+    });
+  }
+
+  getViewerType(file_name: string): 'google' | 'office' | 'image' | 'pdf' {
+    const extension = file_name.split('.').pop()?.toLowerCase();
+    switch (extension) {
+      case 'pdf':
+        return 'pdf';
+      case 'docx':
+      case 'doc':
+      case 'xlsx':
+      case 'xls':
+        return 'office';
+      case 'png':
+      case 'jpg':
+      case 'jpeg':
+        return 'image';
+      default:
+        return 'google'; // Valor predeterminado
     }
-  
-    getViewerType(file_name: string): 'google' | 'office' | 'image' | 'pdf' {
-      const extension = file_name.split('.').pop()?.toLowerCase();
-      switch (extension) {
-        case 'pdf':
-          return 'pdf';
-        case 'docx':
-        case 'doc':
-        case 'xlsx':
-        case 'xls':
-          return 'office';
-        case 'png':
-        case 'jpg':
-        case 'jpeg':
-          return 'image';
-        default:
-          return 'google'; // Valor predeterminado
-      }
-    }
+  }
 }
