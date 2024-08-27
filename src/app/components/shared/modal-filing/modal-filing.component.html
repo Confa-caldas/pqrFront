@@ -5,28 +5,28 @@
       <div class="row">
         <div class="modal-white">
           <img src="../../../assets/images/logo-login.png" class="login-logo" />
+          <img src="../../../assets/images/Carga.PNG" class="login-form-logo-check" />
           <!-- <img src="../../../assets/images/check_button.png" class="login-form-logo-check" /> -->
-          <p-progressSpinner
-          class="spinner-modal"
-          [style]="{width: '60px', height: '60px'}"
-          styleClass="w-4rem h-4rem" 
-          strokeWidth="8" 
-          animationDuration="2s" />
+          <!-- <p-progressSpinner
+            class="spinner-modal"
+            [style]="{ width: '60px', height: '60px' }"
+            styleClass="w-4rem h-4rem"
+            strokeWidth="8"
+            animationDuration="2s" /> -->
         </div>
       </div>
 
       <div class="modal-blue">
         <div *ngIf="requestCreation">
-          <div class="col-12 title" style="font-size: 23pt">
-            ¡Solicitud enviada con éxito!
-          </div>
+          <div class="col-12 title" style="font-size: 23pt">¡Solicitud enviada con éxito!</div>
           <div class="col-12 subtitle">
             <span class="text">Radicado N°. </span>
             <span class="text">{{ message }}</span>
           </div>
           <div class="col-12 text">
-            <span class="text">Revisa el correo electrónico registrado,
-              incluída la bandeja de spam, para que verifiques la confirmación.
+            <span class="text"
+              >Revisa el correo electrónico registrado, incluída la bandeja de spam, para que
+              verifiques la confirmación.
             </span>
           </div>
           <div class="col-12 text-center">
