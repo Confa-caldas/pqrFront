@@ -300,9 +300,9 @@ export class SearchRequestComponent implements OnInit {
     this.visibleDialogAlert = false;
     this.enableAssign = value;
   }
-  setParameter(inputValue: string) {
+  setParameter(inputValue: { userName: string, userNameCompleted: string }) {
     if (!this.enableAssign) return;
-    if (this.request_details['assigned_user'] == inputValue) {
+    if (this.request_details['assigned_user'] == inputValue.userName) {
       this.visibleDialogAlert = true;
       this.informative = true;
       this.message = 'Verifique el responsable a asignar';
@@ -311,7 +311,8 @@ export class SearchRequestComponent implements OnInit {
       this.severity = 'danger';
       return;
     }
-    this.request_details['assigned_user'] = inputValue;
+    this.request_details['assigned_user'] = inputValue.userName;
+    this.request_details['user_name_completed'] = inputValue.userNameCompleted;
     if (inputValue) {
       this.userService.assignUserToRequest(this.request_details).subscribe({
         next: (response: BodyResponse<string>) => {

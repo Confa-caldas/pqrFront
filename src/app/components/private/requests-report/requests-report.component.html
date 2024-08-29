@@ -31,7 +31,7 @@
             formControlName="assigned_user"
             [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
             [options]="userList"
-            optionLabel="user_name"
+            optionLabel="user_name_completed"
             optionValue="user_name"
             placeholder="Responsable de la solicitud"></p-multiSelect>
         </div>
@@ -114,7 +114,18 @@
       </ng-template>
       <ng-template pTemplate="body" let-requestReportList let-columns="columns">
         <tr [pSelectableRow]="requestReportList" style="height: 80px">
-          <td *ngFor="let col of columns">
+          <td
+            class="response-column"
+            *ngFor="let col of columns"
+            [ngClass]="{
+              'response-column': col.header === 'Respuesta solicitud',
+              'otras-column':
+                col.header === 'Tipo de solicitante' ||
+                col.header === 'Tipo de solicitud' ||
+                col.header === 'Descripción de solicitud' ||
+                col.header === 'Tipo solicitante reclasificación' ||
+                col.header === 'Tipo solicitud reclasificación'
+            }">
             <div
               *ngIf="col.header === 'Días solicitud'"
               class="circle"
@@ -122,7 +133,12 @@
             <div *ngIf="col.header === 'Días solicitud'" style="margin-left: 19px">
               {{ requestReportList[col.field] }} días hábiles
             </div>
-            {{ col.header !== 'Días solicitud' ? requestReportList[col.field] : '' }}
+            <div *ngIf="col.header === 'Respuesta solicitud'">
+              {{ requestReportList[col.field] }}
+            </div>
+            <div *ngIf="col.header !== 'Días solicitud' && col.header !== 'Respuesta solicitud'">
+              {{ requestReportList[col.field] }}
+            </div>
           </td>
         </tr>
       </ng-template>

@@ -67,7 +67,7 @@
             formControlName="assigned_user"
             [style]="{ height: '28px', 'align-items': 'center', 'border-radius': '5px' }"
             [options]="userList"
-            optionLabel="user_name"
+            optionLabel="user_name_completed"
             optionValue="user_name"
             placeholder=" Responsable solicitud"></p-multiSelect>
         </div>
@@ -161,7 +161,7 @@
           <div class="circle" [style.background-color]="getColor(requestList.request_days)"></div>
           <div style="margin-left: 19px">{{ requestList.request_days }} día(s) hábiles</div>
         </td>
-        <td>{{ requestList.assigned_user }}</td>
+        <td>{{ requestList.user_name_completed }}</td>
         <td>
           <p-button
             icon="pi pi-eye"
@@ -169,7 +169,7 @@
             (click)="redirectDetails(requestList.request_id)"></p-button>
         </td>
         <td>
-          <div *ngIf="requestList.status_name !== 'Cerrada' && PERFIL !== 'RESPONSABLE'">
+          <div *ngIf="requestList.status_name !== 'Cerrada' && PERFIL !== 'CONSULTANTE'">
             <button class="custom-button" (click)="assignRequest(requestList)">
               {{
                 requestList.assigned_user === null || requestList.assigned_user === ''

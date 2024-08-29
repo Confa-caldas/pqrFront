@@ -1,6 +1,6 @@
 .p-dropdown {
   width: 100%;
-  height: 32px;
+  height: 40px;
 
 
   &:focus {
@@ -14,12 +14,13 @@
   border: 0 none;
   margin-left: 5px;
   font-size: 14px;
-  max-width: 300px
+  max-width: 100%;
 }
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
   margin: 0;
   padding: 0.75rem 2.25rem;
+  padding-left: -10px;
 }
 
 .p-dropdown-filter {
@@ -41,16 +42,17 @@
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
   margin: 0;
-  padding: 6px 24px;
+  //padding: 6px 24px;
   font-size: 13px;
   font-family: $font-light;
+  margin-left: -10px;
 }
 
 p-dropdown p-overlay .p-overlay.p-component {
-  max-height: 100px;
+  //max-height: 100px;
   overflow-y: auto;
   overflow-x: hidden;
-  max-width: 100px;
+  //max-width: 100px;
 
   .p-dropdown-panel .p-dropdown-items-wrapper {
     max-height: 500px !important;
@@ -60,7 +62,7 @@ p-dropdown p-overlay .p-overlay.p-component {
 
 .p-dropdown .p-dropdown-label.p-placeholder {
   font-size: small;
-  //font-family: $font-light;
+  font-family: $font-light;
 }
 
 p-dropdown.ng-dirty.ng-valid>.p-dropdown {

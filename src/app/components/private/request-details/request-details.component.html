@@ -38,7 +38,7 @@
           </div>
           <div class="container-column">
             <label class="container-label"> Responsable de solicitud </label>
-            <li class="container-text">{{ requestDetails.assigned_user }}</li>
+            <li class="container-text">{{ requestDetails.user_name_completed }}</li>
           </div>
           <div class="container-column">
             <label class="container-label"> Tipo de solicitud </label>
@@ -52,7 +52,7 @@
 
   <div class="container-button" *ngIf="!showProcessTab()">
     <p-button
-      *ngIf="requestDetails.status_name !== 'Cerrada' && PERFIL !== 'RESPONSABLE'"
+      *ngIf="requestDetails.status_name !== 'Cerrada' && PERFIL !== 'CONSULTANTE'"
       [label]="
         requestDetails.assigned_user === null || requestDetails.assigned_user === ''
           ? 'Asignar'
@@ -135,7 +135,7 @@
               </div>
               <div class="process-container-col">
                 <label class="process-container-label"> Responsable de solicitud </label>
-                <li class="process-container-text">{{ requestDetails.assigned_user }}</li>
+                <li class="process-container-text">{{ requestDetails.user_name_completed }}</li>
               </div>
               <div class="process-container-col"></div>
             </div>
@@ -143,6 +143,12 @@
               <div class="process-container-col-description">
                 <label class="process-container-label"> Descripción solicitud </label>
                 <li class="process-container-text">{{ requestDetails.request_description }}</li>
+              </div>
+            </div>
+            <div class="process-container-row" *ngIf="requestDetails.status_name === 'Cerrada'">
+              <div class="process-container-col-description">
+                <label class="process-container-label"> Respuesta solicitud </label>
+                <li class="process-container-text">{{ requestDetails.request_answer }}</li>
               </div>
             </div>
           </div>
@@ -169,8 +175,8 @@
                     </th>
                     <th style="width: 20%">Formato</th>
                     <th style="width: 20%">Peso</th>
-                    <th style="width: 10%"></th>
-                    <th style="width: 10%"></th>
+                    <th style="width: 10%">Previsualizar</th>
+                    <th style="width: 10%">Descargar</th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-requestApplicantAttachmentsList>
@@ -414,7 +420,7 @@
                   {{ requestHistoric.updated_by }}
                 </td>
                 <td [ngStyle]="{ 'text-align': 'center' }">
-                  {{ requestHistoric.assigned_user }}
+                  {{ requestHistoric.user_name_completed }}
                 </td>
                 <td [ngStyle]="{ 'text-align': 'center' }">{{ requestHistoric.status_name }}</td>
               </tr>
@@ -432,6 +438,42 @@
   </div>
 }
 <p-toast></p-toast>
+
+<p-dialog
+  header="Previsualización del Documento"
+  [(visible)]="displayPreviewModal"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+  [contentStyle]="{ padding: '1em' }"
+  [responsive]="true"
+  [styleClass]="'custom-dialog'"
+  (onHide)="displayPreviewModal = false">
+  <div *ngIf="viewerType === 'google'">
+    <ngx-doc-viewer
+      [url]="preSignedUrlDownload"
+      viewer="google"
+      style="width: 100%; height: 500px"></ngx-doc-viewer>
+  </div>
+
+  <div *ngIf="viewerType === 'office'">
+    <ngx-doc-viewer
+      [url]="preSignedUrlDownload"
+      viewer="office"
+      style="width: 100%; height: 500px"></ngx-doc-viewer>
+  </div>
+
+  <div *ngIf="viewerType === 'image'">
+    <img [src]="preSignedUrlDownload" alt="Preview" style="width: 100%; height: 500px" />
+  </div>
+
+  <div *ngIf="viewerType === 'pdf'">
+    <ngx-doc-viewer
+      [url]="preSignedUrlDownload"
+      viewer="google"
+      style="width: 100%; height: 500px"></ngx-doc-viewer>
+  </div>
+</p-dialog>
+
 <app-modal-dinamic
   *ngIf="visibleDialog"
   [select]="true"
