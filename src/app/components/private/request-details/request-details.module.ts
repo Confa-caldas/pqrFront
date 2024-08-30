@@ -14,6 +14,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { DatePipe } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [RequestDetailsComponent],
@@ -31,6 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DatePipe,
     ToastModule,
     ReactiveFormsModule,
+    NgxDocViewerModule,
+    DialogModule,
   ],
   exports: [RequestDetailsComponent],
 })

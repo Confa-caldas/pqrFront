@@ -103,7 +103,21 @@ export class CreateRequestComponent {
       'request-type',
       JSON.stringify(this.optionsRequest.controls['request_id'].value)
     );
-    this.router.navigate([RoutesApp.REQUEST_FORM]);
+
+    if (
+      this.optionsRequest.controls['applicant_id'].value.applicant_type_id === 1 &&
+      this.optionsRequest.controls['request_id'].value.request_type_id === 21
+    ) {
+      console.log('bienn');
+      window.open(
+        'https://docs.google.com/forms/d/e/1FAIpQLSc11ps8y0lrKKZEa83wtJC2VrtoSe7p1IMXfeM2bzDSxFagdg/viewform',
+        '_blank'
+      ); // Abre un enlace en una nueva pestaña
+      // window.location.href =
+      //   'https://docs.google.com/forms/d/e/1FAIpQLSc11ps8y0lrKKZEa83wtJC2VrtoSe7p1IMXfeM2bzDSxFagdg/viewform'; //abre en la misma
+    } else {
+      this.router.navigate([RoutesApp.REQUEST_FORM]);
+    }
   }
   closeDialogDataT(value: boolean) {
     this.visibleDialogDataT = false;

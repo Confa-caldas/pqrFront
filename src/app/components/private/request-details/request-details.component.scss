@@ -242,3 +242,15 @@ td {
     }
   }
 }
+
+
+:host ::ng-deep .p-dialog.custom-dialog .p-dialog-header {
+  background-color: #007ad9 !important; /* Color de fondo azul */
+  font-family: $font-bold;
+}
+
+:host ::ng-deep .p-dialog.custom-dialog .p-dialog-header .p-dialog-title{
+  background-color: #007ad9 !important; /* Color de fondo azul */
+  color: #ffffff; /* Color del texto blanco */
+  font-family: $font-bold;
+}

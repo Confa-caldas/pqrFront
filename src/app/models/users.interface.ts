@@ -7,6 +7,7 @@ export interface UserList {
   created_date: string;
   is_active: number | boolean;
   is_visible: number | boolean;
+  user_name_completed: string;
 }
 export interface RequestsList {
   request_id: number;
@@ -31,6 +32,7 @@ export interface RequestsList {
   assigned_attachments: string[];
   form_id: number;
   status_name: string;
+  user_name_completed: string;
 }
 
 export interface RequestsDetails {
@@ -59,6 +61,7 @@ export interface RequestsDetails {
   form_id: number;
   updated_by?: string;
   updated_date?: string;
+  user_name_completed?: string;
 }
 export interface RequestAttachmentsList {
   url: string;
@@ -81,6 +84,7 @@ export interface RequestHistoric {
   status_name: string;
   assigned_user: string;
   difference: string[];
+  user_name_completed: string;
 }
 export interface AssignUserRequest {
   request_id: number;
@@ -103,6 +107,7 @@ export interface AssignUserRequest {
   applicant_attachments?: string[];
   assigned_attachments?: string[];
   form_id?: number;
+  user_name_completed?: string;
 }
 
 export interface UserCreate {

@@ -15,7 +15,7 @@ export class ModalAssignSelectorComponent implements OnInit {
   @Input() parameter = [''];
   @Input() visible: boolean = false;
   @Output() setRta = new EventEmitter<boolean>();
-  @Output() setRtaParameter = new EventEmitter<string>();
+  @Output() setRtaParameter = new EventEmitter<any>();
   userList: UserList[] = [];
 
   constructor(
@@ -56,8 +56,10 @@ export class ModalAssignSelectorComponent implements OnInit {
 
   closeDialog(value: boolean) {
     this.setRta.emit(value);
-    const user_name = this.formGroup.controls['selectedUser'].value['user_name'];
-    this.setRtaParameter.emit(user_name);
+    const selectedUser = this.formGroup.controls['selectedUser'].value;
+    const userName = selectedUser?.user_name || '';
+    const userNameCompleted = selectedUser?.user_name_completed || '';
+    this.setRtaParameter.emit({ userName, userNameCompleted });
     this.visible = false;
   }
 }

@@ -128,9 +128,9 @@ const routes: Routes = [
     loadChildren: () =>
       import('./components/shared/main-page/main-page.module').then(m => m.MainPageModule),
   },
-  { path: '', redirectTo: '/' + RoutesApp.LOGIN, pathMatch: 'full' },
+  { path: '', redirectTo: '/' + RoutesApp.CREATE_REQUEST, pathMatch: 'full' },
   // Puedes agregar una ruta comodín para manejar rutas no encontradas (opcional)
-  { path: '**', redirectTo: '' + RoutesApp.LOGIN, pathMatch: 'full' },
+  { path: '**', redirectTo: '' + RoutesApp.CREATE_REQUEST, pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,51 +1,79 @@
 <p-dialog [(visible)]="visible" [style]="{ width: '80vw' }" [modal]="true">
   <ng-template pTemplate="headless">
     <div class="modal-overlay">
-    <div class="modal-content modal-policies">
-      <div class="modal-header p-2">
-        <div class="p-1 col-md-11">
-          <div class="card-politica">
-            <div class="row no-gutters">
-              <div class="col-md-2 d-flex justify-content-center align-items-center">
-                <img src="../../../../assets/images/politicaDatos.png" class="card-img m-3" alt="" />
-              </div>
-              <div class="card-politica-body col-md-10">
-                <div class="p-2">
-                  <span>Tómate un momento para leer nuestra</span>
-                  <h4 class="modal-title" id="modalPoliticaTratamientoDatosTitle">
-                    Autorización de tratamiento de datos y de habeas Data
-                  </h4>
-                  <p class="text-break m-0">
-                    Para leer nuestra política completa 
-                    <a href="https://56a.4c4.myftpupload.com/wp-content/uploads/2022/05/POLI%CC%81TICA-DE-TRATAMIENTO-DE-LA-INFORMACIO%CC%81N-1-1.pdf"
-                      target="_blank" class="link-politicas">ingresa aqui.
-                    </a>
-                  </p>
+      <div class="modal-content modal-policies">
+        <div class="modal-header p-2">
+          <div class="p-1 col-md-11">
+            <div class="card-politica">
+              <div class="row no-gutters">
+                <div class="col-md-2 d-flex justify-content-center align-items-center">
+                  <img
+                    src="../../../../assets/images/politicaDatos.png"
+                    class="card-img m-3"
+                    alt="" />
+                </div>
+                <div class="card-politica-body col-md-10">
+                  <div class="p-2">
+                    <span>Tómate un momento para leer nuestra</span>
+                    <h4 class="modal-title" id="modalPoliticaTratamientoDatosTitle">
+                      Autorización de tratamiento de datos y de habeas Data
+                    </h4>
+                    <p class="text-break m-0">
+                      Para leer nuestra política completa
+                      <a
+                        href="https://56a.4c4.myftpupload.com/wp-content/uploads/2022/05/POLI%CC%81TICA-DE-TRATAMIENTO-DE-LA-INFORMACIO%CC%81N-1-1.pdf"
+                        target="_blank"
+                        class="link-politicas"
+                        >ingresa aqui.
+                      </a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <button
+            type="button"
+            class="close cerrar"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="closeDialog(false)">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close" (click)="closeDialog(false)">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="divider"></div>
-      <div class="modal-body p-4 contenidopolicies">
-        <div class="row d-flex m-0" id="imag-h4">
-          <img class="col-12 p-0" src="../../../../assets/images/logo_reverse.png" alt="" />
-          <h4 class="col-12 col-sm-5 col-md-5 col-lg-3 col-xl-3">Política de Habeas Data:</h4>
-        </div>
-        <div style="height: 80% !important; overflow: auto">
-          <p>
-            Acepto todos los requisitos y recomendaciones. Así mismo, autorizo de manera libre, previa, expresa e informada a la Caja de Compensación Familiar de Caldas, Confa para que trate mis datos personales o sensibles que llegase a recolectar, para procesarla, recolectarla, almacenarla, usarla, circularla, suprimirla, compartirla, actualizarla, transmitirla y transferirla de acuerdo con los términos y condiciones de las políticas de tratamiento vigentes (www.confa.co), con el fin de hacer posible la presentación de los servicios propios, reportes a autoridades de control y vigilancia y para uso de fines administrativo, comercial, de publicidad y contacto frente a los titulares de los mismos.
-          </p>
-          <p>
-            Como titular de la información tengo derecho a consultar, conocer, actualizar y rectificar mis datos personales, ser informado sobre el uso que se ha dado a los mismos en el momento que los solicite, presentar quejas, revocar la autorización y/o solicitar la supresión de mis datos en los casos en que sea procedente y acceder en forma gratuita a los mismos, a través de las líneas de atención 8783111 ext 2790 o al correo proteccion.datosconfa.co. Conozco que como titular de datos sensibles no estoy obligado a autorizar el tratamiento.
-          </p>
+        <div class="divider"></div>
+        <div class="modal-body p-4 contenidopolicies">
+          <div class="row d-flex m-0" id="imag-h4">
+            <img class="col-12 p-0" src="../../../../assets/images/logo_reverse.png" alt="" />
+            <h4 class="col-12 col-sm-5 col-md-5 col-lg-3 col-xl-3">Política de Habeas Data:</h4>
+          </div>
+          <div style="height: 80% !important; overflow: auto">
+            <p>
+              Autorizo de manera previa, expresa e inequívoca a la Caja de Compensación Familiar de
+              Caldas–Confa, para que trate mis datos personales y/o sensibles que llegase a
+              recolectar. De igual manera autorizo de manera previa, expresa e inequívoca para que
+              se traten los datos personales y/o sensibles del menor o de la persona sobre el cual
+              actúo en calidad de representante legal, para que sobre esta información proceda a
+              procesarla, recolectarla, almacenarla, usarla, circularla, suprimirla, compartirla,
+              actualizarla, transmitirla y transferirla de acuerdo a las finalidades incorporadas en
+              la Política de Tratamiento de la Información publicada en www.confa.co, con el fin de
+              hacer posible la prestación de los servicios propios, reportes a autoridades de
+              vigilancia y control, para uso de fines administrativo, comercial, de publicidad y
+              contacto frente a los titulares de los mismos.
+            </p>
+            <p>
+              Declaro estar informado sobre la posibilidad de oponerse al tratamiento de datos
+              sensibles, salvo que sea necesario para el objeto de las relaciones que se establecen
+              y que en mi calidad de titular de la información tengo derecho a consultar, conocer,
+              actualizar y rectificar los datos personales, ser informado sobre el uso que se ha
+              dado a los mismos en el momento que los solicite, presentar quejas, revocar la
+              autorización y/o solicitar la supresión de mis datos en los casos en que sea
+              procedente y acceder en forma gratuita a los mismos a través de las líneas de atención
+              8783111 ext. 2772 o al correo proteccion.datos&#64;confa.co.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </ng-template>
 </p-dialog>

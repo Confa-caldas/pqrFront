@@ -28,6 +28,9 @@ import { PaginatorState } from 'primeng/paginator';
 export class RequestDetailsComponent implements OnInit {
   @ViewChild('archive_request') fileInput!: ElementRef;
 
+  displayPreviewModal: boolean = false;
+  viewerType: 'google' | 'office' | 'image' | 'pdf' = 'google';
+
   requestList: RequestsList[] = [];
   requestDetails?: RequestsDetails;
   requestHistoric: RequestHistoric[] = [];
@@ -41,7 +44,7 @@ export class RequestDetailsComponent implements OnInit {
   message2 = '';
   buttonmsg = '';
   parameter = [''];
-  request_details?: RequestsDetails;
+  request_details!: RequestsDetails;
   selectedRequests: RequestsList[] = [];
   request_id: number = 0;
   tabWidth!: number;
@@ -100,6 +103,8 @@ export class RequestDetailsComponent implements OnInit {
   ngOnInit() {
     this.PERFIL = sessionStorage.getItem(SessionStorageItems.PERFIL) || '';
     this.user = sessionStorage.getItem(SessionStorageItems.USER) || '';
+
+    console.log(localStorage.getItem);
     let routeIf = localStorage.getItem('route');
     if (routeIf?.includes(RoutesApp.SEARCH_REQUEST)) {
       this.routeTab = routeIf;
@@ -184,7 +189,6 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   showProcessTab(): boolean {
-    console.log(this.routeTab);
     if (
       // (this.routeTab.includes(RoutesApp.PROCESS_REQUEST) ||
       //   this.routeTab.includes(RoutesApp.REQUEST_DETAILS)) &&
@@ -254,7 +258,7 @@ export class RequestDetailsComponent implements OnInit {
 
   handleBtn(fileSize: string, fileExt: string): boolean {
     if (fileExt === 'xls' || fileExt === 'xlsx' || fileExt === 'doc' || fileExt === 'docx') {
-      return false; // Si la extensión es 'xls', devolver false para no mostrar el botón
+      return true; // Si la extensión es 'xls', devolver false para no mostrar el botón
     } else if (fileSize.includes('KB')) {
       return true;
     } else if (this.extractFileSize(fileSize) < 20 && fileExt === 'pdf') {
@@ -348,9 +352,9 @@ export class RequestDetailsComponent implements OnInit {
   closeDialogCharacterization(value: boolean) {
     this.visibleCharacterization = false;
   }
-  setParameter(inputValue: string) {
-    if (!this.request_details || !this.enableAssign) return;
-    if (this.request_details['assigned_user'] == inputValue) {
+  setParameter(inputValue: { userName: string; userNameCompleted: string }) {
+    if (!this.enableAssign) return;
+    if (this.request_details['assigned_user'] == inputValue.userName) {
       this.visibleDialogAlert = true;
       this.informative = true;
       this.message = 'Verifique el responsable a asignar';
@@ -359,7 +363,8 @@ export class RequestDetailsComponent implements OnInit {
       this.severity = 'danger';
       return;
     }
-    this.request_details['assigned_user'] = inputValue;
+    this.request_details['assigned_user'] = inputValue.userName;
+    this.request_details['user_name_completed'] = inputValue.userNameCompleted;
     if (inputValue) {
       this.userService.assignUserToRequest(this.request_details).subscribe({
         next: (response: BodyResponse<string>) => {
@@ -638,6 +643,7 @@ export class RequestDetailsComponent implements OnInit {
     return `data:${fileType};base64,${base64Data.split(',')[1]}`;
   }
 
+  /*
   async getPreSignedUrlToDownload(url: string, file_name: string, is_download: boolean) {
     const payload = {
       url: url,
@@ -663,5 +669,50 @@ export class RequestDetailsComponent implements OnInit {
         return this.preSignedUrlDownload;
       },
     });
+  } */
+
+  async getPreSignedUrlToDownload(url: string, file_name: string, is_download: boolean) {
+    const payload = { url: url };
+    this.userService.getUrlSigned(payload, 'download').subscribe({
+      next: (response: BodyResponse<string>): void => {
+        if (response.code === 200) {
+          this.preSignedUrlDownload = response.data;
+        } else {
+          this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('La suscripción ha sido completada.');
+        this.viewerType = this.getViewerType(file_name);
+        if (!is_download) {
+          this.displayPreviewModal = true;
+        } else {
+          this.downloadFileS3(this.preSignedUrlDownload, file_name);
+        }
+        return this.preSignedUrlDownload;
+      },
+    });
+  }
+
+  getViewerType(file_name: string): 'google' | 'office' | 'image' | 'pdf' {
+    const extension = file_name.split('.').pop()?.toLowerCase();
+    switch (extension) {
+      case 'pdf':
+        return 'pdf';
+      case 'docx':
+      case 'doc':
+      case 'xlsx':
+      case 'xls':
+        return 'office';
+      case 'png':
+      case 'jpg':
+      case 'jpeg':
+        return 'image';
+      default:
+        return 'google'; // Valor predeterminado
+    }
   }
 }
