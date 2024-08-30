@@ -40,7 +40,8 @@ export class CreateRequestComponent {
   applicantId1(): boolean {
     if (
       this.optionsRequest.get('applicant_id')?.valid &&
-      this.optionsRequest.controls['applicant_id'].value['applicant_type_id'] !== 1
+      this.optionsRequest.controls['applicant_id'].value['applicant_type_id'] !== 1 &&
+      this.optionsRequest.controls['applicant_id'].value['applicant_type_id'] !== 6
     ) {
       return true;
     } else {
