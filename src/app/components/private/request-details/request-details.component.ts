@@ -87,6 +87,7 @@ export class RequestDetailsComponent implements OnInit {
   preSignedUrl: string = '';
   preSignedUrlDownload: string = '';
   selectedFile: File | null = null;
+  visibleDialogdDescrip = false;
   constructor(
     private formBuilder: FormBuilder,
     private userService: Users,
@@ -715,5 +716,9 @@ export class RequestDetailsComponent implements OnInit {
       default:
         return 'google'; // Valor predeterminado
     }
+  }
+
+  showModal() {
+    this.visibleDialogdDescrip = true;
   }
 }

@@ -422,7 +422,14 @@
                 <td [ngStyle]="{ 'text-align': 'center' }">
                   {{ requestHistoric.user_name_completed }}
                 </td>
-                <td [ngStyle]="{ 'text-align': 'center' }">{{ requestHistoric.status_name }}</td>
+                <td [ngStyle]="{ 'text-align': 'center' }">
+                  {{ requestHistoric.status_name }}
+                  <p-button
+                    *ngIf="requestHistoric.status_name === 'Cerrada'"
+                    icon="pi pi-eye"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="showModal()"></p-button>
+                </td>
               </tr>
             </ng-template>
           </p-table>
@@ -436,6 +443,18 @@
       </p-tabPanel>
     </p-tabView>
   </div>
+  <p-dialog
+    header="Respuesta solicitud"
+    [(visible)]="visibleDialogdDescrip"
+    [modal]="true"
+    [style]="{ width: '80vw' }"
+    [contentStyle]="{ padding: '1em' }"
+    [responsive]="true"
+    [styleClass]="'custom-dialog'">
+    <p class="mb-5">
+      {{ requestDetails.request_answer }}
+    </p>
+  </p-dialog>
 }
 <p-toast></p-toast>
 
