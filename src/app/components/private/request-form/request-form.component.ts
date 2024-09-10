@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { RoutesApp } from '../../../enums/routes.enum';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-request-form',
@@ -177,7 +178,6 @@ export class RequestFormComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         const base64String: string = e.target.result.split(',')[1];
-
         const applicantAttach: ApplicantAttachments = {
           base64file: base64String,
           source_name: fileName,
@@ -299,6 +299,29 @@ export class RequestFormComponent implements OnInit {
         await this.getPreSignedUrl(item, request_id);
       })
     );
+
+    if (this.arrayApplicantAttachment && this.arrayApplicantAttachment.length > 0) {
+      const ruta_archivo_ws = environment.ruta_archivos_ws;
+
+      const estructura = {
+        idSolicitud: `${request_id}`,
+        archivos: this.arrayApplicantAttachment.map(file => ({
+          base64file: file.base64file,
+          source_name: file.source_name,
+          fileweight: file.fileweight,
+        })),
+      };
+
+      this.http.post(ruta_archivo_ws, estructura).subscribe(
+        respuesta => {
+          console.log('Respuesta del servicio:', respuesta);
+        },
+        error => {
+          console.error('Error al llamar al servicio:', error);
+        }
+      );
+    }
+
     this.showAlertModal(request_id);
   }
   sendRequest() {
