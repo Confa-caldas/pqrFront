@@ -88,6 +88,7 @@ export class RequestDetailsComponent implements OnInit {
   preSignedUrlDownload: string = '';
   selectedFile: File | null = null;
   visibleDialogdDescrip = false;
+  isSpinnerVisible = false;
   constructor(
     private formBuilder: FormBuilder,
     private userService: Users,
@@ -618,10 +619,22 @@ export class RequestDetailsComponent implements OnInit {
 
     const blob = new Blob([byteArray], { type: mimeType });
     const url = URL.createObjectURL(blob);
-    const newTab = window.open(url, '_blank');
-    if (newTab) {
-      newTab.focus();
-    }
+    //const newTab = window.open(url, '_blank');
+
+    // Definir las dimensiones de la ventana emergente
+    const windowWidth = 800;
+    const windowHeight = 600;
+
+    // Calcular la posición centrada
+    const left = window.screen.width / 2 - windowWidth / 2;
+    const top = window.screen.height / 2 - windowHeight / 2;
+
+    // Definir las características de la nueva ventana con las posiciones calculadas
+    const windowFeatures = `width=${windowWidth},height=${windowHeight},scrollbars=yes,resizable=yes,left=${left},top=${top}`;
+    this.isSpinnerVisible = false;
+    // Abrir la nueva ventana con las características definidas
+    const newWindow = window.open(url, 'miventana', windowFeatures);
+
     URL.revokeObjectURL(url);
   }
   async blobToBase64(blob: Blob): Promise<string> {
@@ -690,7 +703,12 @@ export class RequestDetailsComponent implements OnInit {
         console.log('La suscripción ha sido completada.');
         this.viewerType = this.getViewerType(file_name);
         if (!is_download) {
-          this.displayPreviewModal = true;
+          if (this.viewerType == 'pdf') {
+            this.isSpinnerVisible = true;
+            this.displayFileInTab(this.preSignedUrlDownload, file_name);
+          } else {
+            this.displayPreviewModal = true;
+          }
         } else {
           this.downloadFileS3(this.preSignedUrlDownload, file_name);
         }

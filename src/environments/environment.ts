@@ -9,5 +9,5 @@ export const environment = {
   context: 'develop',
   version: packageJson.version,
   minutesInactive: 15,
-  ruta_archivos_ws: 'http://nbdesg4-1:28080/guardarArchivosRest/guardarArchivo/metodo1',
+  ruta_archivos_ws: 'https://app.confa.co:8687/guardarArchivosRest/guardarArchivo/metodo1',
 };
