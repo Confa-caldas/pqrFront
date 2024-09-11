@@ -484,8 +484,8 @@
       style="width: 100%; height: 500px"></ngx-doc-viewer>
   </div>
 
-  <div *ngIf="viewerType === 'image'">
-    <img [src]="preSignedUrlDownload" alt="Preview" style="width: 100%; height: 500px" />
+  <div *ngIf="viewerType === 'image'" class="image-container">
+    <img [src]="preSignedUrlDownload" alt="Preview" class="image-preview" />
   </div>
 
   <div *ngIf="viewerType === 'pdf'">
