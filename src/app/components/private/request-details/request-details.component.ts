@@ -88,6 +88,10 @@ export class RequestDetailsComponent implements OnInit {
   preSignedUrlDownload: string = '';
   selectedFile: File | null = null;
   visibleDialogdDescrip = false;
+  visibleDialogdDescripRadicada = false;
+  isDialogVisible: boolean = false;
+  dialogHeader: string = '';
+  dialogContent: string = '';
   isSpinnerVisible = false;
   constructor(
     private formBuilder: FormBuilder,
@@ -736,7 +740,23 @@ export class RequestDetailsComponent implements OnInit {
     }
   }
 
+  //showModal() {
+  //  this.visibleDialogdDescrip = true;
+  //}
+
+  //showModalRadicada() {
+  //  this.visibleDialogdDescripRadicada = true;
+  //}
+
+  showModalRadicada() {
+    this.dialogHeader = 'Descripción de la solicitud';
+    this.dialogContent = this.requestDetails?.request_description || '';
+    this.isDialogVisible = true;
+  }
+
   showModal() {
-    this.visibleDialogdDescrip = true;
+    this.dialogHeader = 'Respuesta de la solicitud';
+    this.dialogContent = this.requestDetails?.request_answer || '';
+    this.isDialogVisible = true;
   }
 }
