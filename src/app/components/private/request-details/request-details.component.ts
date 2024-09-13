@@ -102,8 +102,8 @@ export class RequestDetailsComponent implements OnInit {
     private http: HttpClient
   ) {
     this.requestProcess = this.formBuilder.group({
-      //mensage: [null, [Validators.required, Validators.maxLength(500)]],
-      mensage: [null, [Validators.required]],
+      mensage: [null, [Validators.required, Validators.maxLength(5000)]],
+      //mensage: [null, [Validators.required]],
     });
   }
 

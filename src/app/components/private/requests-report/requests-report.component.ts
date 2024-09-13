@@ -233,6 +233,7 @@ export class RequestsReportComponent implements OnInit {
       assigned_user: this.formGroup.controls['assigned_user'].value || null,
       is_pqr: this.formGroup.controls['is_pqr'].value || null,
     };
+    console.log(payload);
     this.userService.getRequestReportAll(payload).subscribe({
       next: (response: BodyResponse<RequestReportList[]>) => {
         if (response.code === 200) {
@@ -280,6 +281,7 @@ export class RequestsReportComponent implements OnInit {
     });
   }
   exportExcelXLSX(requestList: RequestReportList[]) {
+    console.log('llego');
     import('xlsx').then(xlsx => {
       const worksheet = xlsx.utils.json_to_sheet(requestList);
       const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
@@ -289,6 +291,7 @@ export class RequestsReportComponent implements OnInit {
   }
 
   saveAsExcelFileXLSX(buffer: any, fileName: string): void {
+    console.log('llegox2');
     const EXCEL_TYPE =
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const EXCEL_EXTENSION = '.xlsx';

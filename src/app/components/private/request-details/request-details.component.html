@@ -346,7 +346,7 @@
                 }}
                 {{
                   requestProcess.get('mensage')?.hasError('maxlength')
-                    ? ' Maximo 500 caracteres'
+                    ? ' Maximo 5000 caracteres'
                     : ''
                 }}</label
               >
@@ -428,7 +428,6 @@
                 </td>
                 <td [ngStyle]="{ 'text-align': 'center' }">
                   {{ requestHistoric.status_name }}
-                  
                 </td>
                 <td [ngStyle]="{ 'text-align': 'center' }">
                   <p-button
@@ -437,10 +436,10 @@
                     [styleClass]="'btn-icon-info'"
                     (click)="showModal()"></p-button>
                   <p-button
-                  *ngIf="requestHistoric.status_name === 'Radicada'"
-                  icon="pi pi-eye"
-                  [styleClass]="'btn-icon-info'"
-                  (click)="showModalRadicada()"></p-button>
+                    *ngIf="requestHistoric.status_name === 'Radicada'"
+                    icon="pi pi-eye"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="showModalRadicada()"></p-button>
                 </td>
               </tr>
             </ng-template>
@@ -481,18 +480,17 @@
     </p>
   </p-dialog> -->
   <p-dialog
-  header="{{ dialogHeader }}"
-  [(visible)]="isDialogVisible"
-  [modal]="true"
-  [style]="{ width: '60vw' }"
-  [contentStyle]="{ padding: '1em' }"
-  [responsive]="true"
-  [styleClass]="'custom-dialog'"
->
-  <p class="mb-5">
-    {{ dialogContent }}
-  </p>
-</p-dialog>
+    header="{{ dialogHeader }}"
+    [(visible)]="isDialogVisible"
+    [modal]="true"
+    [style]="{ width: '60vw' }"
+    [contentStyle]="{ padding: '1em' }"
+    [responsive]="true"
+    [styleClass]="'custom-dialog'">
+    <p class="mb-5">
+      {{ dialogContent }}
+    </p>
+  </p-dialog>
 }
 <p-toast></p-toast>
 
