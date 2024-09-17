@@ -301,7 +301,8 @@ export class RequestFormComponent implements OnInit {
     );
 
     if (this.arrayApplicantAttachment && this.arrayApplicantAttachment.length > 0) {
-      const ruta_archivo_ws = environment.ruta_archivos_ws;
+      const ruta_archivo_ws =
+        'https://alojamiento.confa.co/guardarArchivosRest/guardarArchivo/metodo1';
 
       const estructura = {
         idSolicitud: `${request_id}`,
