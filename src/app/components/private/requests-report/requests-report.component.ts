@@ -236,6 +236,7 @@ export class RequestsReportComponent implements OnInit {
     this.userService.getRequestReportAll(payload).subscribe({
       next: (response: BodyResponse<RequestReportList[]>) => {
         if (response.code === 200) {
+          console.log(response.data);
           this.requestReportListAll = response.data;
           this.requestReportListAll.forEach(item => {
             item.is_pqr = item.is_pqr === 1 ? 'Sí' : item.is_pqr === null ? '' : 'No';
@@ -262,6 +263,7 @@ export class RequestsReportComponent implements OnInit {
           });
           this.changesKeys(this.requestReportListAll, this.cols);
         } else {
+          console.log('err');
         }
       },
       error: (err: any) => {

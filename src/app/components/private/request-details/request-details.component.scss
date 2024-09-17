@@ -254,3 +254,13 @@ td {
   color: #ffffff; /* Color del texto blanco */
   font-family: $font-bold;
 }
+
+.image-preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Mantiene las proporciones de la imagen dentro del contenedor */
+}
+
+.image-container {
+  text-align: center;
+}

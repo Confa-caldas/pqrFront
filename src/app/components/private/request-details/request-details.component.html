@@ -1,3 +1,6 @@
+<div *ngIf="isSpinnerVisible" class="spinner-overlay">
+  <div class="spinner"></div>
+</div>
 <div class="row mb-2">
   <div class="title">{{ showProcessTab() ? 'Tramitar solicitudes' : 'Consultar solicitudes' }}</div>
 </div>
@@ -343,7 +346,7 @@
                 }}
                 {{
                   requestProcess.get('mensage')?.hasError('maxlength')
-                    ? ' Maximo 500 caracteres'
+                    ? ' Maximo 6000 caracteres'
                     : ''
                 }}</label
               >
@@ -408,6 +411,7 @@
                 <th style="width: 20%">Usuario</th>
                 <th style="width: 20%">Responsable de solicitud</th>
                 <th style="width: 15%">Estado de solicitud</th>
+                <th style="width: 10%">Descripción del estado</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-requestHistoric>
@@ -422,7 +426,21 @@
                 <td [ngStyle]="{ 'text-align': 'center' }">
                   {{ requestHistoric.user_name_completed }}
                 </td>
-                <td [ngStyle]="{ 'text-align': 'center' }">{{ requestHistoric.status_name }}</td>
+                <td [ngStyle]="{ 'text-align': 'center' }">
+                  {{ requestHistoric.status_name }}
+                </td>
+                <td [ngStyle]="{ 'text-align': 'center' }">
+                  <p-button
+                    *ngIf="requestHistoric.status_name === 'Cerrada'"
+                    icon="pi pi-eye"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="showModal()"></p-button>
+                  <p-button
+                    *ngIf="requestHistoric.status_name === 'Radicada'"
+                    icon="pi pi-eye"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="showModalRadicada()"></p-button>
+                </td>
               </tr>
             </ng-template>
           </p-table>
@@ -436,6 +454,43 @@
       </p-tabPanel>
     </p-tabView>
   </div>
+  <!-- <p-dialog
+    header="Respuesta solicitud"
+    [(visible)]="visibleDialogdDescrip"
+    [modal]="true"
+    [style]="{ width: '80vw' }"
+    [contentStyle]="{ padding: '1em' }"
+    [responsive]="true"
+    [styleClass]="'custom-dialog'">
+    <p class="mb-5">
+      {{ requestDetails.request_answer }}
+    </p>
+  </p-dialog>
+
+  <p-dialog
+    header="Descripción de la solicitud"
+    [(visible)]="visibleDialogdDescripRadicada"
+    [modal]="true"
+    [style]="{ width: '80vw' }"
+    [contentStyle]="{ padding: '1em' }"
+    [responsive]="true"
+    [styleClass]="'custom-dialog'">
+    <p class="mb-5">
+      {{ requestDetails.request_description }}
+    </p>
+  </p-dialog> -->
+  <p-dialog
+    header="{{ dialogHeader }}"
+    [(visible)]="isDialogVisible"
+    [modal]="true"
+    [style]="{ width: '60vw' }"
+    [contentStyle]="{ padding: '1em' }"
+    [responsive]="true"
+    [styleClass]="'custom-dialog'">
+    <p class="mb-5">
+      {{ dialogContent }}
+    </p>
+  </p-dialog>
 }
 <p-toast></p-toast>
 
@@ -462,8 +517,8 @@
       style="width: 100%; height: 500px"></ngx-doc-viewer>
   </div>
 
-  <div *ngIf="viewerType === 'image'">
-    <img [src]="preSignedUrlDownload" alt="Preview" style="width: 100%; height: 500px" />
+  <div *ngIf="viewerType === 'image'" class="image-container">
+    <img [src]="preSignedUrlDownload" alt="Preview" class="image-preview" />
   </div>
 
   <div *ngIf="viewerType === 'pdf'">
