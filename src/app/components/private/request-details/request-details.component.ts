@@ -93,6 +93,13 @@ export class RequestDetailsComponent implements OnInit {
   dialogHeader: string = '';
   dialogContent: string = '';
   isSpinnerVisible = false;
+
+  dataLoaded: any;  // Aquí está el dato previamente cargado
+  responseData: any;
+  visibleDialogIa = false;
+  categoria: string = '';
+  respuestaPredefinida: string = '';
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: Users,
@@ -759,4 +766,97 @@ export class RequestDetailsComponent implements OnInit {
     this.dialogContent = this.requestDetails?.request_answer || '';
     this.isDialogVisible = true;
   }
+
+  /*
+  respuestaSugeridaIa(requestDescription: string): void {
+
+    // Verifica que `requestDescription` no sea undefined o vacío
+    const description = this.requestDetails?.request_description;
+    
+    if (!description) {
+      console.error('Descripción del mensaje no disponible.');
+      return;
+    }
+  
+    console.log(description);
+  
+    // Llama al servicio para obtener la respuesta de IA
+    this.userService.respuestaIaWs(description).subscribe(
+      (response) => {
+        // Maneja la respuesta
+        this.responseData = response;
+        console.log(this.responseData);
+  
+        if (this.responseData.statusCode === 200) {
+          console.log('Respuesta exitosa:', this.responseData);
+  
+          // Muestra el diálogo con la respuesta
+          this.visibleDialogIa = true;
+          //this.informative = true;
+          this.message = response.body;
+        } else {
+          console.error('Error en la respuesta de IA. Código:', response.code);
+        }
+      },
+      (error) => {
+        // Maneja el error en la solicitud HTTP
+        console.error('Error en la solicitud de respuesta IA:', error);
+      }
+    );
+  } */
+  
+  respuestaSugeridaIa(requestDescription: string) {
+    console.log(this.requestDetails?.request_description);
+  
+    this.userService.respuestaIaWs(this.requestDetails?.request_description).subscribe(response => {
+      if (response.statusCode === 200) {
+        // El cuerpo de la respuesta está en response.body y es un string JSON
+        const responseBody = response.body;
+  
+        try {
+          // Analizar el cuerpo JSON
+          const parsedBody = JSON.parse(responseBody);
+  
+          // Extraer los datos
+          const categoria = parsedBody.categoria || 'Categoría no disponible';
+          let respuestaPredefinida = parsedBody.respuestaPredefinida || 'Respuesta no disponible';
+
+          // Reemplazar los asteriscos por el nombre del usuario
+          if (this.requestDetails && this.requestDetails.user_name_completed) {
+            const userName = this.requestDetails.user_name_completed;
+            respuestaPredefinida = respuestaPredefinida.replace(/\*+ */g, userName);
+          }
+  
+          // Asignar estos valores a variables locales o a propiedades del componente
+          this.categoria = categoria;
+          this.respuestaPredefinida = respuestaPredefinida;
+  
+          // Mostrar el modal
+          this.visibleDialogIa = true;
+          this.informative = true;
+        } catch (error) {
+          console.error('Error al procesar la respuesta del servicio:', error);
+        }
+      } else {
+        console.error('Error en la respuesta del servicio:', response);
+      }
+    });
+  }
+
+  confirmarRespuesta() {
+    // Reemplaza los asteriscos en la respuesta con el nombre del usuario
+    const userName = this.requestDetails?.user_name_completed || '';
+    const respuestaConNombre = "Hola, buen día!\n \n" + this.respuestaPredefinida + " \n \nCordialmente, " + this.requestDetails?.user_name_completed;
+
+    // Establece el valor del textarea en el formulario
+    this.requestProcess.get('mensage')?.setValue(respuestaConNombre);
+
+    // Cierra el modal
+    this.visibleDialogIa = false;
+  }
+
+  cancelar() {
+    this.visibleDialogIa = false;
+  }
+
 }

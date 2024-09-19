@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 import { RoutesApp } from '../../../enums/routes.enum';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+import { catchError, retryWhen, delay, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-request-form',
@@ -281,6 +284,8 @@ export class RequestFormComponent implements OnInit {
       },
     });
   }
+
+  /*
   async uploadToPresignedUrl(file: ApplicantAttachments) {
     const uploadResponse = await this.http
       .put(this.preSignedUrl, file.file, {
@@ -291,6 +296,56 @@ export class RequestFormComponent implements OnInit {
         observe: 'events',
       })
       .toPromise();
+  }
+  */
+
+  async uploadToPresignedUrl(file: ApplicantAttachments): Promise<void> {
+    // Verifica si el archivo y la propiedad file.file existen
+    if (file && file.file) {
+      try {
+        const contentType = 'application/png'; // Puedes cambiar el tipo según el archivo
+        const MAX_RETRIES = 3; // Número máximo de reintentos
+        const RETRY_DELAY_MS = 2000; // Tiempo de espera entre reintentos en milisegundos
+  
+        // Crea una función que realice la solicitud PUT con reintentos
+        const upload$ = this.http.put(this.preSignedUrl, file.file, {
+          headers: { 'Content-Type': contentType },
+          reportProgress: true,
+          observe: 'events', // Observa los eventos durante la subida
+        }).pipe(
+          retryWhen(errors =>
+            errors.pipe(
+              delay(RETRY_DELAY_MS), // Espera antes de reintentar
+              take(MAX_RETRIES), // Número máximo de intentos
+              catchError(err => {
+                console.error('Error subiendo el archivo después de varios intentos:', err);
+                throw err; // Manejo del error después de los reintentos
+              })
+            )
+          )
+        );
+  
+        // Ejecuta la solicitud
+        const uploadResponse = await upload$.toPromise();
+  
+        // Maneja los diferentes tipos de eventos HTTP
+        if (uploadResponse) {
+          if (uploadResponse.type === HttpEventType.UploadProgress) {
+            // Si hay progreso en la subida, puedes mostrarlo (opcional)
+            const progress = Math.round((uploadResponse.loaded / (uploadResponse.total || 1)) * 100);
+            console.log(`Progreso de la subida: ${progress}%`);
+          } else if (uploadResponse instanceof HttpResponse) {
+            // Verifica que la respuesta final sea exitosa (status 200)
+            console.log('Archivo subido con éxito:', uploadResponse);
+          }
+        }
+      } catch (error) {
+        // Manejo de errores en la subida del archivo
+        console.error('Falló la subida del archivo. Error:', error);
+      }
+    } else {
+      console.error('El archivo no es válido o está undefined.');
+    }
   }
 
   async attachApplicantFiles(request_id: number) {

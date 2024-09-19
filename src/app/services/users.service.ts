@@ -40,6 +40,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Users {
+
+  private apiUrl = 'https://api-utilitarios.confa.co/IA/analizartextoclasificar';  // URL del web service
+  private apiKey = 'AIabZtSVgS2nIVD03HQxY1cM6qLmRS8B3zHlw3qo';  // La API key que te dieron
+
   constructor(private http: HttpClient) {}
 
   getUsersList() {
@@ -375,5 +379,16 @@ export class Users {
   }
   downloadFileFromS3(preSignedUrl: string): Observable<Blob> {
     return this.http.get(preSignedUrl, { responseType: 'blob' });
+  }
+
+  respuestaIaWs(requestDescription?: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',  // Asegura que se envíe como JSON
+      'x-api-key': this.apiKey  // Incluye la API key en los headers
+    });
+    const payload = {
+      mensaje: requestDescription
+    };
+    return this.http.post(this.apiUrl, payload, { headers });  // Envía la petición con headers
   }
 }

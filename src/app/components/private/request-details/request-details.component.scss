@@ -264,3 +264,59 @@ td {
 .image-container {
   text-align: center;
 }
+
+:host ::ng-deep .custom-dialog {
+  .ui-dialog-titlebar {
+    background-color: #007bff !important; /* Color de la barra del título */
+    color: #fff !important;
+  }
+
+  .dialog-content {
+    p {
+      font-size: 1.1rem !important;
+      color: #000000 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .confirmation-text {
+      font-size: 1rem !important;
+      font-weight: bold !important;
+      margin-bottom: 1.5rem !important;
+    }
+  }
+
+  .dialog-buttons {
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 15px !important;
+    margin-top: 20px !important;
+
+    button {
+      padding: 0.5rem 1.5rem !important;
+      font-size: 1rem !important;
+      border: none !important;
+      border-radius: 5px !important;
+      cursor: pointer !important;
+      transition: background-color 0.3s ease !important;
+
+      &.btn-yes {
+        background-color: #28a745 !important;
+        color: white !important;
+
+        &:hover {
+          background-color: #218838 !important;
+        }
+      }
+
+      &.btn-no {
+        background-color: #dc3545 !important;
+        color: white !important;
+
+        &:hover {
+          background-color: #c82333 !important;
+        }
+      }
+    }
+  }
+}
+

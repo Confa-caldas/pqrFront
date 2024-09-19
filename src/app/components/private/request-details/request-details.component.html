@@ -325,8 +325,18 @@
             <div class="formProcess-card-text">
               <label class="formProcess-card-text-placeholder"
                 >Respuesta Solicitud
-                <p style="color: red">*</p></label
+                <p style="color: red">*</p>
+                <div>
+                  <p-button
+                  icon="pi pi-bolt"
+                  [styleClass]="'btn-icon-warning'"
+                  (click)="respuestaSugeridaIa(requestDetails.request_description)"
+                  [style]="{ 'border-radius': '10px' }">  
+                  </p-button>
+                </div>
+                </label
               >
+              
               <textarea
                 rows="5"
                 cols="30"
@@ -563,3 +573,29 @@
   [request_details]="request_details"
   (setRta)="closeDialogCharacterization($event)"
   (setRtaParameter)="setParameterCharacterization($event)"></app-modal-characterization>
+
+  <p-dialog
+  header="Respuesta sugerida por IA"
+  [(visible)]="visibleDialogIa"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+  [contentStyle]="{ padding: '1em' }"
+  [responsive]="true"
+  [styleClass]="'custom-dialog'">
+  
+  <div class="dialog-content">
+    <p><strong>Categoría:</strong> {{ categoria }}</p>
+    <p><strong>Respuesta sugerida:</strong> <br/>
+      Hola, buen día! <br/><br/>
+      {{ respuestaPredefinida }} <br/><br/>
+      Cordialmente, {{ requestDetails?.user_name_completed }}</p>
+    <div class="confirmation-text">
+      <p>¿Desea usar esta respuesta para la solicitud?</p>
+    </div>
+    <div class="dialog-buttons">
+      <button type="button" class="btn btn-yes" (click)="confirmarRespuesta()">Sí</button>
+      <button type="button" class="btn btn-no" (click)="cancelar()">No</button>
+    </div>
+  </div>
+</p-dialog>
+
