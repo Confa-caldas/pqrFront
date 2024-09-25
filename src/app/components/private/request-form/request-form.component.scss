@@ -491,3 +491,32 @@
   max-width: 100%;
   width: 100%;
 }
+
+.ui-dialog .p-progressBar {
+  margin-top: 10px;
+}
+
+.ui-dialog .p-progressBar > .p-progressbar-value {
+  background-color: #4caf50; /* Cambiar color de la barra */
+}
+
+.spinner-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color-indigo, $alpha: 0.6);/* Fondo semi-transparente */
+  z-index: 10000;
+}
+
+.spinner-text {
+  margin-top: 30px; /* Añade un pequeño espacio debajo del spinner */
+  color: rgb(255, 255, 255); /* Cambia el color a amarillo */
+  font-size: 25px; /* Ajusta el tamaño del texto según necesites */
+  text-align: center; /* Centra el texto */
+}

@@ -14,6 +14,8 @@ import { ToastModule } from 'primeng/toast';
 import { ModalAlertModule } from '../../shared/modal-alert/modal-alert.module';
 import { ModalFilingModule } from '../../shared/modal-filing/modal-filing.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [RequestFormComponent],
@@ -34,6 +36,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ModalAlertModule,
     ModalFilingModule,
     ProgressSpinnerModule,
+    DialogModule,
+    ProgressBarModule
   ],
 })
 export class RequestFormModule {}

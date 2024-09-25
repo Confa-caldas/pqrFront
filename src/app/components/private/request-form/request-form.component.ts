@@ -60,6 +60,11 @@ export class RequestFormComponent implements OnInit {
   preSignedUrl: string = '';
   selectedFile: File | null = null;
   numeroDocumentoIngresado: boolean = false;
+  isUploading:boolean = false;
+  uploadProgress = 0;
+  visibleDialogProgress:boolean = false;
+  isSpinnerVisible = false;
+  
   ngOnInit(): void {
     let applicant = localStorage.getItem('applicant-type');
     if (applicant) {
@@ -78,7 +83,7 @@ export class RequestFormComponent implements OnInit {
     private userService: Users,
     private messageService: MessageService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     this.value = {
       catalog_item_id: 1,
@@ -237,8 +242,8 @@ export class RequestFormComponent implements OnInit {
     this.userService.createRequest(inputValue).subscribe({
       next: (response: BodyResponse<number>) => {
         if (response.code === 200) {
-          this.requestForm.reset();
-          this.fileNameList.clear();
+          //this.requestForm.reset();
+          //this.fileNameList.clear();
           if (this.getAplicant().length == 0) {
             setTimeout(() => {
               this.showAlertModal(response.data);
@@ -260,6 +265,8 @@ export class RequestFormComponent implements OnInit {
       },
     });
   }
+
+  /*
   async getPreSignedUrl(file: ApplicantAttachments, request_id: number) {
     const payload = {
       source_name: file['source_name'],
@@ -284,7 +291,39 @@ export class RequestFormComponent implements OnInit {
       },
     });
   }
+  */
 
+  async getPreSignedUrl(file: ApplicantAttachments, request_id: number): Promise<string | void> {
+    this.isSpinnerVisible = true;
+    const payload = {
+      source_name: file['source_name'],
+      fileweight: file['fileweight'],
+      request_id: request_id,
+    };
+  
+    return new Promise((resolve, reject) => {
+      this.userService.getUrlSigned(payload, 'applicant').subscribe({
+        next: (response: BodyResponse<string>): void => {
+          if (response.code === 200) {
+            this.preSignedUrl = response.data;
+            resolve(this.preSignedUrl); // Resuelve la Promise
+          } else {
+            this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
+            reject(new Error('Operación fallida!')); // Rechaza la Promise
+          }
+        },
+        error: (err: any) => {
+          console.log(err);
+          reject(err); // Rechaza la Promise en caso de error
+        },
+        complete: () => {
+          console.log('La solicitud para obtener la URL prefirmada ha sido completada.');
+          //this.uploadToPresignedUrl(file);
+        },
+      });
+    });
+  }
+  
   /*
   async uploadToPresignedUrl(file: ApplicantAttachments) {
     const uploadResponse = await this.http
@@ -296,10 +335,11 @@ export class RequestFormComponent implements OnInit {
         observe: 'events',
       })
       .toPromise();
-  }
-  */
+  } */
+
 
   async uploadToPresignedUrl(file: ApplicantAttachments): Promise<void> {
+    this.isSpinnerVisible = true;
     // Verifica si el archivo y la propiedad file.file existen
     if (file && file.file) {
       try {
@@ -346,15 +386,15 @@ export class RequestFormComponent implements OnInit {
     } else {
       console.error('El archivo no es válido o está undefined.');
     }
-  }
+  } 
 
-  async attachApplicantFiles(request_id: number) {
-    await Promise.all(
-      this.arrayApplicantAttachment.map(async item => {
-        await this.getPreSignedUrl(item, request_id);
-      })
-    );
 
+async attachApplicantFiles(request_id: number) {
+  // Establecer el estado de carga antes de comenzar
+  this.isSpinnerVisible = true;
+
+  try {
+    // Lógica para subir archivos al servidor
     if (this.arrayApplicantAttachment && this.arrayApplicantAttachment.length > 0) {
       const ruta_archivo_ws = environment.ruta_archivos_ws;
 
@@ -367,18 +407,44 @@ export class RequestFormComponent implements OnInit {
         })),
       };
 
-      this.http.post(ruta_archivo_ws, estructura).subscribe(
-        respuesta => {
-          console.log('Respuesta del servicio:', respuesta);
-        },
-        error => {
-          console.error('Error al llamar al servicio:', error);
-        }
-      );
+      // Llamar a la función para enviar archivos al servidor
+      await this.envioArchivosServer(ruta_archivo_ws, estructura);
     }
 
-    this.showAlertModal(request_id);
+    // Obtener todas las URL prefirmadas y subir los archivos
+    await Promise.all(
+      this.arrayApplicantAttachment.map(async item => {
+        await this.getPreSignedUrl(item, request_id); // Asegúrate de que esto sea await
+        await this.uploadToPresignedUrl(item); // Sube el archivo después de obtener la URL
+      })
+    );
+
+    this.requestForm.reset();
+    this.fileNameList.clear();
+    console.log("Ejecucion completa!!!");
+    
+  } catch (error) {
+    console.error('Error durante el proceso de carga:', error);
+  } finally {
+    this.showAlertModal(request_id); // Muestra el modal después de que todo haya terminado
+    this.isSpinnerVisible = false; // Oculta el spinner al final
   }
+}
+
+
+//ENVIO DE ARCHIVOS AL SERVIDOR DE CONFA
+async envioArchivosServer(ruta_archivo_ws: any, estructura: any) {
+  this.isSpinnerVisible = true;
+  try {
+      // Usa await para que se pause hasta que se reciba la respuesta
+      const respuesta = await this.http.post(ruta_archivo_ws, estructura).toPromise();
+      console.log('Respuesta del servicio:', respuesta);
+  } catch (error) {
+      console.error('Error al llamar al servicio:', error);
+  }
+}
+
+
   sendRequest() {
     const payload: RequestFormList = {
       request_status: 1,

@@ -1,3 +1,7 @@
+<div *ngIf="isSpinnerVisible" class="spinner-overlay">
+  <div class="spinner"></div>
+  <p class="spinner-text">Procesando su solicitud</p>
+</div>
 <p-card class="container">
   <div class="container-principal">
     <form [formGroup]="requestForm">
@@ -258,6 +262,8 @@
   </div>
 </p-card>
 
+
+
 <p-toast></p-toast>
 <p-progressSpinner
   *ngIf="loadingAttachments"
@@ -282,3 +288,12 @@
   [informative]="informative"
   [severity]="severity"
   (setRta)="closeDialogAlert($event)"></app-modal-filing>
+
+
+  <p-dialog [(visible)]="visibleDialogProgress"
+  [modal]="true"
+  header="Subiendo archivo"
+  [closable]="false">
+    <p>Progreso: {{ uploadProgress }}%</p>
+    <p-progressBar [value]="uploadProgress"></p-progressBar>
+</p-dialog>
