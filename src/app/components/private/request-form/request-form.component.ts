@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, HostListener } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Users } from '../../../services/users.service';
 import { BodyResponse } from '../../../models/shared/body-response.inteface';
@@ -44,8 +44,10 @@ export class RequestFormComponent implements OnInit {
   errorMensajeFile!: string;
   visibleDialogAlert = false;
   informative: boolean = false;
+  isError: boolean = false;
   severity = '';
   message = '';
+  tittle_message = '';
   enableAction: boolean = false;
   loadingAttachments: boolean = false;
   optionDefault!: string;
@@ -64,6 +66,7 @@ export class RequestFormComponent implements OnInit {
   uploadProgress = 0;
   visibleDialogProgress:boolean = false;
   isSpinnerVisible = false;
+  hasPendingChanges: boolean = false;
   
   ngOnInit(): void {
     let applicant = localStorage.getItem('applicant-type');
@@ -170,8 +173,8 @@ export class RequestFormComponent implements OnInit {
         continue;
       }
 
-      if (file.size > 20971520) {
-        this.errorMensajeFile = `El archivo ${files[i].name} supera los 20MB`;
+      if (file.size > 30720000) {
+        this.errorMensajeFile = `El archivo ${files[i].name} supera los 30MB`;
         this.errorSizeFile = true;
         continue;
       }
@@ -392,6 +395,7 @@ export class RequestFormComponent implements OnInit {
 async attachApplicantFiles(request_id: number) {
   // Establecer el estado de carga antes de comenzar
   this.isSpinnerVisible = true;
+  this.hasPendingChanges = true;
 
   try {
     // Lógica para subir archivos al servidor
@@ -406,7 +410,6 @@ async attachApplicantFiles(request_id: number) {
           fileweight: file.fileweight,
         })),
       };
-
       // Llamar a la función para enviar archivos al servidor
       await this.envioArchivosServer(ruta_archivo_ws, estructura);
     }
@@ -421,13 +424,26 @@ async attachApplicantFiles(request_id: number) {
 
     this.requestForm.reset();
     this.fileNameList.clear();
+    
     console.log("Ejecucion completa!!!");
+
+    this.showAlertModal(request_id); // Muestra el modal después de que todo haya terminado
     
   } catch (error) {
     console.error('Error durante el proceso de carga:', error);
+    this.showAlertModalError(request_id);
+
   } finally {
-    this.showAlertModal(request_id); // Muestra el modal después de que todo haya terminado
     this.isSpinnerVisible = false; // Oculta el spinner al final
+    this.hasPendingChanges = false;
+  }
+}
+
+@HostListener('window:beforeunload', ['$event'])
+unloadNotification($event: any): void {
+  // Si hay un proceso pendiente, se muestra la advertencia
+  if (this.hasPendingChanges) {
+    $event.returnValue = 'Tienes un proceso en curso. ¿Estás seguro de que quieres salir?';
   }
 }
 
@@ -475,9 +491,22 @@ async envioArchivosServer(ruta_archivo_ws: any, estructura: any) {
   showAlertModal(filing_number: number) {
     this.visibleDialogAlert = true;
     this.informative = true;
+    //this.isError = false;
+    this.tittle_message = '¡Solicitud enviada con éxito!';
     this.message = filing_number.toString();
     this.severity = 'danger';
   }
+
+  showAlertModalError(filing_number: number) {
+    this.visibleDialogAlert = true;
+    this.informative = true;
+    this.isError = true;
+    //this.tittle_message = '¡Solicitud enviada! <br> <span class="warning-message"> Sin embargo, hubo problemas con algunos de los archivos.</span>';
+    this.tittle_message = '¡Solicitud enviada! <br> <h3 style="color: #ffc107 !important; font-size: 1.2rem;">Sin embargo, hubo problemas con algunos de los archivos.</h3>';
+    this.message = filing_number.toString();
+    this.severity = 'danger';
+  }
+  
 
   //Configuracion mensajes placeholder
   /*

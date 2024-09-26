@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ModalFilingComponent {
   @Input() requestCreation = false;
   @Input() select = false;
+  @Input() tittle_message = '';
   @Input() message = '';
   @Input() message2 = '';
   @Input() visible: boolean = false;
