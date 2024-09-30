@@ -1,3 +1,7 @@
+<div *ngIf="isSpinnerVisible" class="spinner-overlay">
+  <div class="spinner"></div>
+  <p class="spinner-text">Procesando su solicitud</p>
+</div>
 <p-card class="container">
   <div class="container-principal">
     <form [formGroup]="requestForm">
@@ -278,6 +282,7 @@
   [select]="true"
   [requestCreation]="true"
   [visible]="visibleDialogAlert"
+  [tittle_message]="tittle_message"
   [message]="message"
   [informative]="informative"
   [severity]="severity"

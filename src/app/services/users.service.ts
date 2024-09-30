@@ -34,6 +34,7 @@ import {
   Pagination,
   RequestAttachmentsList,
   PreSignedAttach,
+  RequestReportDetail,
 } from '../models/users.interface';
 import { Observable } from 'rxjs';
 @Injectable({
@@ -405,5 +406,12 @@ export class Users {
     };
     console.log(payload);
     return this.http.post(this.apiUrlAdjuntos, payload, { headers }); // Envía la petición con headers
+  }
+
+  getRequestReportDetail(): Observable<BodyResponse<RequestReportDetail[]>> {
+    return this.http.post<BodyResponse<RequestReportDetail[]>>(
+      `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_DETAIL_ALL}`,
+      {}
+    );
   }
 }

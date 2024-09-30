@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, HostListener } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Users } from '../../../services/users.service';
 import { BodyResponse } from '../../../models/shared/body-response.inteface';
@@ -44,8 +44,10 @@ export class RequestFormComponent implements OnInit {
   errorMensajeFile!: string;
   visibleDialogAlert = false;
   informative: boolean = false;
+  isError: boolean = false;
   severity = '';
   message = '';
+  tittle_message = '';
   enableAction: boolean = false;
   loadingAttachments: boolean = false;
   optionDefault!: string;
@@ -65,6 +67,12 @@ export class RequestFormComponent implements OnInit {
   modalTitle: string = '';
   modalMessage: string = '';
   resolveModal!: () => void; // Función para resolver la promesa
+
+  isUploading: boolean = false;
+  uploadProgress = 0;
+  visibleDialogProgress: boolean = false;
+  isSpinnerVisible = false;
+  hasPendingChanges: boolean = false;
 
   ngOnInit(): void {
     let applicant = localStorage.getItem('applicant-type');
@@ -171,8 +179,8 @@ export class RequestFormComponent implements OnInit {
         continue;
       }
 
-      if (file.size > 20971520) {
-        this.errorMensajeFile = `El archivo ${files[i].name} supera los 20MB`;
+      if (file.size > 30720000) {
+        this.errorMensajeFile = `El archivo ${files[i].name} supera los 30MB`;
         this.errorSizeFile = true;
         continue;
       }
@@ -260,8 +268,8 @@ export class RequestFormComponent implements OnInit {
     this.userService.createRequest(inputValue).subscribe({
       next: (response: BodyResponse<number>) => {
         if (response.code === 200) {
-          this.requestForm.reset();
-          this.fileNameList.clear();
+          //this.requestForm.reset();
+          //this.fileNameList.clear();
           if (this.getAplicant().length == 0) {
             setTimeout(() => {
               this.showAlertModal(response.data);
@@ -342,6 +350,7 @@ export class RequestFormComponent implements OnInit {
   //     },
   //   });
   // }
+  /*
   async getPreSignedUrl(file: ApplicantAttachments, request_id: number) {
     const payload = {
       source_name: file['source_name'],
@@ -366,6 +375,38 @@ export class RequestFormComponent implements OnInit {
       },
     });
   }
+  */
+
+  async getPreSignedUrl(file: ApplicantAttachments, request_id: number): Promise<string | void> {
+    this.isSpinnerVisible = true;
+    const payload = {
+      source_name: file['source_name'],
+      fileweight: file['fileweight'],
+      request_id: request_id,
+    };
+
+    return new Promise((resolve, reject) => {
+      this.userService.getUrlSigned(payload, 'applicant').subscribe({
+        next: (response: BodyResponse<string>): void => {
+          if (response.code === 200) {
+            this.preSignedUrl = response.data;
+            resolve(this.preSignedUrl); // Resuelve la Promise
+          } else {
+            this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
+            reject(new Error('Operación fallida!')); // Rechaza la Promise
+          }
+        },
+        error: (err: any) => {
+          console.log(err);
+          reject(err); // Rechaza la Promise en caso de error
+        },
+        complete: () => {
+          console.log('La solicitud para obtener la URL prefirmada ha sido completada.');
+          //this.uploadToPresignedUrl(file);
+        },
+      });
+    });
+  }
 
   /*
   async uploadToPresignedUrl(file: ApplicantAttachments) {
@@ -378,10 +419,10 @@ export class RequestFormComponent implements OnInit {
         observe: 'events',
       })
       .toPromise();
-  }
-  */
+  } */
 
   async uploadToPresignedUrl(file: ApplicantAttachments): Promise<void> {
+    this.isSpinnerVisible = true;
     // Verifica si el archivo y la propiedad file.file existen
     if (file && file.file) {
       try {
@@ -435,36 +476,70 @@ export class RequestFormComponent implements OnInit {
   }
 
   async attachApplicantFiles(request_id: number) {
-    await Promise.all(
-      this.arrayApplicantAttachment.map(async item => {
-        await this.getPreSignedUrl(item, request_id);
-      })
-    );
+    // Establecer el estado de carga antes de comenzar
+    this.isSpinnerVisible = true;
+    this.hasPendingChanges = true;
 
-    if (this.arrayApplicantAttachment && this.arrayApplicantAttachment.length > 0) {
-      const ruta_archivo_ws = environment.ruta_archivos_ws;
+    try {
+      // Lógica para subir archivos al servidor
+      if (this.arrayApplicantAttachment && this.arrayApplicantAttachment.length > 0) {
+        const ruta_archivo_ws = environment.ruta_archivos_ws;
 
-      const estructura = {
-        idSolicitud: `${request_id}`,
-        archivos: this.arrayApplicantAttachment.map(file => ({
-          base64file: file.base64file,
-          source_name: file.source_name,
-          fileweight: file.fileweight,
-        })),
-      };
+        const estructura = {
+          idSolicitud: `${request_id}`,
+          archivos: this.arrayApplicantAttachment.map(file => ({
+            base64file: file.base64file,
+            source_name: file.source_name,
+            fileweight: file.fileweight,
+          })),
+        };
+        // Llamar a la función para enviar archivos al servidor
+        await this.envioArchivosServer(ruta_archivo_ws, estructura);
+      }
 
-      this.http.post(ruta_archivo_ws, estructura).subscribe(
-        respuesta => {
-          console.log('Respuesta del servicio:', respuesta);
-        },
-        error => {
-          console.error('Error al llamar al servicio:', error);
-        }
+      // Obtener todas las URL prefirmadas y subir los archivos
+      await Promise.all(
+        this.arrayApplicantAttachment.map(async item => {
+          await this.getPreSignedUrl(item, request_id); // Asegúrate de que esto sea await
+          await this.uploadToPresignedUrl(item); // Sube el archivo después de obtener la URL
+        })
       );
-    }
 
-    this.showAlertModal(request_id);
+      this.requestForm.reset();
+      this.fileNameList.clear();
+
+      console.log('Ejecucion completa!!!');
+
+      this.showAlertModal(request_id); // Muestra el modal después de que todo haya terminado
+    } catch (error) {
+      console.error('Error durante el proceso de carga:', error);
+      this.showAlertModalError(request_id);
+    } finally {
+      this.isSpinnerVisible = false; // Oculta el spinner al final
+      this.hasPendingChanges = false;
+    }
   }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any): void {
+    // Si hay un proceso pendiente, se muestra la advertencia
+    if (this.hasPendingChanges) {
+      $event.returnValue = 'Tienes un proceso en curso. ¿Estás seguro de que quieres salir?';
+    }
+  }
+
+  //ENVIO DE ARCHIVOS AL SERVIDOR DE CONFA
+  async envioArchivosServer(ruta_archivo_ws: any, estructura: any) {
+    this.isSpinnerVisible = true;
+    try {
+      // Usa await para que se pause hasta que se reciba la respuesta
+      const respuesta = await this.http.post(ruta_archivo_ws, estructura).toPromise();
+      console.log('Respuesta del servicio:', respuesta);
+    } catch (error) {
+      console.error('Error al llamar al servicio:', error);
+    }
+  }
+
   sendRequest() {
     const payload: RequestFormList = {
       request_status: 1,
@@ -495,6 +570,8 @@ export class RequestFormComponent implements OnInit {
   showAlertModal(filing_number: number) {
     this.visibleDialogAlert = true;
     this.informative = true;
+    //this.isError = false;
+    this.tittle_message = '¡Solicitud enviada con éxito!';
     this.message = filing_number.toString();
     this.severity = 'danger';
   }
@@ -526,6 +603,16 @@ export class RequestFormComponent implements OnInit {
         }
       );
     });
+  }
+  showAlertModalError(filing_number: number) {
+    this.visibleDialogAlert = true;
+    this.informative = true;
+    this.isError = true;
+    //this.tittle_message = '¡Solicitud enviada! <br> <span class="warning-message"> Sin embargo, hubo problemas con algunos de los archivos.</span>';
+    this.tittle_message =
+      '¡Solicitud enviada! <br> <h3 style="color: #ffc107 !important; font-size: 1.2rem;">Sin embargo, hubo problemas con algunos de los archivos.</h3>';
+    this.message = filing_number.toString();
+    this.severity = 'danger';
   }
 
   //Configuracion mensajes placeholder

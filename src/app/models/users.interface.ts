@@ -358,3 +358,8 @@ export interface PreSignedAttach {
   request_id?: number;
   url?: string;
 }
+
+export interface RequestReportDetail {
+  type: string;
+  total_request: number;
+}
