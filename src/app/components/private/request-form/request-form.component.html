@@ -282,3 +282,15 @@
   [informative]="informative"
   [severity]="severity"
   (setRta)="closeDialogAlert($event)"></app-modal-filing>
+
+<div class="modal" *ngIf="showModal" id="adjuntarArchivoModal">
+  <div class="modal-content">
+    <h2>{{ modalTitle }}</h2>
+    <p>{{ modalMessage }}</p>
+
+    <div class="modal-footer">
+      <button class="btn btn-accept" (click)="onAccept()">Aceptar</button>
+      <button class="btn btn-cancel" (click)="onCancel()">Cancelar</button>
+    </div>
+  </div>
+</div>

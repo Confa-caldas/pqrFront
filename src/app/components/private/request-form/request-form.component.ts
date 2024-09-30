@@ -60,6 +60,12 @@ export class RequestFormComponent implements OnInit {
   preSignedUrl: string = '';
   selectedFile: File | null = null;
   numeroDocumentoIngresado: boolean = false;
+
+  showModal: boolean = false;
+  modalTitle: string = '';
+  modalMessage: string = '';
+  resolveModal!: () => void; // Función para resolver la promesa
+
   ngOnInit(): void {
     let applicant = localStorage.getItem('applicant-type');
     if (applicant) {
@@ -233,7 +239,24 @@ export class RequestFormComponent implements OnInit {
       },
     });
   }
-  setParameter(inputValue: RequestFormList) {
+  async setParameter(inputValue: RequestFormList) {
+    const mensaje = inputValue.request_description;
+    const adjuntarArchivo = await this.validarMensaje(mensaje);
+
+    // Si es necesario adjuntar archivo y no hay aplicantes
+    if (adjuntarArchivo && this.getAplicant().length == 0) {
+      const continuar = await this.showAdjuntarArchivoModal(); // Espera la acción del usuario en el modal
+      if (!continuar) {
+        // Si el usuario canceló, no continuar con la creación de la solicitud
+        return;
+      }
+    }
+
+    // Continúa con la creación de la solicitud
+    this.continuarCreacionSolicitud(inputValue);
+  }
+
+  continuarCreacionSolicitud(inputValue: RequestFormList) {
     this.userService.createRequest(inputValue).subscribe({
       next: (response: BodyResponse<number>) => {
         if (response.code === 200) {
@@ -260,6 +283,65 @@ export class RequestFormComponent implements OnInit {
       },
     });
   }
+
+  showAdjuntarArchivoModal(): Promise<boolean> {
+    return new Promise(resolve => {
+      this.modalTitle = 'Adjuntar archivo';
+      this.modalMessage = 'Escribiste adjuntar o anexar archivo, pero no hay. ¿Deseas continuar?';
+      this.showModal = true; // Muestra el modal
+
+      // Asignar funciones para aceptar o cancelar
+      this.onAccept = () => {
+        this.showModal = false; // Oculta el modal
+        resolve(true); // Resuelve la promesa, continúa el proceso
+      };
+
+      this.onCancel = () => {
+        this.showModal = false; // Oculta el modal
+        resolve(false); // Resuelve la promesa, pero el proceso no sigue
+      };
+    });
+  }
+
+  // Cuando el usuario acepta
+  onAccept() {
+    this.showModal = false; // Oculta el modal
+    this.resolveModal(); // Resuelve la promesa
+  }
+
+  // Cuando el usuario cancela
+  onCancel() {
+    this.showModal = false; // Oculta el modal
+    this.resolveModal(); // Resuelve la promesa, pero no continúa el proceso
+  }
+
+  // setParameter(inputValue: RequestFormList) {
+  //   this.userService.createRequest(inputValue).subscribe({
+  //     next: (response: BodyResponse<number>) => {
+  //       if (response.code === 200) {
+  //         this.requestForm.reset();
+  //         this.fileNameList.clear();
+  //         if (this.getAplicant().length == 0) {
+  //           setTimeout(() => {
+  //             this.showAlertModal(response.data);
+  //           }, 1000);
+  //         } else {
+  //           this.attachApplicantFiles(response.data);
+  //         }
+  //       } else {
+  //         setTimeout(() => {
+  //           this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
+  //         }, 1000);
+  //       }
+  //     },
+  //     error: (err: any) => {
+  //       console.log(err);
+  //     },
+  //     complete: () => {
+  //       console.log('La suscripción ha sido completada post.');
+  //     },
+  //   });
+  // }
   async getPreSignedUrl(file: ApplicantAttachments, request_id: number) {
     const payload = {
       source_name: file['source_name'],
@@ -306,33 +388,37 @@ export class RequestFormComponent implements OnInit {
         const contentType = 'application/png'; // Puedes cambiar el tipo según el archivo
         const MAX_RETRIES = 3; // Número máximo de reintentos
         const RETRY_DELAY_MS = 2000; // Tiempo de espera entre reintentos en milisegundos
-  
+
         // Crea una función que realice la solicitud PUT con reintentos
-        const upload$ = this.http.put(this.preSignedUrl, file.file, {
-          headers: { 'Content-Type': contentType },
-          reportProgress: true,
-          observe: 'events', // Observa los eventos durante la subida
-        }).pipe(
-          retryWhen(errors =>
-            errors.pipe(
-              delay(RETRY_DELAY_MS), // Espera antes de reintentar
-              take(MAX_RETRIES), // Número máximo de intentos
-              catchError(err => {
-                console.error('Error subiendo el archivo después de varios intentos:', err);
-                throw err; // Manejo del error después de los reintentos
-              })
+        const upload$ = this.http
+          .put(this.preSignedUrl, file.file, {
+            headers: { 'Content-Type': contentType },
+            reportProgress: true,
+            observe: 'events', // Observa los eventos durante la subida
+          })
+          .pipe(
+            retryWhen(errors =>
+              errors.pipe(
+                delay(RETRY_DELAY_MS), // Espera antes de reintentar
+                take(MAX_RETRIES), // Número máximo de intentos
+                catchError(err => {
+                  console.error('Error subiendo el archivo después de varios intentos:', err);
+                  throw err; // Manejo del error después de los reintentos
+                })
+              )
             )
-          )
-        );
-  
+          );
+
         // Ejecuta la solicitud
         const uploadResponse = await upload$.toPromise();
-  
+
         // Maneja los diferentes tipos de eventos HTTP
         if (uploadResponse) {
           if (uploadResponse.type === HttpEventType.UploadProgress) {
             // Si hay progreso en la subida, puedes mostrarlo (opcional)
-            const progress = Math.round((uploadResponse.loaded / (uploadResponse.total || 1)) * 100);
+            const progress = Math.round(
+              (uploadResponse.loaded / (uploadResponse.total || 1)) * 100
+            );
             console.log(`Progreso de la subida: ${progress}%`);
           } else if (uploadResponse instanceof HttpResponse) {
             // Verifica que la respuesta final sea exitosa (status 200)
@@ -411,6 +497,35 @@ export class RequestFormComponent implements OnInit {
     this.informative = true;
     this.message = filing_number.toString();
     this.severity = 'danger';
+  }
+
+  validarRespuesta(): boolean {
+    return true;
+  }
+
+  validarMensaje(mensaje: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.userService.respuestaIaAdjuntos(mensaje).subscribe(
+        response => {
+          if (response.statusCode === 200) {
+            const responseBody = response.respuesta;
+            const mensajeNormalizado = responseBody
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '');
+
+            const contieneSi = mensajeNormalizado.includes('si');
+            console.log(contieneSi, 'respuesta');
+            resolve(contieneSi); // Resolves la promesa con true o false
+          } else {
+            reject('Error en la respuesta del servicio');
+          }
+        },
+        error => {
+          reject(error); // Rechaza la promesa en caso de error
+        }
+      );
+    });
   }
 
   //Configuracion mensajes placeholder

@@ -40,9 +40,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Users {
-
-  private apiUrl = 'https://api-utilitarios.confa.co/IA/analizartextoclasificar';  // URL del web service
-  private apiKey = 'AIabZtSVgS2nIVD03HQxY1cM6qLmRS8B3zHlw3qo';  // La API key que te dieron
+  private apiUrl = 'https://api-utilitarios.confa.co/IA/analizartextoclasificar'; // URL del web service
+  private apiKey = 'AIabZtSVgS2nIVD03HQxY1cM6qLmRS8B3zHlw3qo'; // La API key que te dieron
+  private apiUrlAdjuntos = 'https://api-utilitarios.confa.co/IA/analizartextov2';
 
   constructor(private http: HttpClient) {}
 
@@ -383,12 +383,27 @@ export class Users {
 
   respuestaIaWs(requestDescription?: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',  // Asegura que se envíe como JSON
-      'x-api-key': this.apiKey  // Incluye la API key en los headers
+      'Content-Type': 'application/json', // Asegura que se envíe como JSON
+      'x-api-key': this.apiKey, // Incluye la API key en los headers
     });
     const payload = {
-      mensaje: requestDescription
+      mensaje: requestDescription,
     };
-    return this.http.post(this.apiUrl, payload, { headers });  // Envía la petición con headers
+    return this.http.post(this.apiUrl, payload, { headers }); // Envía la petición con headers
+  }
+
+  respuestaIaAdjuntos(mensaje?: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'x-api-key': this.apiKey,
+    });
+    // Serializa el mensaje como un objeto JSON en una cadena
+    const payload = {
+      body: JSON.stringify({
+        userMessage: mensaje,
+      }),
+    };
+    console.log(payload);
+    return this.http.post(this.apiUrlAdjuntos, payload, { headers }); // Envía la petición con headers
   }
 }
