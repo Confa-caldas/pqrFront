@@ -73,4 +73,5 @@ export enum EndPointRoute {
   REQUEST_BY_FILTER = 'requests/filter',
   REFRESH_TOKEN = 'token/refresh',
   URL_SIGNER = 'url/signer',
+  REQUEST_REPORT_DETAIL_ALL = 'requests/report/all',
 }
