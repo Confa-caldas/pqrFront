@@ -262,8 +262,6 @@
   </div>
 </p-card>
 
-
-
 <p-toast></p-toast>
 <p-progressSpinner
   *ngIf="loadingAttachments"
@@ -284,17 +282,20 @@
   [select]="true"
   [requestCreation]="true"
   [visible]="visibleDialogAlert"
-  [tittle_message] = "tittle_message"
+  [tittle_message]="tittle_message"
   [message]="message"
   [informative]="informative"
   [severity]="severity"
   (setRta)="closeDialogAlert($event)"></app-modal-filing>
 
+<div class="modal" *ngIf="showModal" id="adjuntarArchivoModal">
+  <div class="modal-content">
+    <h2>{{ modalTitle }}</h2>
+    <p>{{ modalMessage }}</p>
 
-  <p-dialog [(visible)]="visibleDialogProgress"
-  [modal]="true"
-  header="Subiendo archivo"
-  [closable]="false">
-    <p>Progreso: {{ uploadProgress }}%</p>
-    <p-progressBar [value]="uploadProgress"></p-progressBar>
-</p-dialog>
+    <div class="modal-footer">
+      <button class="btn btn-accept" (click)="onAccept()">Aceptar</button>
+      <button class="btn btn-cancel" (click)="onCancel()">Cancelar</button>
+    </div>
+  </div>
+</div>

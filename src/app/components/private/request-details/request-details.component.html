@@ -145,13 +145,17 @@
             <div class="process-container-row">
               <div class="process-container-col-description">
                 <label class="process-container-label"> Descripción solicitud </label>
-                <li class="process-container-text">{{ requestDetails.request_description }}</li>
+                <li class="process-container-text" [ngStyle]="{ 'white-space': 'pre-line' }">
+                  {{ requestDetails.request_description }}
+                </li>
               </div>
             </div>
             <div class="process-container-row" *ngIf="requestDetails.status_name === 'Cerrada'">
               <div class="process-container-col-description">
                 <label class="process-container-label"> Respuesta solicitud </label>
-                <li class="process-container-text">{{ requestDetails.request_answer }}</li>
+                <li class="process-container-text" [ngStyle]="{ 'white-space': 'pre-line' }">
+                  {{ requestDetails.request_answer }}
+                </li>
               </div>
             </div>
           </div>
@@ -328,15 +332,14 @@
                 <p style="color: red">*</p>
                 <div>
                   <p-button
-                  icon="pi pi-bolt"
-                  [styleClass]="'btn-icon-warning'"
-                  (click)="respuestaSugeridaIa(requestDetails.request_description)"
-                  [style]="{ 'border-radius': '10px' }">  
+                    icon="pi pi-bolt"
+                    [styleClass]="'btn-icon-warning'"
+                    (click)="respuestaSugeridaIa(requestDetails.request_description)"
+                    [style]="{ 'border-radius': '10px' }">
                   </p-button>
                 </div>
-                </label
-              >
-              
+              </label>
+
               <textarea
                 rows="5"
                 cols="30"
@@ -497,7 +500,7 @@
     [contentStyle]="{ padding: '1em' }"
     [responsive]="true"
     [styleClass]="'custom-dialog'">
-    <p class="mb-5">
+    <p class="mb-5" [ngStyle]="{ 'white-space': 'pre-line' }">
       {{ dialogContent }}
     </p>
   </p-dialog>
@@ -574,7 +577,7 @@
   (setRta)="closeDialogCharacterization($event)"
   (setRtaParameter)="setParameterCharacterization($event)"></app-modal-characterization>
 
-  <p-dialog
+<p-dialog
   header="Respuesta sugerida por IA"
   [(visible)]="visibleDialogIa"
   [modal]="true"
@@ -582,13 +585,14 @@
   [contentStyle]="{ padding: '1em' }"
   [responsive]="true"
   [styleClass]="'custom-dialog'">
-  
   <div class="dialog-content">
     <p><strong>Categoría:</strong> {{ categoria }}</p>
-    <p><strong>Respuesta sugerida:</strong> <br/>
-      Hola, buen día! <br/><br/>
-      {{ respuestaPredefinida }} <br/><br/>
-      Cordialmente, {{ requestDetails?.user_name_completed }}</p>
+    <p>
+      <strong>Respuesta sugerida:</strong> <br />
+      Hola, buen día! <br /><br />
+      {{ respuestaPredefinida }} <br /><br />
+      Cordialmente, {{ requestDetails?.user_name_completed }}
+    </p>
     <div class="confirmation-text">
       <p>¿Desea usar esta respuesta para la solicitud?</p>
     </div>
@@ -598,4 +602,3 @@
     </div>
   </div>
 </p-dialog>
-
