@@ -122,6 +122,15 @@ const routes: Routes = [
       ),
   },
   {
+    path: RoutesApp.REPORT_DETAILS,
+    canActivate: [sessionGuard],
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./components/private/report-details/report-details.module').then(
+        m => m.ReportDetailsModule
+      ),
+  },
+  {
     path: RoutesApp.MAIN_PAGE,
     canActivate: [sessionGuard],
     component: LayoutComponent,

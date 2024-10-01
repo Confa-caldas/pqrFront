@@ -1,0 +1,168 @@
+@import '../../../../assets/styles/abstracts/variables.scss';
+
+:host {
+  ::ng-deep .p-calendar .p-calendar-w-btn {
+    width: 100%;
+  }
+}
+
+.custom-calendar {
+  position: relative;
+  z-index: 1;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 100%;
+}
+
+.label-select {
+  width: 100%;
+}
+
+.calendar {
+  width: 100%;
+}
+
+.mr-auto {
+  margin-left: 80%
+}
+
+.captionBtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  background-color: transparent;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.buttonExport {
+  height: 40px;
+  background-color: $color-yellow-green;
+  border-radius: 4px;
+  margin-left: 5px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1374px) {
+
+  .filters {
+    &-row {
+      margin: 9px 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+    }
+
+    &-col {
+      margin: 0 3.5%;
+      width: 100px
+    }
+
+    &-colButtons {
+      margin: 0 2%;
+
+    }
+
+
+
+    &-input {
+      height: 28px;
+      padding-left: 5px;
+      border-radius: 5px;
+
+    }
+
+    &-select {
+      height: 28px;
+      border-radius: 5px;
+    }
+
+  }
+}
+
+@media screen and (min-width: 1375px) {
+  .filters {
+    &-row {
+      margin: 9px 0;
+      display: flex;
+      flex-direction: row;
+      //justify-content: space-between;
+      align-items: center;
+
+    }
+
+    &-col {
+      margin: 0 4%;
+      width: 150px
+    }
+
+    &-colButtons {
+      margin: 0 1.5%;
+
+    }
+
+
+
+    &-input {
+      height: 28px;
+      padding-left: 5px;
+      border-radius: 5px;
+
+    }
+
+    &-select {
+      height: 28px;
+      border-radius: 5px;
+    }
+
+  }
+}
+
+.circle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  //left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+tr {
+  position: relative;
+}
+
+td {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.response-column {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-width: 500px; /* Ajusta según sea necesario */
+  max-width: 1200px; /* Ajusta según sea necesario */
+  padding: 8px; /* Asegura un espacio adecuado dentro de la celda */
+
+  width: 100%;
+}
+
+.otras-column {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-width: 250px; /* Ajusta según sea necesario */
+  max-width: 1200px; /* Ajusta según sea necesario */
+  padding: 8px; /* Asegura un espacio adecuado dentro de la celda */
+  width: 100%;
+}
+

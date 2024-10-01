@@ -26,6 +26,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.2",
+    "chart.js": "^4.4.4",
     "file-saver": "^2.0.5",
     "jquery": "^3.7.1",
     "jspdf": "^2.5.1",

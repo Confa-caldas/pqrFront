@@ -15,6 +15,7 @@ export enum RoutesApp {
   REQUEST_FORM = 'request-form',
   NOTIFICATIONS = 'configure-notifications',
   PROCESS_REQUEST = 'process-request',
+  REPORT_DETAILS = 'report-details',
 }
 export enum EndPointRoute {
   USERS_LIST = 'db/users',
