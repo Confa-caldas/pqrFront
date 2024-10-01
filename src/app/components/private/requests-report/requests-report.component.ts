@@ -35,7 +35,7 @@ export class RequestsReportComponent implements OnInit {
   ispqrList: IsPqrCatalog[] = [];
   requestReportList: RequestReportList[] = [];
   requestReportListAll: RequestReportList[] = [];
-  requestReportDetailAll: RequestReportDetail [] = [];
+  requestReportDetailAll: RequestReportDetail[] = [];
 
   //paginador
   first: number = 0;
@@ -356,11 +356,11 @@ export class RequestsReportComponent implements OnInit {
     });
   }
 
-  reportDetails(){
+  reportDetails() {
     this.userService.getRequestReportDetail().subscribe({
       next: (response: BodyResponse<RequestReportDetail[]>) => {
         console.log('Respuesta del servicio:', response);
-      }
-    })
+      },
+    });
   }
 }
