@@ -248,17 +248,17 @@ export class RequestFormComponent implements OnInit {
     });
   }
   async setParameter(inputValue: RequestFormList) {
-    const mensaje = inputValue.request_description;
-    const adjuntarArchivo = await this.validarMensaje(mensaje);
+    // const mensaje = inputValue.request_description;
+    // const adjuntarArchivo = await this.validarMensaje(mensaje);
 
-    // Si es necesario adjuntar archivo y no hay aplicantes
-    if (adjuntarArchivo && this.getAplicant().length == 0) {
-      const continuar = await this.showAdjuntarArchivoModal(); // Espera la acción del usuario en el modal
-      if (!continuar) {
-        // Si el usuario canceló, no continuar con la creación de la solicitud
-        return;
-      }
-    }
+    // // Si es necesario adjuntar archivo y no hay aplicantes
+    // if (adjuntarArchivo && this.getAplicant().length == 0) {
+    //   const continuar = await this.showAdjuntarArchivoModal(); // Espera la acción del usuario en el modal
+    //   if (!continuar) {
+    //     // Si el usuario canceló, no continuar con la creación de la solicitud
+    //     return;
+    //   }
+    // }
 
     // Continúa con la creación de la solicitud
     this.continuarCreacionSolicitud(inputValue);
