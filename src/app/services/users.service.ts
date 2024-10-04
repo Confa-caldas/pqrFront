@@ -34,12 +34,17 @@ import {
   Pagination,
   RequestAttachmentsList,
   PreSignedAttach,
+  RequestReportDetail,
 } from '../models/users.interface';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class Users {
+  private apiUrl = 'https://api-utilitarios.confa.co/IA/analizartextoclasificar'; // URL del web service
+  private apiKey = 'AIabZtSVgS2nIVD03HQxY1cM6qLmRS8B3zHlw3qo'; // La API key que te dieron
+  private apiUrlAdjuntos = 'https://api-utilitarios.confa.co/IA/analizartextov2';
+
   constructor(private http: HttpClient) {}
 
   getUsersList() {
@@ -375,5 +380,38 @@ export class Users {
   }
   downloadFileFromS3(preSignedUrl: string): Observable<Blob> {
     return this.http.get(preSignedUrl, { responseType: 'blob' });
+  }
+
+  respuestaIaWs(requestDescription?: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', // Asegura que se envíe como JSON
+      'x-api-key': this.apiKey, // Incluye la API key en los headers
+    });
+    const payload = {
+      mensaje: requestDescription,
+    };
+    return this.http.post(this.apiUrl, payload, { headers }); // Envía la petición con headers
+  }
+
+  respuestaIaAdjuntos(mensaje?: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'x-api-key': this.apiKey,
+    });
+    // Serializa el mensaje como un objeto JSON en una cadena
+    const payload = {
+      body: JSON.stringify({
+        userMessage: mensaje,
+      }),
+    };
+    console.log(payload);
+    return this.http.post(this.apiUrlAdjuntos, payload, { headers }); // Envía la petición con headers
+  }
+
+  getRequestReportDetail(): Observable<BodyResponse<RequestReportDetail[]>> {
+    return this.http.post<BodyResponse<RequestReportDetail[]>>(
+      `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_DETAIL_ALL}`,
+      {}
+    );
   }
 }

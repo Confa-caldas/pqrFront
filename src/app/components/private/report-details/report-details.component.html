@@ -1,0 +1,60 @@
+<div class="row mb-5">
+    <div class="col-10">
+      <div class="title-page">Generar reporte detallado de solicitudes</div>
+    </div>
+  </div>
+  <form [formGroup]="formGroup">
+    <div class="position-relative custom-calendar">
+      <div class="card flex justify-content-center absolute-center">
+        <div class="filters-row">
+          <div class="filters-col">
+            <p-calendar
+              formControlName="dates_range"
+              selectionMode="range"
+              [readonlyInput]="true"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              placeholder="Rango de fechas"
+              class="calendar"></p-calendar>
+          </div>
+           
+          <div class="filters-colButtons">
+            <p-button
+              icon="pi pi-trash"
+              [styleClass]="'btn-icon-info'"
+              (click)="cleanTable()"></p-button>
+          </div>
+          <div class="filters-colButtons">
+            <p-button
+              icon="pi pi-search"
+              [styleClass]="'btn-icon-info'"
+              (click)="reportDetails()"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="row mt-5" *ngIf="requestReportDetailAll">
+    <div class="col-12 mt-5">
+        <p-table [value]="requestReportDetailAll" [paginator]="true" [rows]="10" [totalRecords]="totalRows" [responsiveLayout]="'scroll'">
+            <!-- Cabecera -->
+            <ng-template pTemplate="header">
+              <tr>
+                <th *ngFor="let col of dynamicColumns">{{ col }}</th>
+              </tr>
+            </ng-template>
+          
+            <!-- Filas de la tabla -->
+            <ng-template pTemplate="body" let-rowData>
+              <tr>
+                <td *ngFor="let col of dynamicColumns">{{ rowData[col] }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="requestReportDetailAll">
+    <canvas id="myChart" width="700" height="250" #mychart></canvas>
+  </div>
+  <p-toast></p-toast>

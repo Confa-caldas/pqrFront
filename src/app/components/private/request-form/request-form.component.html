@@ -1,3 +1,7 @@
+<div *ngIf="isSpinnerVisible" class="spinner-overlay">
+  <div class="spinner"></div>
+  <p class="spinner-text">Procesando su solicitud</p>
+</div>
 <p-card class="container">
   <div class="container-principal">
     <form [formGroup]="requestForm">
@@ -278,7 +282,20 @@
   [select]="true"
   [requestCreation]="true"
   [visible]="visibleDialogAlert"
+  [tittle_message]="tittle_message"
   [message]="message"
   [informative]="informative"
   [severity]="severity"
   (setRta)="closeDialogAlert($event)"></app-modal-filing>
+
+<div class="modal" *ngIf="showModal" id="adjuntarArchivoModal">
+  <div class="modal-content">
+    <h2>{{ modalTitle }}</h2>
+    <p>{{ modalMessage }}</p>
+
+    <div class="modal-footer">
+      <button class="btn btn-accept" (click)="onAccept()">Aceptar</button>
+      <button class="btn btn-cancel" (click)="onCancel()">Cancelar</button>
+    </div>
+  </div>
+</div>
