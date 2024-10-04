@@ -9,8 +9,10 @@ const RUTAS_ARCHIVOS = 'https://app.confa.co:8687/guardarArchivosRest/guardarArc
 //const RUTAS_ARCHIVOS = 'https://alojamiento.confa.co/guardarArchivosRest/guardarArchivo/metodo1';
 export const environment = {
   API_PUBLIC: HOST + '/',
-  production: false,
-  context: 'develop',
+//  production: false,
+//  context: 'develop',
+  production: true,
+  context: 'production',
   version: packageJson.version,
   minutesInactive: 15,
   // ruta_archivos_ws: RUTAS_ARCHIVOS,
