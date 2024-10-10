@@ -40,6 +40,7 @@ import {
   RequestReportStatusByAssignedUser,
 } from '../models/users.interface';
 import { Observable } from 'rxjs';
+import { MD5 } from 'crypto-js';
 @Injectable({
   providedIn: 'root',
 })
@@ -437,5 +438,22 @@ export class Users {
       `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_STATUS_BY_ASSIGNED_USER}`,
       {}
     );
+  }
+  //Nuevo
+  // MEtodo para sacar el token
+  consultarToken(doc?: string): Observable<any> {
+    const urltoken = 'https://app.confa.co:8687/ingresoConfaWSSGC/rest/confa/metodo26';
+    const docmd5 = MD5('1053820773').toString();
+    console.log('Documento en MD5:', docmd5);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', // Solo envía el Content-Type si es necesario
+    });
+
+    const payload = {
+      documento: docmd5, // Aquí puedes ajustar el nombre del campo si el WS lo requiere
+    };
+
+    return this.http.post(urltoken, payload, { headers }); // Envía la petición con headers
   }
 }

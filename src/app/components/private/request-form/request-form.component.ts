@@ -295,7 +295,7 @@ export class RequestFormComponent implements OnInit {
   showAdjuntarArchivoModal(): Promise<boolean> {
     return new Promise(resolve => {
       this.modalTitle = 'Adjuntar archivo';
-      this.modalMessage = 'Escribiste adjuntar o anexar archivo, pero no hay. ¿Deseas continuar?';
+      this.modalMessage = '¿Desea enviar su solicitud sin documentos o archivos adjuntos?';
       this.showModal = true; // Muestra el modal
 
       // Asignar funciones para aceptar o cancelar
@@ -481,7 +481,6 @@ export class RequestFormComponent implements OnInit {
     this.hasPendingChanges = true;
 
     try {
-      // Lógica para subir archivos al servidor
       if (this.arrayApplicantAttachment && this.arrayApplicantAttachment.length > 0) {
         const ruta_archivo_ws = environment.ruta_archivos_ws;
 

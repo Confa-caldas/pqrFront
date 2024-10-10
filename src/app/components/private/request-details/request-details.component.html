@@ -339,6 +339,17 @@
                   </p-button>
                 </div>
               </label>
+              <label class="formProcess-card-text-placeholder"
+                >Generar reporte afiliacion
+                <div>
+                  <p-button
+                    icon="pi pi-download"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="generacionReporteAfiliacion(requestDetails.doc_id)"
+                    [style]="{ 'border-radius': '10px' }">
+                  </p-button>
+                </div>
+              </label>
 
               <textarea
                 rows="5"
@@ -463,6 +474,34 @@
             [rows]="rowsHistoric"
             [totalRecords]="totalRowsHistoric"
             [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        </div>
+      </p-tabPanel>
+      <!-- //Esto es nuevo -->
+      <p-tabPanel header="Genesys y otros" headerStyleClass="p-tabview-nav-link-1">
+        <div class="process-container">
+          <div class="process-container">
+            <div class="process-container-row">
+              <div class="process-container-col">
+                <label class="container-label"> Documento </label>
+                <!-- Campo de texto -->
+                <input
+                  type="text"
+                  class="input-text"
+                  placeholder="Ingresa el documento"
+                  [(ngModel)]="requestDetails.doc_id" />
+
+                <p-button
+                  label="Consultar"
+                  (click)="consultarWs(requestDetails.doc_id)"
+                  [style]="{ 'border-radius': '10px' }"></p-button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="container-label"> Información afiliado </label>
+            <li class="container-text">{{ requestDetails.filing_number }}</li>
+          </div>
         </div>
       </p-tabPanel>
     </p-tabView>

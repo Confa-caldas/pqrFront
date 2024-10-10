@@ -19,6 +19,8 @@ import { RoutesApp } from '../../../enums/routes.enum';
 import { SessionStorageItems } from '../../../enums/session-storage-items.enum';
 import { HttpClient } from '@angular/common/http';
 import { PaginatorState } from 'primeng/paginator';
+//Esto es nuevo
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-request-details',
@@ -99,6 +101,9 @@ export class RequestDetailsComponent implements OnInit {
   visibleDialogIa = false;
   categoria: string = '';
   respuestaPredefinida: string = '';
+  //Esto es nuevo
+  documentValue: string = ''; // Valor del documento (cédula)
+  valor: string = ''; // Otro valor que quieras pasar en la URL
 
   constructor(
     private formBuilder: FormBuilder,
@@ -861,5 +866,35 @@ export class RequestDetailsComponent implements OnInit {
 
   cancelar() {
     this.visibleDialogIa = false;
+  }
+
+  //Esto es nuevo
+  //Metodo para generar el reporte de afiliacion de la persona
+  generacionReporteAfiliacion(requestDoc: string) {
+    this.userService.consultarToken('1053820773').subscribe(response => {
+      console.log('Respuesta del WS:', response);
+    });
+  }
+
+  // Método para llamar al servicio
+  consultarWs(documento: string) {
+    this.consultarCedulaValor(documento, 'y').subscribe(
+      (response: any) => {
+        // Define el tipo explícito
+        console.log('Respuesta del servicio:', response);
+        // Aquí puedes procesar la respuesta
+      },
+      (error: any) => {
+        // Define el tipo explícito
+        console.error('Error al llamar al servicio:', error);
+      }
+    );
+  }
+
+  // Método para hacer la consulta al servicio con dos parámetros
+  consultarCedulaValor(cedula: string, valor: string): Observable<any> {
+    const apiUrl = 'http://nbdesradar/subsidiosWSRest/rest/wsrest/consultarPersonaDocServicios'; // URL base de tu API
+    const url = `${apiUrl}/${cedula}/${valor}`;
+    return this.http.get(url);
   }
 }
