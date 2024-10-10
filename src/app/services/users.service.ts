@@ -35,6 +35,9 @@ import {
   RequestAttachmentsList,
   PreSignedAttach,
   RequestReportDetail,
+  RequestReportStatus,
+  RequestReportForStatus,
+  RequestReportStatusByAssignedUser,
 } from '../models/users.interface';
 import { Observable } from 'rxjs';
 @Injectable({
@@ -411,6 +414,27 @@ export class Users {
   getRequestReportDetail(): Observable<BodyResponse<RequestReportDetail[]>> {
     return this.http.post<BodyResponse<RequestReportDetail[]>>(
       `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_DETAIL_ALL}`,
+      {}
+    );
+  }
+
+  getRequestReportStatus(): Observable<BodyResponse<RequestReportStatus[]>> {
+    return this.http.post<BodyResponse<RequestReportStatus[]>>(
+      `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_STATUS}`,
+      {}
+    );
+  }
+
+  getRequestReportForStatus(): Observable<BodyResponse<RequestReportForStatus[]>> {
+    return this.http.post<BodyResponse<RequestReportForStatus[]>>(
+      `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_FOR_STATUS}`,
+      {}
+    );
+  }
+
+  getRequestReportStatusByAssignedUser(): Observable<BodyResponse<RequestReportStatusByAssignedUser[]>> {
+    return this.http.post<BodyResponse<RequestReportStatusByAssignedUser[]>>(
+      `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_STATUS_BY_ASSIGNED_USER}`,
       {}
     );
   }

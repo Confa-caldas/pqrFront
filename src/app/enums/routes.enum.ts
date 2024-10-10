@@ -75,4 +75,7 @@ export enum EndPointRoute {
   REFRESH_TOKEN = 'token/refresh',
   URL_SIGNER = 'url/signer',
   REQUEST_REPORT_DETAIL_ALL = 'requests/report/all',
+  REQUEST_REPORT_STATUS = 'requests/report/status',
+  REQUEST_REPORT_FOR_STATUS = 'requests/report/for_status',
+  REQUEST_REPORT_STATUS_BY_ASSIGNED_USER = 'requests/report/status_by_user',
 }

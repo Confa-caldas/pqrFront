@@ -363,3 +363,23 @@ export interface RequestReportDetail {
   type: string;
   total_request: number;
 }
+
+export interface RequestReportStatus {
+  date: Date;
+  radicadas: number;
+  asignadas: number;
+  reasignadas: number;
+  cerradas: number;
+}
+
+export interface RequestReportForStatus {
+  status: string;
+  total_request: number;
+}
+
+export interface RequestReportStatusByAssignedUser {
+  user: string;
+  asignadas: number;
+  cerradas: number;
+  reasignadas: number;
+}
