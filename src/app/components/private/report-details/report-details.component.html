@@ -90,11 +90,21 @@
           </ng-template>
 
           <!-- Filas de la tabla -->
-          <ng-template pTemplate="body" let-rowData>
+          <!-- <ng-template pTemplate="body" let-rowData>
             <tr>
               <td *ngFor="let col of dynamicColumnsForStatus" style="text-align: center;">{{ rowData[col] }}</td>
             </tr>
+          </ng-template> -->
+          <ng-template pTemplate="body" let-rowData>
+            <tr>
+              <td *ngFor="let col of dynamicColumnsForStatus" 
+                  [ngStyle]="{ 'font-weight': rowData[col] === 'Total' ? 'bold' : 'normal' }" 
+                  style="text-align: center;">
+                {{ rowData[col] }}
+              </td>
+            </tr>
           </ng-template>
+          
         </p-table>
       </div>
     </p-accordionTab>
