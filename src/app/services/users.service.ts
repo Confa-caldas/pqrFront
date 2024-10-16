@@ -35,6 +35,9 @@ import {
   RequestAttachmentsList,
   PreSignedAttach,
   RequestReportDetail,
+  RequestReportStatus,
+  RequestReportForStatus,
+  RequestReportStatusByAssignedUser,
 } from '../models/users.interface';
 import { Observable } from 'rxjs';
 import { MD5 } from 'crypto-js';
@@ -417,6 +420,26 @@ export class Users {
     );
   }
 
+  getRequestReportStatus(): Observable<BodyResponse<RequestReportStatus[]>> {
+    return this.http.post<BodyResponse<RequestReportStatus[]>>(
+      `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_STATUS}`,
+      {}
+    );
+  }
+
+  getRequestReportForStatus(): Observable<BodyResponse<RequestReportForStatus[]>> {
+    return this.http.post<BodyResponse<RequestReportForStatus[]>>(
+      `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_FOR_STATUS}`,
+      {}
+    );
+  }
+
+  getRequestReportStatusByAssignedUser(): Observable<BodyResponse<RequestReportStatusByAssignedUser[]>> {
+    return this.http.post<BodyResponse<RequestReportStatusByAssignedUser[]>>(
+      `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_STATUS_BY_ASSIGNED_USER}`,
+      {}
+    );
+  }
   //Nuevo
   // MEtodo para generar documento de afilicacion
   consultarInfoPersona(doc: string): Observable<any> {

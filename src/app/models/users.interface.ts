@@ -435,3 +435,22 @@ export interface Afiliado {
   fechaAfiliacion: string;
   fechaIngreso: string;
 }
+export interface RequestReportStatus {
+  date: Date;
+  radicadas: number;
+  asignadas: number;
+  reasignadas: number;
+  cerradas: number;
+}
+
+export interface RequestReportForStatus {
+  status: string;
+  total_request: number;
+}
+
+export interface RequestReportStatusByAssignedUser {
+  user: string;
+  asignadas: number;
+  cerradas: number;
+  reasignadas: number;
+}

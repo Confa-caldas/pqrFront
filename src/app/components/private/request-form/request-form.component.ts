@@ -380,7 +380,8 @@ export class RequestFormComponent implements OnInit {
   async getPreSignedUrl(file: ApplicantAttachments, request_id: number): Promise<string | void> {
     this.isSpinnerVisible = true;
     const payload = {
-      source_name: file['source_name'],
+      // Ajuste para eliminar lo puntos o caracteres especiales en los nombres de los adjuntos
+      source_name: file['source_name'].replace(/(?!\.[^.]+$)\./g, '_'),
       fileweight: file['fileweight'],
       request_id: request_id,
     };
