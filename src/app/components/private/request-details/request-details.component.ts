@@ -12,6 +12,8 @@ import {
   answerRequest,
   Pagination,
   RequestAttachmentsList,
+  MiPerfilConfa,
+  Afiliado,
 } from '../../../models/users.interface';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -21,6 +23,11 @@ import { HttpClient } from '@angular/common/http';
 import { PaginatorState } from 'primeng/paginator';
 //Esto es nuevo
 import { Observable } from 'rxjs';
+import { Util } from '../../../utils/utils';
+// import * as pdfMake from 'pdfmake/build/pdfmake';
+// import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-request-details',
@@ -104,6 +111,12 @@ export class RequestDetailsComponent implements OnInit {
   //Esto es nuevo
   documentValue: string = ''; // Valor del documento (cédula)
   valor: string = ''; // Otro valor que quieras pasar en la URL
+  nombreAfiliado: string = '';
+  userMiPerfil!: MiPerfilConfa;
+  imgPdf2: string = '';
+  // fechaEntrega: string = this.formatDate(new Date());
+  afiliado?: Afiliado;
+  imgPdf1: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -113,6 +126,7 @@ export class RequestDetailsComponent implements OnInit {
     private messageService: MessageService,
     private http: HttpClient
   ) {
+    // (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;
     this.requestProcess = this.formBuilder.group({
       mensage: [null, [Validators.required, Validators.maxLength(6000)]],
       //mensage: [null, [Validators.required]],
@@ -138,6 +152,15 @@ export class RequestDetailsComponent implements OnInit {
     this.initPaginadorHistoric();
     this.getRequestApplicantAttachments(this.request_id);
     this.getRequestAssignedAttachments(this.request_id);
+
+    //Neuvo pdf
+    Util.getImageDataUrl('assets/imagenes/encabezado.png').then(
+      imagenConfa => (this.imgPdf2 = imagenConfa)
+    );
+
+    Util.getImageDataUrl('assets/imagenes/footer.png').then(
+      imagenConfaFooter => (this.imgPdf1 = imagenConfaFooter)
+    );
   }
 
   onPageChangeHistoric(eventHistoric: PaginatorState) {
@@ -868,33 +891,64 @@ export class RequestDetailsComponent implements OnInit {
     this.visibleDialogIa = false;
   }
 
-  //Esto es nuevo
-  //Metodo para generar el reporte de afiliacion de la persona
-  generacionReporteAfiliacion(requestDoc: string) {
-    this.userService.consultarToken('1053820773').subscribe(response => {
-      console.log('Respuesta del WS:', response);
-    });
-  }
-
-  // Método para llamar al servicio
-  consultarWs(documento: string) {
-    this.consultarCedulaValor(documento, 'y').subscribe(
-      (response: any) => {
-        // Define el tipo explícito
-        console.log('Respuesta del servicio:', response);
-        // Aquí puedes procesar la respuesta
+  consultarWs(cedula: string) {
+    this.userService.respuestaInfoAfiliacion(cedula).subscribe(
+      response => {
+        if (response.statusCode === 200) {
+          const parsedBody = JSON.parse(response.body);
+          this.afiliado = parsedBody;
+          if (this.afiliado) {
+            this.afiliado.tipoDocumento = this.getTipoDocumentoTexto(parsedBody.data.tipodoc);
+            this.afiliado.documento = cedula;
+            this.afiliado.nombre = parsedBody.data.nombre;
+            this.afiliado.fechaNacimiento = parsedBody.data.fechanac;
+            this.afiliado.estado = parsedBody.data.estado;
+            this.afiliado.tipoTrabajador = this.getTipoTrabajadorTexto(parsedBody.data.tipotr);
+            this.afiliado.empresa = parsedBody.data.nombreempresa;
+            this.afiliado.fechaAfiliacion = parsedBody.data.fechaafi;
+            this.afiliado.fechaIngreso = parsedBody.data.fechaing;
+          }
+        }
       },
       (error: any) => {
-        // Define el tipo explícito
         console.error('Error al llamar al servicio:', error);
       }
     );
   }
 
-  // Método para hacer la consulta al servicio con dos parámetros
-  consultarCedulaValor(cedula: string, valor: string): Observable<any> {
-    const apiUrl = 'http://nbdesradar/subsidiosWSRest/rest/wsrest/consultarPersonaDocServicios'; // URL base de tu API
-    const url = `${apiUrl}/${cedula}/${valor}`;
-    return this.http.get(url);
+  getTipoTrabajadorTexto(tipo: string): string {
+    switch (tipo) {
+      case 'T':
+        return 'TRABAJADOR DEPENDIENTE';
+      case 'A':
+      case 'N':
+        return 'TRABAJADOR INDEPENDIENTE';
+      case 'J':
+      case 'P':
+      case 'G':
+      case 'B':
+        return 'PENSIONADO';
+      case 'D':
+        return 'DESEMPLEADO PARA SERVICIOS';
+      default:
+        return '';
+    }
+  }
+
+  getTipoDocumentoTexto(tipo: string): string {
+    switch (tipo) {
+      case 'C':
+        return 'CEDULA CIUDADANIA';
+      case 'E':
+        return 'CEDULA EXTRANJERIA';
+      case 'v':
+        return 'PERMISO ESPECIAL PERMANENCIA';
+      case 'M':
+        return 'PERMISO PROTECCION TEMPORAL';
+      case 'P':
+        return 'PASAPORTE';
+      default:
+        return '';
+    }
   }
 }
