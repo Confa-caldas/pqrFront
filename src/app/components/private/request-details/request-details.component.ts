@@ -23,7 +23,7 @@ import { HttpClient } from '@angular/common/http';
 import { PaginatorState } from 'primeng/paginator';
 //Esto es nuevo
 import { Observable } from 'rxjs';
-import { Util } from '../../../utils/utils';
+// import { Util } from '../../../utils/utils';
 // import * as pdfMake from 'pdfmake/build/pdfmake';
 // import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
@@ -153,14 +153,14 @@ export class RequestDetailsComponent implements OnInit {
     this.getRequestApplicantAttachments(this.request_id);
     this.getRequestAssignedAttachments(this.request_id);
 
-    //Neuvo pdf
-    Util.getImageDataUrl('assets/imagenes/encabezado.png').then(
-      imagenConfa => (this.imgPdf2 = imagenConfa)
-    );
+    // //Neuvo pdf
+    // Util.getImageDataUrl('assets/imagenes/encabezado.png').then(
+    //   imagenConfa => (this.imgPdf2 = imagenConfa)
+    // );
 
-    Util.getImageDataUrl('assets/imagenes/footer.png').then(
-      imagenConfaFooter => (this.imgPdf1 = imagenConfaFooter)
-    );
+    // Util.getImageDataUrl('assets/imagenes/footer.png').then(
+    //   imagenConfaFooter => (this.imgPdf1 = imagenConfaFooter)
+    // );
   }
 
   onPageChangeHistoric(eventHistoric: PaginatorState) {
