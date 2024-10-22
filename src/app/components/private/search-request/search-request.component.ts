@@ -48,7 +48,7 @@ export class SearchRequestComponent implements OnInit {
   PERFIL!: string;
   statusList: RequestStatusList[] = [];
   formGroup: FormGroup<any> = new FormGroup<any>({});
-
+  mensajeReasignacion: string = '';
   //paginador
   first: number = 0;
   page: number = 1;
@@ -300,7 +300,11 @@ export class SearchRequestComponent implements OnInit {
     this.visibleDialogAlert = false;
     this.enableAssign = value;
   }
-  setParameter(inputValue: { userName: string, userNameCompleted: string }) {
+  setParameter(inputValue: {
+    userName: string;
+    userNameCompleted: string;
+    mensajeReasignacion: string;
+  }) {
     if (!this.enableAssign) return;
     if (this.request_details['assigned_user'] == inputValue.userName) {
       this.visibleDialogAlert = true;
@@ -313,6 +317,7 @@ export class SearchRequestComponent implements OnInit {
     }
     this.request_details['assigned_user'] = inputValue.userName;
     this.request_details['user_name_completed'] = inputValue.userNameCompleted;
+    this.request_details['mensaje_reasignacion'] = inputValue.mensajeReasignacion;
     if (inputValue) {
       this.userService.assignUserToRequest(this.request_details).subscribe({
         next: (response: BodyResponse<string>) => {

@@ -78,4 +78,6 @@ export enum EndPointRoute {
   REQUEST_REPORT_STATUS = 'requests/report/status',
   REQUEST_REPORT_FOR_STATUS = 'requests/report/for_status',
   REQUEST_REPORT_STATUS_BY_ASSIGNED_USER = 'requests/report/status_by_user',
+  CREATE_ANSWER_TEM = 'answer_temp/create',
+  GET_ANSWER_TEMP_REQUEST = 'answer_temp/filter_request',
 }

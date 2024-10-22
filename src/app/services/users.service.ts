@@ -38,6 +38,7 @@ import {
   RequestReportStatus,
   RequestReportForStatus,
   RequestReportStatusByAssignedUser,
+  RequestAnswerTemp,
 } from '../models/users.interface';
 import { Observable } from 'rxjs';
 import { MD5 } from 'crypto-js';
@@ -434,7 +435,9 @@ export class Users {
     );
   }
 
-  getRequestReportStatusByAssignedUser(): Observable<BodyResponse<RequestReportStatusByAssignedUser[]>> {
+  getRequestReportStatusByAssignedUser(): Observable<
+    BodyResponse<RequestReportStatusByAssignedUser[]>
+  > {
     return this.http.post<BodyResponse<RequestReportStatusByAssignedUser[]>>(
       `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_STATUS_BY_ASSIGNED_USER}`,
       {}
@@ -467,5 +470,19 @@ export class Users {
       ndoc: cedula,
     };
     return this.http.post(urlSubsidios, payload, { headers }); // Envía la petición con headers
+  }
+
+  createAnswerTemp(payload: RequestAnswerTemp) {
+    return this.http.post<BodyResponse<string>>(
+      `${environment.API_PUBLIC}${EndPointRoute.CREATE_ANSWER_TEM}`,
+      payload
+    );
+  }
+
+  getAnswerTemp(payload: RequestAnswerTemp) {
+    return this.http.post<BodyResponse<RequestAnswerTemp>>(
+      `${environment.API_PUBLIC}${EndPointRoute.GET_ANSWER_TEMP_REQUEST}`,
+      payload
+    );
   }
 }

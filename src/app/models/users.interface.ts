@@ -33,6 +33,7 @@ export interface RequestsList {
   form_id: number;
   status_name: string;
   user_name_completed: string;
+  mensaje_reasignacion: string;
 }
 
 export interface RequestsDetails {
@@ -62,6 +63,7 @@ export interface RequestsDetails {
   updated_by?: string;
   updated_date?: string;
   user_name_completed?: string;
+  mensaje_reasignacion: string;
 }
 export interface RequestAttachmentsList {
   url: string;
@@ -85,6 +87,7 @@ export interface RequestHistoric {
   assigned_user: string;
   difference: string[];
   user_name_completed: string;
+  answer_request: string;
 }
 export interface AssignUserRequest {
   request_id: number;
@@ -453,4 +456,9 @@ export interface RequestReportStatusByAssignedUser {
   asignadas: number;
   cerradas: number;
   reasignadas: number;
+}
+
+export interface RequestAnswerTemp {
+  request_id: number;
+  mensaje_temp: string;
 }

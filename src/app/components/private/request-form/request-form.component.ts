@@ -129,7 +129,7 @@ export class RequestFormComponent implements OnInit {
       } else if (value.catalog_item_id == 16) {
         this.errorMensaje = 'Formato inválido';
       } else if (value.catalog_item_id == 1) {
-        this.errorMensaje = 'Ingrese solo números y máximo 9 digitos';
+        this.errorMensaje = 'Ingrese solo números y máximo 11 digitos';
       }
     });
   }

@@ -338,7 +338,23 @@
                     [style]="{ 'border-radius': '10px' }">
                   </p-button>
                 </div>
+
+                <label
+                  *ngIf="requestDetails.status_name !== 'Cerrado'"
+                  class="formProcess-card-text-placeholder"
+                  [style]="{ 'border-radius': '10px', 'margin-left': 'auto' }"
+                  [ngClass]="{ 'text-respuesta': existEraserAsnwer }"
+                  >Guardar borrador
+                  <p-button
+                    icon="pi pi-save"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="borradorRespuesta(requestDetails)"
+                    [style]="{ 'border-radius': '10px' }"
+                    title="Guardar en borrador">
+                  </p-button>
+                </label>
               </label>
+
               <!-- <label class="formProcess-card-text-placeholder"
                 >Generar reporte afiliacion
                 <div>
@@ -464,6 +480,14 @@
                     icon="pi pi-eye"
                     [styleClass]="'btn-icon-info'"
                     (click)="showModalRadicada()"></p-button>
+                  <p-button
+                    *ngIf="
+                      requestHistoric.status_name === 'Reasignada' &&
+                      requestHistoric.answer_request !== null
+                    "
+                    icon="pi pi-eye"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="showModalReasignada(requestHistoric.user_name_completed)"></p-button>
                 </td>
               </tr>
             </ng-template>
