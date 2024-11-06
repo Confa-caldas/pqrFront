@@ -250,6 +250,7 @@ export class RequestFormComponent implements OnInit {
   async setParameter(inputValue: RequestFormList) {
     const mensaje = inputValue.request_description;
     const adjuntarArchivo = await this.validarMensaje(mensaje);
+    inputValue.count_attacments = this.getAplicant().length;
 
     // Si es necesario adjuntar archivo y no hay aplicantes
     if (adjuntarArchivo && this.getAplicant().length == 0) {
@@ -265,6 +266,7 @@ export class RequestFormComponent implements OnInit {
   }
 
   continuarCreacionSolicitud(inputValue: RequestFormList) {
+    console.log(inputValue);
     this.userService.createRequest(inputValue).subscribe({
       next: (response: BodyResponse<number>) => {
         if (response.code === 200) {
@@ -558,6 +560,7 @@ export class RequestFormComponent implements OnInit {
       applicant_attachments: null,
       assigned_attachments: null,
       form_id: this.requestType.form_id,
+      count_attacments: 0,
     };
 
     this.setParameter(payload);

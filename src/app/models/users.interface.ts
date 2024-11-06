@@ -157,6 +157,7 @@ export interface RequestFormList {
   applicant_attachments?: ApplicantAttachments[] | null;
   assigned_attachments?: ApplicantAttachments[] | null;
   form_id?: number;
+  count_attacments: number;
 }
 export interface answerRequest {
   request_status: number;

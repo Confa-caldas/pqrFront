@@ -996,6 +996,7 @@ export class RequestDetailsComponent implements OnInit {
         console.log(err);
       },
       complete: () => {
+        this.existEraserAsnwer = true;
         console.log('La suscripción ha sido completada.');
         return this.respuestaTemp;
       },
