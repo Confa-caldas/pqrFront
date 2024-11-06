@@ -1,5 +1,8 @@
 @import '../../../../assets/styles/abstracts/variables.scss';
 
+.text-respuesta {
+  color: red !important; 
+}
 
 .title {
   font-weight: 600;
@@ -318,6 +321,8 @@ td {
       }
     }
   }
+
+
 
 
 }

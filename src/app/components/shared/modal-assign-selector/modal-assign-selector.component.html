@@ -35,6 +35,19 @@
                   : ''
               }}</label
             >
+
+            <label class="label" *ngIf="buttonmsg === 'Reasignar'">
+              <textarea
+                rows="9"
+                cols="40"
+                formControlName="mensage"
+                [style]="{ 'border-radius': '5px', 'margin-top': '20px', width: '350px' }"
+                type="text"
+                class="custom-input"
+                placeholder="Escribir mensaje"
+                pInputTextarea>
+              </textarea>
+            </label>
           </div>
         </div>
       </form>

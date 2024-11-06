@@ -24,6 +24,7 @@ export class ModalAssignSelectorComponent implements OnInit {
   ) {
     this.formGroup = this.formBuilder.group({
       selectedUser: ['', Validators.required],
+      mensage: [''],
     });
   }
   ngOnInit(): void {
@@ -59,7 +60,8 @@ export class ModalAssignSelectorComponent implements OnInit {
     const selectedUser = this.formGroup.controls['selectedUser'].value;
     const userName = selectedUser?.user_name || '';
     const userNameCompleted = selectedUser?.user_name_completed || '';
-    this.setRtaParameter.emit({ userName, userNameCompleted });
+    const mensajeReasignacion = this.formGroup.controls['mensage'].value;
+    this.setRtaParameter.emit({ userName, userNameCompleted, mensajeReasignacion });
     this.visible = false;
   }
 }

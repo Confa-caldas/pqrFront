@@ -39,6 +39,7 @@ import {
   RequestReportForStatus,
   RequestReportStatusByAssignedUser,
   ErrorAttachLog,
+  RequestAnswerTemp,
 } from '../models/users.interface';
 import { Observable } from 'rxjs';
 import { MD5 } from 'crypto-js';
@@ -49,6 +50,7 @@ export class Users {
   private apiUrl = 'https://api-utilitarios.confa.co/IA/analizartextoclasificar'; // URL del web service
   private apiKey = 'AIabZtSVgS2nIVD03HQxY1cM6qLmRS8B3zHlw3qo'; // La API key que te dieron
   private apiUrlAdjuntos = 'https://api-utilitarios.confa.co/IA/analizartextov2';
+  private apiUrlIngresoConfa = 'https://app.confa.co:8687/ingresoConfaWSSGC/rest/confa/metodo26';
 
   constructor(private http: HttpClient) {}
 
@@ -434,17 +436,18 @@ export class Users {
     );
   }
 
-  getRequestReportStatusByAssignedUser(): Observable<BodyResponse<RequestReportStatusByAssignedUser[]>> {
+  getRequestReportStatusByAssignedUser(): Observable<
+    BodyResponse<RequestReportStatusByAssignedUser[]>
+  > {
     return this.http.post<BodyResponse<RequestReportStatusByAssignedUser[]>>(
       `${environment.API_PUBLIC}${EndPointRoute.REQUEST_REPORT_STATUS_BY_ASSIGNED_USER}`,
       {}
     );
   }
   //Nuevo
-  // MEtodo para sacar el token
-  consultarToken(doc?: string): Observable<any> {
-    const urltoken = 'https://app.confa.co:8687/ingresoConfaWSSGC/rest/confa/metodo26';
-    const docmd5 = MD5('1053820773').toString();
+  // MEtodo para generar documento de afilicacion
+  consultarInfoPersona(doc: string): Observable<any> {
+    const docmd5 = MD5(doc).toString();
     console.log('Documento en MD5:', docmd5);
 
     const headers = new HttpHeaders({
@@ -455,7 +458,33 @@ export class Users {
       documento: docmd5, // Aquí puedes ajustar el nombre del campo si el WS lo requiere
     };
 
-    return this.http.post(urltoken, payload, { headers }); // Envía la petición con headers
+    return this.http.post(this.apiUrlIngresoConfa, payload, { headers }); // Envía la petición con headers
+  }
+
+  respuestaInfoAfiliacion(cedula?: string): Observable<any> {
+    const urlSubsidios = 'https://api-utilitarios.confa.co/replica/consultarAfiliadoDoc';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', // Asegura que se envíe como JSON
+      'x-api-key': this.apiKey, // Incluye la API key en los headers
+    });
+    const payload = {
+      ndoc: cedula,
+    };
+    return this.http.post(urlSubsidios, payload, { headers }); // Envía la petición con headers
+  }
+
+  createAnswerTemp(payload: RequestAnswerTemp) {
+    return this.http.post<BodyResponse<string>>(
+      `${environment.API_PUBLIC}${EndPointRoute.CREATE_ANSWER_TEM}`,
+      payload
+    );
+  }
+
+  getAnswerTemp(payload: RequestAnswerTemp) {
+    return this.http.post<BodyResponse<RequestAnswerTemp>>(
+      `${environment.API_PUBLIC}${EndPointRoute.GET_ANSWER_TEMP_REQUEST}`,
+      payload
+    );
   }
 
   registerErrorAttach(payload: ErrorAttachLog) {
