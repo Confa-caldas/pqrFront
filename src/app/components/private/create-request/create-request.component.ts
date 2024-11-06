@@ -28,8 +28,10 @@ export class CreateRequestComponent {
       applicant_id: ['', Validators.required],
       request_id: ['', Validators.required],
       authorize: [null, Validators.requiredTrue],
+      
     });
 
+    localStorage.removeItem('visitedFirstPage');
     this.getApplicantList();
   }
   changeRequest() {
@@ -96,6 +98,7 @@ export class CreateRequestComponent {
   }
 
   sendOptions() {
+    localStorage.setItem('visitedFirstPage', 'true');
     localStorage.setItem(
       'applicant-type',
       JSON.stringify(this.optionsRequest.controls['applicant_id'].value)

@@ -38,6 +38,7 @@ import {
   RequestReportStatus,
   RequestReportForStatus,
   RequestReportStatusByAssignedUser,
+  ErrorAttachLog,
 } from '../models/users.interface';
 import { Observable } from 'rxjs';
 import { MD5 } from 'crypto-js';
@@ -455,5 +456,12 @@ export class Users {
     };
 
     return this.http.post(urltoken, payload, { headers }); // Envía la petición con headers
+  }
+
+  registerErrorAttach(payload: ErrorAttachLog) {
+    return this.http.post<BodyResponse<string>>(
+      `${environment.API_PUBLIC}${EndPointRoute.ATTACHMENTS_ERROR_LOG}`,
+      payload
+    );
   }
 }

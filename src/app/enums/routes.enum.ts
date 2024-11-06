@@ -78,4 +78,5 @@ export enum EndPointRoute {
   REQUEST_REPORT_STATUS = 'requests/report/status',
   REQUEST_REPORT_FOR_STATUS = 'requests/report/for_status',
   REQUEST_REPORT_STATUS_BY_ASSIGNED_USER = 'requests/report/status_by_user',
+  ATTACHMENTS_ERROR_LOG = 'error/log_attachment',
 }

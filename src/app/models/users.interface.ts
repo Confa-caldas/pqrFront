@@ -383,3 +383,11 @@ export interface RequestReportStatusByAssignedUser {
   cerradas: number;
   reasignadas: number;
 }
+
+export interface ErrorAttachLog {
+  request_id: number;
+  status: string;
+  name_archive: string;
+  error_message: string;
+  error_type: string;
+}

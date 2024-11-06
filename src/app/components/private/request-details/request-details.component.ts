@@ -518,7 +518,8 @@ export class RequestDetailsComponent implements OnInit {
   }
   async getPreSignedUrl(file: ApplicantAttachments) {
     const payload = {
-      source_name: file['source_name'],
+      //source_name: file['source_name'],
+      source_name: file['source_name'].replace(/(?!\.[^.]+$)\./g, '_'),
       fileweight: file['fileweight'],
       request_id: this.request_id,
     };
