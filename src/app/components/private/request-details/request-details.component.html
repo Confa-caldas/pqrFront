@@ -330,16 +330,16 @@
               <label class="formProcess-card-text-placeholder"
                 >Respuesta Solicitud
                 <p style="color: red">*</p>
-                <div>
+                <!-- <div>
                   <p-button
                     icon="pi pi-bolt"
                     [styleClass]="'btn-icon-warning'"
                     (click)="respuestaSugeridaIa(requestDetails.request_description)"
                     [style]="{ 'border-radius': '10px' }">
                   </p-button>
-                </div>
-
-                <label
+                </div> -->
+              </label>
+                <div
                   *ngIf="requestDetails.status_name !== 'Cerrado'"
                   class="formProcess-card-text-placeholder"
                   [style]="{ 'border-radius': '10px', 'margin-left': 'auto' }"
@@ -352,8 +352,8 @@
                     [style]="{ 'border-radius': '10px' }"
                     title="Guardar en borrador">
                   </p-button>
-                </label>
-              </label>
+                </div>
+              
 
               <!-- <label class="formProcess-card-text-placeholder"
                 >Generar reporte afiliacion
@@ -501,7 +501,7 @@
         </div>
       </p-tabPanel>
       <!-- //Esto es nuevo -->
-      <p-tabPanel header="Consultas Genesys" headerStyleClass="p-tabview-nav-link-1">
+      <!-- <p-tabPanel header="Consultas Genesys" headerStyleClass="p-tabview-nav-link-1">
         <ul class="list-unstyled">
           <div class="container">
             <div class="container-row">
@@ -568,7 +568,7 @@
             </div>
           </div>
         </ul>
-      </p-tabPanel>
+      </p-tabPanel> -->
     </p-tabView>
   </div>
   <!-- <p-dialog

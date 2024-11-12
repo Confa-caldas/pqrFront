@@ -438,93 +438,102 @@ export class RequestFormComponent implements OnInit {
       .toPromise();
   } */
   
-      async uploadToPresignedUrl(file: ApplicantAttachments, request_id: number): Promise<void> {
-        this.isSpinnerVisible = true;
-        if (file && file.file) {
-          try {
-            const contentType = 'application/png';
-            const MAX_RETRIES = 3;
-            const RETRY_DELAY_MS = 2000;
-      
-            console.log("Archivos: ", file.file);
-            console.log('PreSignerUrl', this.preSignedUrl);
+  async uploadToPresignedUrl(file: ApplicantAttachments, request_id: number): Promise<void> {
+    this.isSpinnerVisible = true;
+    if (file && file.file) {
+      try {
+        const contentType = 'application/png';
+        const MAX_RETRIES = 3;
+        const RETRY_DELAY_MS = 2000;
+  
+        console.log("Archivos: ", file.file);
+        console.log('PreSignerUrl', this.preSignedUrl);
 
-            this.preSignedUrl += 'invalid-part'; // Invalidar URL
-      
-            const upload$ = this.http
-              .put(this.preSignedUrl, file.file, {
-                headers: { 'Content-Type': contentType },
-                reportProgress: true,
-                observe: 'events',
-              })
-              .pipe(
-                retryWhen(errors =>
-                  errors.pipe(
-                    tap((error: HttpErrorResponse) => { // Declara explícitamente el tipo
-                      console.error('Intento fallido de subida:', error);
-                      this.handleUploadFailure(file, request_id, error); // Registra cada intento fallido
-                    }),
-                    delay(RETRY_DELAY_MS),
-                    take(MAX_RETRIES),
-                    catchError(err => {
-                      console.error('Error después de múltiples intentos:', err);
-                      return throwError(() => err);
-                    })
-                  )
-                )
-              );
-      
-            const uploadResponse = await upload$.toPromise();
-      
-            if (uploadResponse) {
-              if (uploadResponse.type === HttpEventType.UploadProgress) {
-                const progress = Math.round(
-                  (uploadResponse.loaded / (uploadResponse.total || 1)) * 100
-                );
-                console.log(`Progreso de la subida: ${progress}%`);
-              } else if (uploadResponse instanceof HttpResponse) {
-                console.log('Archivo subido con éxito:', uploadResponse.body);
-              }
-            }
-          } catch (error) {
-            console.error('Falló la subida del archivo. Error:', error);
-          } finally {
-            this.isSpinnerVisible = false;
+        //this.preSignedUrl += 'invalid-part'; // Invalidar URL
+  
+        const upload$ = this.http
+          .put(this.preSignedUrl, file.file, {
+            headers: { 'Content-Type': contentType },
+            reportProgress: true,
+            observe: 'events',
+          })
+          .pipe(
+            retryWhen(errors =>
+              errors.pipe(
+                tap((error: HttpErrorResponse) => {
+                  // Extrae información detallada del error
+                  const errorDetails = {
+                    status: error.status,
+                    statusText: error.statusText,
+                    message: error.message,
+                    url: error.url
+                  };
+                  console.error('Intento fallido de subida:', errorDetails);
+                  // Guarda el intento fallido con detalles del error
+                  this.handleUploadFailure(file, request_id, errorDetails);
+                }),
+                delay(RETRY_DELAY_MS),
+                take(MAX_RETRIES),
+                catchError(err => {
+                  console.error('Error después de múltiples intentos:', err);
+                  return throwError(() => err);
+                })
+              )
+            )
+          );
+  
+        const uploadResponse = await upload$.toPromise();
+  
+        if (uploadResponse) {
+          if (uploadResponse.type === HttpEventType.UploadProgress) {
+            const progress = Math.round(
+              (uploadResponse.loaded / (uploadResponse.total || 1)) * 100
+            );
+            console.log(`Progreso de la subida: ${progress}%`);
+          } else if (uploadResponse instanceof HttpResponse) {
+            console.log('Archivo subido con éxito:', uploadResponse.body);
           }
-        } else {
-          console.error('El archivo no es válido o está undefined.');
         }
+      } catch (error) {
+        console.error('Falló la subida del archivo. Error:', error);
+      } finally {
+        this.isSpinnerVisible = false;
       }
-
-  //ENVIO AL SERVICIO QUE VA A GUARDAR EN LA TABLA DE LOGS
-  handleUploadFailure(file: ApplicantAttachments, request_id: number, error: any){
-    console.log('ENTROOOOO');
-
+    } else {
+      console.error('El archivo no es válido o está undefined.');
+    }
+  }
+  
+  // ENVIO AL SERVICIO QUE VA A GUARDAR EN LA TABLA DE LOGS
+  handleUploadFailure(file: ApplicantAttachments, request_id: number, errorDetails: any) {
+    console.log('Registrando intento de fallo en base de datos.');
+  
     const payload: ErrorAttachLog = {
       request_id: request_id,
       status: 'REPORTADO',
       name_archive: file.source_name,
-      error_message: error.message || 'Error desconocido',
+      error_message: `Status: ${errorDetails.status}, ` +
+                      `StatusText: ${errorDetails.statusText}, ` +
+                      `Message: ${errorDetails.message}, ` +
+                      `URL: ${errorDetails.url || 'unknown'}`,
       error_type: 'S3'
-    }
+    };
+    
     this.userService.registerErrorAttach(payload).subscribe({
       next: (response) => {
         if (response && response.code === 200) {
-            console.log('Error registrado correctamente en la base de datos.');
-            //this.showSuccessMessage('success', 'Éxito', 'El error fue registrado exitosamente.');
+          console.log('Error registrado correctamente en la base de datos.');
         } else {
-            console.error('No se pudo registrar el error. Código de respuesta no esperado:', response?.code);
-            //this.showSuccessMessage('error', 'Fallido', 'No se pudo registrar el error en la base de datos.');
+          console.error('No se pudo registrar el error. Código de respuesta no esperado:', response?.code);
         }
       },
       error: (err) => {
-          console.error('Error al intentar registrar el log en la base de datos:', err);
-          //this.showSuccessMessage('error', 'Fallido', 'Hubo un error al registrar el log en la base de datos.');
+        console.error('Error al intentar registrar el log en la base de datos:', err);
       },
       complete: () => {
-          console.log('Proceso de registro de error en base de datos completado.');
+        console.log('Proceso de registro de error en base de datos completado.');
       }
-    })
+    });
   }
 
   async attachApplicantFiles(request_id: number) {
