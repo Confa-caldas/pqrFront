@@ -468,7 +468,7 @@ export class RequestFormComponent implements OnInit {
                     message: error.message,
                     url: error.url
                   };
-                  console.error('Intento fallido de subida:', errorDetails);
+                  //console.error('Intento fallido de subida:', errorDetails);
                   // Guarda el intento fallido con detalles del error
                   this.handleUploadFailure(file, request_id, errorDetails);
                 }),
@@ -489,9 +489,9 @@ export class RequestFormComponent implements OnInit {
             const progress = Math.round(
               (uploadResponse.loaded / (uploadResponse.total || 1)) * 100
             );
-            console.log(`Progreso de la subida: ${progress}%`);
+            //console.log(`Progreso de la subida: ${progress}%`);
           } else if (uploadResponse instanceof HttpResponse) {
-            console.log('Archivo subido con éxito:', uploadResponse.body);
+            //console.log('Archivo subido con éxito:', uploadResponse.body);
           }
         }
       } catch (error) {
@@ -506,7 +506,7 @@ export class RequestFormComponent implements OnInit {
   
   // ENVIO AL SERVICIO QUE VA A GUARDAR EN LA TABLA DE LOGS
   handleUploadFailure(file: ApplicantAttachments, request_id: number, errorDetails: any) {
-    console.log('Registrando intento de fallo en base de datos.');
+    //console.log('Registrando intento de fallo en base de datos.');
   
     const payload: ErrorAttachLog = {
       request_id: request_id,
@@ -594,7 +594,7 @@ export class RequestFormComponent implements OnInit {
     try {
       // Usa await para que se pause hasta que se reciba la respuesta
       const respuesta = await this.http.post(ruta_archivo_ws, estructura).toPromise();
-      console.log('Respuesta del servicio:', respuesta);
+      //console.log('Respuesta del servicio:', respuesta);
     } catch (error) {
       console.error('Error al llamar al servicio:', error);
     }
