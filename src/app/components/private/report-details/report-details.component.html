@@ -1,60 +1,142 @@
 <div class="row mb-5">
-    <div class="col-10">
-      <div class="title-page">Generar reporte detallado de solicitudes</div>
-    </div>
+  <div class="col-10">
+    <div class="title-page">Reportes detallados de solicitudes</div>
   </div>
-  <form [formGroup]="formGroup">
-    <div class="position-relative custom-calendar">
-      <div class="card flex justify-content-center absolute-center">
-        <div class="filters-row">
-          <div class="filters-col">
-            <p-calendar
-              formControlName="dates_range"
-              selectionMode="range"
-              [readonlyInput]="true"
-              [iconDisplay]="'input'"
-              [showIcon]="true"
-              placeholder="Rango de fechas"
-              class="calendar"></p-calendar>
-          </div>
-           
-          <div class="filters-colButtons">
-            <p-button
-              icon="pi pi-trash"
-              [styleClass]="'btn-icon-info'"
-              (click)="cleanTable()"></p-button>
-          </div>
-          <div class="filters-colButtons">
-            <p-button
-              icon="pi pi-search"
-              [styleClass]="'btn-icon-info'"
-              (click)="reportDetails()"></p-button>
-          </div>
-        </div>
+</div>
+
+<div class="card flex justify-content-center">
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab header="DETALLE DE SOLICITUDES">
+
+      <div class="row mt-5" *ngIf="requestReportDetailAll">
+        <!-- <div class="col-12 mt-5"> -->
+        <p-table
+          #dt1
+          [value]="requestReportDetailAll"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          styleClass="p-datatable-striped"
+          [globalFilterFields]="dynamicColumns"
+          (onFilter)="updateChart(dt1.filteredValue)">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let col of dynamicColumns">
+                {{ col }}
+                <p-columnFilter type="text" field="{{ col }}" display="menu" />
+              </th>
+            </tr>
+          </ng-template>
+
+          <!-- Filas de la tabla -->
+          <ng-template pTemplate="body" let-rowData>
+            <tr>
+              <td *ngFor="let col of dynamicColumns" style="text-align: center;">{{ rowData[col] }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
-    </div>
-  </form>
-  <br>
-  <div class="row mt-5" *ngIf="requestReportDetailAll">
-    <div class="col-12 mt-5">
-        <p-table [value]="requestReportDetailAll" [paginator]="true" [rows]="10" [totalRecords]="totalRows" [responsiveLayout]="'scroll'">
-            <!-- Cabecera -->
-            <ng-template pTemplate="header">
-              <tr>
-                <th *ngFor="let col of dynamicColumns">{{ col }}</th>
-              </tr>
-            </ng-template>
+      <!-- </div> -->
+      <div class="row mt-5" *ngIf="requestReportDetailAll">
+        <canvas id="myChart" width="700" height="250" #mychart></canvas>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="SOLICITUDES POR DÍAS">
+      <div class="row mt-5" *ngIf="requestReportDetailAll">
+        <!-- <div class="col-12 mt-5"> -->
+        <p-table
+          #dt1
+          [value]="requestReportStatus"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          styleClass="p-datatable-striped"
+          [globalFilterFields]="dynamicColumns"
+          (onFilter)="updateChart(dt1.filteredValue)">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let col of dynamicColumnsStatus">
+                {{ col }}
+                <p-columnFilter type="text" field="{{ col }}" display="menu" />
+              </th>
+            </tr>
+          </ng-template>
+
+          <!-- Filas de la tabla -->
+          <ng-template pTemplate="body" let-rowData>
+            <tr>
+              <td *ngFor="let col of dynamicColumnsStatus" style="text-align: center;">{{ rowData[col] }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="TOTAL SOLICITUDES POR ESTADO">
+      <div class="row mt-5" *ngIf="requestReportDetailAll">
+        <!-- <div class="col-12 mt-5"> -->
+        <p-table
+          #dt1
+          [value]="requestReportForStatus"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          styleClass="p-datatable-striped"
+          [globalFilterFields]="dynamicColumns"
+          (onFilter)="updateChart(dt1.filteredValue)">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let col of dynamicColumnsForStatus">
+                {{ col }}
+                <p-columnFilter type="text" field="{{ col }}" display="menu" />
+              </th>
+            </tr>
+          </ng-template>
+
+          <!-- Filas de la tabla -->
+          <!-- <ng-template pTemplate="body" let-rowData>
+            <tr>
+              <td *ngFor="let col of dynamicColumnsForStatus" style="text-align: center;">{{ rowData[col] }}</td>
+            </tr>
+          </ng-template> -->
+          <ng-template pTemplate="body" let-rowData>
+            <tr>
+              <td *ngFor="let col of dynamicColumnsForStatus" 
+                  [ngStyle]="{ 'font-weight': rowData[col] === 'Total' ? 'bold' : 'normal' }" 
+                  style="text-align: center;">
+                {{ rowData[col] }}
+              </td>
+            </tr>
+          </ng-template>
           
-            <!-- Filas de la tabla -->
-            <ng-template pTemplate="body" let-rowData>
-              <tr>
-                <td *ngFor="let col of dynamicColumns">{{ rowData[col] }}</td>
-              </tr>
-            </ng-template>
-          </p-table>
-    </div>
-  </div>
-  <div class="row mt-5" *ngIf="requestReportDetailAll">
-    <canvas id="myChart" width="700" height="250" #mychart></canvas>
-  </div>
-  <p-toast></p-toast>
+        </p-table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="TODOS LOS ESTADOS POR RESPONSABLE">
+      <div class="row mt-5" *ngIf="requestReportDetailAll">
+        <!-- <div class="col-12 mt-5"> -->
+        <p-table
+          #dt1
+          [value]="requestReportStatusByAssignedUser"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          styleClass="p-datatable-striped"
+          [globalFilterFields]="dynamicColumns"
+          (onFilter)="updateChart(dt1.filteredValue)">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let col of dynamicColumnStatusByUser">
+                {{ col }}
+                <p-columnFilter type="text" field="{{ col }}" display="menu" />
+              </th>
+            </tr>
+          </ng-template>
+
+          <!-- Filas de la tabla -->
+          <ng-template pTemplate="body" let-rowData>
+            <tr>
+              <td *ngFor="let col of dynamicColumnStatusByUser" style="text-align: center;">{{ rowData[col] }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+</div>
+<p-toast></p-toast>

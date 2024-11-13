@@ -7,15 +7,16 @@ import {
   ApplicantTypeList,
   RequestFormList,
   RequestTypeList,
+  ErrorAttachLog,
 } from '../../../models/users.interface';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { RoutesApp } from '../../../enums/routes.enum';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { catchError, retryWhen, delay, take } from 'rxjs/operators';
+import { HttpEventType, HttpResponse, HttpErrorResponse  } from '@angular/common/http';
+import { throwError, retry } from 'rxjs';
+import { catchError, retryWhen, delay, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-request-form',
@@ -75,16 +76,29 @@ export class RequestFormComponent implements OnInit {
   hasPendingChanges: boolean = false;
 
   ngOnInit(): void {
+
     let applicant = localStorage.getItem('applicant-type');
+    let request = localStorage.getItem('request-type');
+    const visitedFirstPage = localStorage.getItem('visitedFirstPage');
+
+    console.log(visitedFirstPage);
+
+    if (!visitedFirstPage){
+      this.router.navigate([RoutesApp.CREATE_REQUEST]);
+    } else {
+      //let applicant = localStorage.getItem('applicant-type');
     if (applicant) {
       this.applicantType = JSON.parse(applicant);
     }
-    let request = localStorage.getItem('request-type');
+    //let request = localStorage.getItem('request-type');
     if (request) {
       this.requestType = JSON.parse(request);
     }
     this.getApplicantList();
     this.requestForm.get('number_id')?.disable();
+    }
+
+    
   }
 
   constructor(
@@ -129,7 +143,7 @@ export class RequestFormComponent implements OnInit {
       } else if (value.catalog_item_id == 16) {
         this.errorMensaje = 'Formato inválido';
       } else if (value.catalog_item_id == 1) {
-        this.errorMensaje = 'Ingrese solo números y máximo 9 digitos';
+        this.errorMensaje = 'Ingrese solo números y máximo 11 digitos';
       }
     });
   }
@@ -248,23 +262,25 @@ export class RequestFormComponent implements OnInit {
     });
   }
   async setParameter(inputValue: RequestFormList) {
-    // const mensaje = inputValue.request_description;
-    // const adjuntarArchivo = await this.validarMensaje(mensaje);
+    const mensaje = inputValue.request_description;
+    const adjuntarArchivo = await this.validarMensaje(mensaje);
+    inputValue.count_attacments = this.getAplicant().length;
 
-    // // Si es necesario adjuntar archivo y no hay aplicantes
-    // if (adjuntarArchivo && this.getAplicant().length == 0) {
-    //   const continuar = await this.showAdjuntarArchivoModal(); // Espera la acción del usuario en el modal
-    //   if (!continuar) {
-    //     // Si el usuario canceló, no continuar con la creación de la solicitud
-    //     return;
-    //   }
-    // }
+    // Si es necesario adjuntar archivo y no hay aplicantes
+    if (adjuntarArchivo && this.getAplicant().length == 0) {
+      const continuar = await this.showAdjuntarArchivoModal(); // Espera la acción del usuario en el modal
+      if (!continuar) {
+        // Si el usuario canceló, no continuar con la creación de la solicitud
+        return;
+      }
+    }
 
     // Continúa con la creación de la solicitud
     this.continuarCreacionSolicitud(inputValue);
   }
 
   continuarCreacionSolicitud(inputValue: RequestFormList) {
+    console.log(inputValue);
     this.userService.createRequest(inputValue).subscribe({
       next: (response: BodyResponse<number>) => {
         if (response.code === 200) {
@@ -380,7 +396,8 @@ export class RequestFormComponent implements OnInit {
   async getPreSignedUrl(file: ApplicantAttachments, request_id: number): Promise<string | void> {
     this.isSpinnerVisible = true;
     const payload = {
-      source_name: file['source_name'],
+      // Ajuste para eliminar lo puntos o caracteres especiales en los nombres de los adjuntos
+      source_name: file['source_name'].replace(/(?!\.[^.]+$)\./g, '_'),
       fileweight: file['fileweight'],
       request_id: request_id,
     };
@@ -420,59 +437,103 @@ export class RequestFormComponent implements OnInit {
       })
       .toPromise();
   } */
-
-  async uploadToPresignedUrl(file: ApplicantAttachments): Promise<void> {
+  
+  async uploadToPresignedUrl(file: ApplicantAttachments, request_id: number): Promise<void> {
     this.isSpinnerVisible = true;
-    // Verifica si el archivo y la propiedad file.file existen
     if (file && file.file) {
       try {
-        const contentType = 'application/png'; // Puedes cambiar el tipo según el archivo
-        const MAX_RETRIES = 3; // Número máximo de reintentos
-        const RETRY_DELAY_MS = 2000; // Tiempo de espera entre reintentos en milisegundos
+        const contentType = 'application/png';
+        const MAX_RETRIES = 3;
+        const RETRY_DELAY_MS = 2000;
+  
+        console.log("Archivos: ", file.file);
+        console.log('PreSignerUrl', this.preSignedUrl);
 
-        // Crea una función que realice la solicitud PUT con reintentos
+        //this.preSignedUrl += 'invalid-part'; // Invalidar URL
+  
         const upload$ = this.http
           .put(this.preSignedUrl, file.file, {
             headers: { 'Content-Type': contentType },
             reportProgress: true,
-            observe: 'events', // Observa los eventos durante la subida
+            observe: 'events',
           })
           .pipe(
             retryWhen(errors =>
               errors.pipe(
-                delay(RETRY_DELAY_MS), // Espera antes de reintentar
-                take(MAX_RETRIES), // Número máximo de intentos
+                tap((error: HttpErrorResponse) => {
+                  // Extrae información detallada del error
+                  const errorDetails = {
+                    status: error.status,
+                    statusText: error.statusText,
+                    message: error.message,
+                    url: error.url
+                  };
+                  //console.error('Intento fallido de subida:', errorDetails);
+                  // Guarda el intento fallido con detalles del error
+                  this.handleUploadFailure(file, request_id, errorDetails);
+                }),
+                delay(RETRY_DELAY_MS),
+                take(MAX_RETRIES),
                 catchError(err => {
-                  console.error('Error subiendo el archivo después de varios intentos:', err);
-                  throw err; // Manejo del error después de los reintentos
+                  console.error('Error después de múltiples intentos:', err);
+                  return throwError(() => err);
                 })
               )
             )
           );
-
-        // Ejecuta la solicitud
+  
         const uploadResponse = await upload$.toPromise();
-
-        // Maneja los diferentes tipos de eventos HTTP
+  
         if (uploadResponse) {
           if (uploadResponse.type === HttpEventType.UploadProgress) {
-            // Si hay progreso en la subida, puedes mostrarlo (opcional)
             const progress = Math.round(
               (uploadResponse.loaded / (uploadResponse.total || 1)) * 100
             );
-            console.log(`Progreso de la subida: ${progress}%`);
+            //console.log(`Progreso de la subida: ${progress}%`);
           } else if (uploadResponse instanceof HttpResponse) {
-            // Verifica que la respuesta final sea exitosa (status 200)
-            console.log('Archivo subido con éxito:', uploadResponse);
+            //console.log('Archivo subido con éxito:', uploadResponse.body);
           }
         }
       } catch (error) {
-        // Manejo de errores en la subida del archivo
         console.error('Falló la subida del archivo. Error:', error);
+      } finally {
+        this.isSpinnerVisible = false;
       }
     } else {
       console.error('El archivo no es válido o está undefined.');
     }
+  }
+  
+  // ENVIO AL SERVICIO QUE VA A GUARDAR EN LA TABLA DE LOGS
+  handleUploadFailure(file: ApplicantAttachments, request_id: number, errorDetails: any) {
+    //console.log('Registrando intento de fallo en base de datos.');
+  
+    const payload: ErrorAttachLog = {
+      request_id: request_id,
+      status: 'REPORTADO',
+      name_archive: file.source_name,
+      error_message: `Status: ${errorDetails.status}, ` +
+                      `StatusText: ${errorDetails.statusText}, ` +
+                      `Message: ${errorDetails.message}, ` +
+                      `URL: ${errorDetails.url || 'unknown'}`,
+      error_type: 'S3'
+    };
+    
+    this.userService.registerErrorAttach(payload).subscribe({
+      next: (response) => {
+        if (response && response.code === 200) {
+          console.log('Error registrado correctamente en la base de datos.');
+        } else {
+          console.error('No se pudo registrar el error. Código de respuesta no esperado:', response?.code);
+        }
+      },
+      error: (err) => {
+        console.error('Error al intentar registrar el log en la base de datos:', err);
+      },
+      complete: () => {
+        console.log('Proceso de registro de error en base de datos completado.');
+      }
+    });
   }
 
   async attachApplicantFiles(request_id: number) {
@@ -481,9 +542,8 @@ export class RequestFormComponent implements OnInit {
     this.hasPendingChanges = true;
 
     try {
-    if (this.arrayApplicantAttachment && this.arrayApplicantAttachment.length > 0) {
-      const ruta_archivo_ws =
-        'https://alojamiento.confa.co/guardarArchivosRest/guardarArchivo/metodo1';
+      if (this.arrayApplicantAttachment && this.arrayApplicantAttachment.length > 0) {
+        const ruta_archivo_ws = environment.ruta_archivos_ws;
 
         const estructura = {
           idSolicitud: `${request_id}`,
@@ -500,8 +560,8 @@ export class RequestFormComponent implements OnInit {
       // Obtener todas las URL prefirmadas y subir los archivos
       await Promise.all(
         this.arrayApplicantAttachment.map(async item => {
-          await this.getPreSignedUrl(item, request_id); // Asegúrate de que esto sea await
-          await this.uploadToPresignedUrl(item); // Sube el archivo después de obtener la URL
+          await this.getPreSignedUrl(item, request_id); // Await
+          await this.uploadToPresignedUrl(item, request_id); // Sube el archivo después de obtener la URL
         })
       );
 
@@ -534,7 +594,7 @@ export class RequestFormComponent implements OnInit {
     try {
       // Usa await para que se pause hasta que se reciba la respuesta
       const respuesta = await this.http.post(ruta_archivo_ws, estructura).toPromise();
-      console.log('Respuesta del servicio:', respuesta);
+      //console.log('Respuesta del servicio:', respuesta);
     } catch (error) {
       console.error('Error al llamar al servicio:', error);
     }
@@ -558,6 +618,7 @@ export class RequestFormComponent implements OnInit {
       applicant_attachments: null,
       assigned_attachments: null,
       form_id: this.requestType.form_id,
+      count_attacments: 0,
     };
 
     this.setParameter(payload);
@@ -566,6 +627,7 @@ export class RequestFormComponent implements OnInit {
     this.visibleDialogAlert = false;
     this.enableAction = value;
     this.router.navigate([RoutesApp.CREATE_REQUEST]);
+    localStorage.removeItem('visitedFirstPage');
   }
   showAlertModal(filing_number: number) {
     this.visibleDialogAlert = true;

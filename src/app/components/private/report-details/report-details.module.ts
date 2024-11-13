@@ -13,6 +13,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ToastModule } from 'primeng/toast';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
     declarations: [ReportDetailsComponent],
@@ -29,6 +30,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
         CalendarModule,
         ToastModule,
         MultiSelectModule,
+        AccordionModule,
     ],
     exports: [ReportDetailsComponent],
   })

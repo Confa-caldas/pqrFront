@@ -12,6 +12,9 @@ import {
   answerRequest,
   Pagination,
   RequestAttachmentsList,
+  MiPerfilConfa,
+  Afiliado,
+  RequestAnswerTemp,
 } from '../../../models/users.interface';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,6 +22,13 @@ import { RoutesApp } from '../../../enums/routes.enum';
 import { SessionStorageItems } from '../../../enums/session-storage-items.enum';
 import { HttpClient } from '@angular/common/http';
 import { PaginatorState } from 'primeng/paginator';
+//Esto es nuevo
+import { Observable } from 'rxjs';
+// import { Util } from '../../../utils/utils';
+// import * as pdfMake from 'pdfmake/build/pdfmake';
+// import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-request-details',
@@ -99,6 +109,19 @@ export class RequestDetailsComponent implements OnInit {
   visibleDialogIa = false;
   categoria: string = '';
   respuestaPredefinida: string = '';
+  //Esto es nuevo
+  documentValue: string = ''; // Valor del documento (cédula)
+  valor: string = ''; // Otro valor que quieras pasar en la URL
+  nombreAfiliado: string = '';
+  userMiPerfil!: MiPerfilConfa;
+  imgPdf2: string = '';
+  // fechaEntrega: string = this.formatDate(new Date());
+  afiliado?: Afiliado;
+  imgPdf1: string = '';
+
+  //variables para respuestas temporal
+  respuestaTemp: string = '';
+  existEraserAsnwer: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -108,6 +131,7 @@ export class RequestDetailsComponent implements OnInit {
     private messageService: MessageService,
     private http: HttpClient
   ) {
+    // (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;
     this.requestProcess = this.formBuilder.group({
       mensage: [null, [Validators.required, Validators.maxLength(6000)]],
       //mensage: [null, [Validators.required]],
@@ -133,6 +157,18 @@ export class RequestDetailsComponent implements OnInit {
     this.initPaginadorHistoric();
     this.getRequestApplicantAttachments(this.request_id);
     this.getRequestAssignedAttachments(this.request_id);
+
+    //validar si esta cerrada
+    this.getAnswerTemp(this.request_id);
+
+    // //Neuvo pdf
+    // Util.getImageDataUrl('assets/imagenes/encabezado.png').then(
+    //   imagenConfa => (this.imgPdf2 = imagenConfa)
+    // );
+
+    // Util.getImageDataUrl('assets/imagenes/footer.png').then(
+    //   imagenConfaFooter => (this.imgPdf1 = imagenConfaFooter)
+    // );
   }
 
   onPageChangeHistoric(eventHistoric: PaginatorState) {
@@ -242,7 +278,6 @@ export class RequestDetailsComponent implements OnInit {
       next: (response: BodyResponse<RequestAttachmentsList[]>) => {
         if (response.code === 200) {
           this.requestApplicantAttachmentsList = response.data;
-
           console.log(response.data);
           this.totalRowsApplicantAttachments = Number(response.message);
         } else {
@@ -318,6 +353,7 @@ export class RequestDetailsComponent implements OnInit {
       next: (response: BodyResponse<RequestHistoric[]>) => {
         if (response.code === 200) {
           this.requestHistoric = response.data;
+          console.log(this.requestHistoric);
           this.totalRowsHistoric = Number(response.message);
         } else {
           this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
@@ -366,7 +402,11 @@ export class RequestDetailsComponent implements OnInit {
   closeDialogCharacterization(value: boolean) {
     this.visibleCharacterization = false;
   }
-  setParameter(inputValue: { userName: string; userNameCompleted: string }) {
+  setParameter(inputValue: {
+    userName: string;
+    userNameCompleted: string;
+    mensajeReasignacion: string;
+  }) {
     if (!this.enableAssign) return;
     if (this.request_details['assigned_user'] == inputValue.userName) {
       this.visibleDialogAlert = true;
@@ -379,6 +419,8 @@ export class RequestDetailsComponent implements OnInit {
     }
     this.request_details['assigned_user'] = inputValue.userName;
     this.request_details['user_name_completed'] = inputValue.userNameCompleted;
+    this.request_details['mensaje_reasignacion'] = inputValue.mensajeReasignacion;
+
     if (inputValue) {
       this.userService.assignUserToRequest(this.request_details).subscribe({
         next: (response: BodyResponse<string>) => {
@@ -513,7 +555,8 @@ export class RequestDetailsComponent implements OnInit {
   }
   async getPreSignedUrl(file: ApplicantAttachments) {
     const payload = {
-      source_name: file['source_name'],
+      //source_name: file['source_name'],
+      source_name: file['source_name'].replace(/(?!\.[^.]+$)\./g, '_'),
       fileweight: file['fileweight'],
       request_id: this.request_id,
     };
@@ -767,6 +810,16 @@ export class RequestDetailsComponent implements OnInit {
     this.isDialogVisible = true;
   }
 
+  showModalReasignada(user_name: string) {
+    this.dialogHeader = 'Descripción de la reasignación';
+    this.requestHistoric.forEach((request: RequestHistoric) => {
+      if (user_name === request.user_name_completed) {
+        this.dialogContent = request.answer_request;
+      }
+    });
+    this.isDialogVisible = true;
+  }
+
   /*
   respuestaSugeridaIa(requestDescription: string): void {
 
@@ -861,5 +914,121 @@ export class RequestDetailsComponent implements OnInit {
 
   cancelar() {
     this.visibleDialogIa = false;
+  }
+
+  consultarWs(cedula: string) {
+    this.userService.respuestaInfoAfiliacion(cedula).subscribe(
+      response => {
+        if (response.statusCode === 200) {
+          const parsedBody = JSON.parse(response.body);
+          this.afiliado = parsedBody;
+          if (this.afiliado) {
+            this.afiliado.tipoDocumento = this.getTipoDocumentoTexto(parsedBody.data.tipodoc);
+            this.afiliado.documento = cedula;
+            this.afiliado.nombre = parsedBody.data.nombre;
+            this.afiliado.fechaNacimiento = parsedBody.data.fechanac;
+            this.afiliado.estado = parsedBody.data.estado;
+            this.afiliado.tipoTrabajador = this.getTipoTrabajadorTexto(parsedBody.data.tipotr);
+            this.afiliado.empresa = parsedBody.data.nombreempresa;
+            this.afiliado.fechaAfiliacion = parsedBody.data.fechaafi;
+            this.afiliado.fechaIngreso = parsedBody.data.fechaing;
+          }
+        }
+      },
+      (error: any) => {
+        console.error('Error al llamar al servicio:', error);
+      }
+    );
+  }
+
+  getTipoTrabajadorTexto(tipo: string): string {
+    switch (tipo) {
+      case 'T':
+        return 'TRABAJADOR DEPENDIENTE';
+      case 'A':
+      case 'N':
+        return 'TRABAJADOR INDEPENDIENTE';
+      case 'J':
+      case 'P':
+      case 'G':
+      case 'B':
+        return 'PENSIONADO';
+      case 'D':
+        return 'DESEMPLEADO PARA SERVICIOS';
+      default:
+        return '';
+    }
+  }
+
+  getTipoDocumentoTexto(tipo: string): string {
+    switch (tipo) {
+      case 'C':
+        return 'CEDULA CIUDADANIA';
+      case 'E':
+        return 'CEDULA EXTRANJERIA';
+      case 'v':
+        return 'PERMISO ESPECIAL PERMANENCIA';
+      case 'M':
+        return 'PERMISO PROTECCION TEMPORAL';
+      case 'P':
+        return 'PASAPORTE';
+      default:
+        return '';
+    }
+  }
+
+  borradorRespuesta(requestDetails: RequestsDetails) {
+    const respuestaBorrador = this.requestProcess.get('mensage')?.value;
+    const payload: RequestAnswerTemp = {
+      request_id: requestDetails.request_id,
+      mensaje_temp: respuestaBorrador,
+    };
+
+    console.log(payload, 'guardar');
+    this.userService.createAnswerTemp(payload).subscribe({
+      next: (response: BodyResponse<string>): void => {
+        if (response.code === 200) {
+          this.respuestaTemp = response.data;
+        } else {
+          this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.existEraserAsnwer = true;
+        console.log('La suscripción ha sido completada.');
+        return this.respuestaTemp;
+      },
+    });
+  }
+
+  getAnswerTemp(request_id: number) {
+    const payload: RequestAnswerTemp = {
+      request_id: request_id,
+      mensaje_temp: '',
+    };
+    this.userService.getAnswerTemp(payload).subscribe({
+      next: (response: any) => {
+        if (response.code === 200) {
+          this.respuestaTemp = response.data[0].request_answer_temp;
+          if (this.respuestaTemp !== '') {
+            this.requestProcess.get('mensage')?.setValue(this.respuestaTemp);
+            this.existEraserAsnwer = true;
+          }
+        } else {
+          this.showSuccessMessage('error', 'Fallida', 'Operación fallida!');
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('La suscripción ha sido completada.');
+        console.log(this.respuestaTemp);
+        return this.respuestaTemp;
+      },
+    });
   }
 }

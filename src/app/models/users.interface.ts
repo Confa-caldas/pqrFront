@@ -33,6 +33,7 @@ export interface RequestsList {
   form_id: number;
   status_name: string;
   user_name_completed: string;
+  mensaje_reasignacion: string;
 }
 
 export interface RequestsDetails {
@@ -62,6 +63,7 @@ export interface RequestsDetails {
   updated_by?: string;
   updated_date?: string;
   user_name_completed?: string;
+  mensaje_reasignacion: string;
 }
 export interface RequestAttachmentsList {
   url: string;
@@ -85,6 +87,7 @@ export interface RequestHistoric {
   assigned_user: string;
   difference: string[];
   user_name_completed: string;
+  answer_request: string;
 }
 export interface AssignUserRequest {
   request_id: number;
@@ -154,6 +157,7 @@ export interface RequestFormList {
   applicant_attachments?: ApplicantAttachments[] | null;
   assigned_attachments?: ApplicantAttachments[] | null;
   form_id?: number;
+  count_attacments: number;
 }
 export interface answerRequest {
   request_status: number;
@@ -362,4 +366,107 @@ export interface PreSignedAttach {
 export interface RequestReportDetail {
   type: string;
   total_request: number;
+}
+
+export interface GrupoFamiliar {
+  documento: string;
+  nombre1: string;
+  nombre2: string;
+  apellido1: string;
+  apellido2: string;
+  categoria: string;
+  edad: string;
+}
+
+export interface PersonaACargo {
+  nombre?: string;
+  documento?: string;
+  tipoDoc?: string;
+  parentesco?: string;
+  edad?: string;
+  sexo?: string;
+  fechaNacimiento?: string;
+}
+export interface GruposFamiliaresList {
+  documentoTrabajdor?: string;
+  tipoDocTrabajdor?: string;
+  numGrupo?: string;
+  personasACargo: Array<PersonaACargo>;
+}
+export interface MiPerfilConfa {
+  usuarioId: number;
+  documento: string;
+  grupoFamiliar: Array<GrupoFamiliar>;
+  direccion: string;
+  categoria: string;
+  celular: string;
+  correo: string;
+  fechaNacimiento: string;
+  primerNombre: string;
+  segundoNombre: string;
+  primerApellido: string;
+  segundoApellido: string;
+  existeUsuario: boolean;
+  usuarioNasfa: boolean;
+  tipoDocumento: string;
+  tiempoAfiliacion: string;
+  derechoCuotaMonetaria: boolean;
+  estado: string;
+  clave: string;
+  fechaAfiliacion?: string;
+  fechaIngresoEmpresa?: string;
+  genero?: string;
+  textoPdf: string[];
+  tipo_afi?: string;
+  esDesempleadoParaServicio?: boolean;
+  tipoUsuario?: string;
+  listadoGruposFamiliares?: Array<GruposFamiliaresList>;
+  codigoAfi?: string;
+  municipio?: string;
+  nit?: string;
+  razonSocialempresa?: string;
+  vigencia?: string;
+}
+
+export interface Afiliado {
+  tipoDocumento: string;
+  documento: string;
+  nombre: string;
+  fechaNacimiento: string;
+  estado: string;
+  empresa: string;
+  tipoTrabajador: string;
+  fechaAfiliacion: string;
+  fechaIngreso: string;
+}
+export interface RequestReportStatus {
+  date: Date;
+  radicadas: number;
+  asignadas: number;
+  reasignadas: number;
+  cerradas: number;
+}
+
+export interface RequestReportForStatus {
+  status: string;
+  total_request: number;
+}
+
+export interface RequestReportStatusByAssignedUser {
+  user: string;
+  asignadas: number;
+  cerradas: number;
+  reasignadas: number;
+}
+
+export interface ErrorAttachLog {
+  request_id: number;
+  status: string;
+  name_archive: string;
+  error_message: string;
+  error_type: string;
+}
+export interface RequestAnswerTemp {
+  request_id: number;
+  mensaje_temp: string;
 }

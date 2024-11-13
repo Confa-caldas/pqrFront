@@ -321,8 +321,8 @@
       </p-tabPanel>
 
       <p-tabPanel
-        *ngIf="showProcessTab()"
         header="Tramitar solicitud"
+        *ngIf="showProcessTab()"
         headerStyleClass="p-tabview-nav-link-4">
         <div class="formProcess">
           <form [formGroup]="requestProcess">
@@ -339,6 +339,33 @@
                   </p-button>
                 </div> -->
               </label>
+                <div
+                  *ngIf="requestDetails.status_name !== 'Cerrado'"
+                  class="formProcess-card-text-placeholder"
+                  [style]="{ 'border-radius': '10px', 'margin-left': 'auto' }"
+                  [ngClass]="{ 'text-respuesta': existEraserAsnwer }"
+                  >Guardar borrador
+                  <p-button
+                    icon="pi pi-save"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="borradorRespuesta(requestDetails)"
+                    [style]="{ 'border-radius': '10px' }"
+                    title="Guardar en borrador">
+                  </p-button>
+                </div>
+              
+
+              <!-- <label class="formProcess-card-text-placeholder"
+                >Generar reporte afiliacion
+                <div>
+                  <p-button
+                    icon="pi pi-download"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="generacionReporteAfiliacion(requestDetails.doc_id)"
+                    [style]="{ 'border-radius': '10px' }">
+                  </p-button>
+                </div>
+              </label> -->
 
               <textarea
                 rows="5"
@@ -453,6 +480,14 @@
                     icon="pi pi-eye"
                     [styleClass]="'btn-icon-info'"
                     (click)="showModalRadicada()"></p-button>
+                  <p-button
+                    *ngIf="
+                      requestHistoric.status_name === 'Reasignada' &&
+                      requestHistoric.answer_request !== null
+                    "
+                    icon="pi pi-eye"
+                    [styleClass]="'btn-icon-info'"
+                    (click)="showModalReasignada(requestHistoric.user_name_completed)"></p-button>
                 </td>
               </tr>
             </ng-template>
@@ -465,6 +500,75 @@
             [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
         </div>
       </p-tabPanel>
+      <!-- //Esto es nuevo -->
+      <!-- <p-tabPanel header="Consultas Genesys" headerStyleClass="p-tabview-nav-link-1">
+        <ul class="list-unstyled">
+          <div class="container">
+            <div class="container-row">
+              <div class="container-column">
+                <label class="container-label">
+                  Documento
+                  <input
+                    type="text"
+                    class="input-text"
+                    placeholder="Ingresa el documento"
+                    [(ngModel)]="documentValue" />
+                  <p-button
+                    label="Consultar"
+                    (click)="consultarWs(documentValue)"
+                    [style]="{ 'border-radius': '10px' }"></p-button>
+                </label>
+              </div>
+            </div>
+            <div class="container-row">
+              <div class="container-column">
+                <label class="container-label" style="font-size: 15px">Información Afiliado</label>
+              </div>
+            </div>
+            <div class="container-row">
+              <div class="container-column">
+                <label class="container-label"> Tipo documento </label>
+                <li class="container-text">{{ afiliado?.tipoDocumento }}</li>
+              </div>
+              <div class="container-column">
+                <label class="container-label"> Documento </label>
+                <li class="container-text">{{ afiliado?.documento }}</li>
+              </div>
+              <div class="container-column">
+                <label class="container-label"> Nombre Afiliado </label>
+                <li class="container-text">{{ afiliado?.nombre }}</li>
+              </div>
+              <div class="container-column">
+                <label class="container-label"> Fecha nacimiento</label>
+                <li class="container-text">{{ afiliado?.fechaNacimiento }}</li>
+              </div>
+              <div class="container-column">
+                <label class="container-label"> Estado </label>
+                <li class="container-text">{{ afiliado?.estado }}</li>
+              </div>
+            </div>
+            <div class="container-row">
+              <div class="container-column">
+                <label class="container-label"> Empresa </label>
+                <li class="container-text">{{ afiliado?.empresa }}</li>
+              </div>
+              <div class="container-column">
+                <label class="container-label"> Tipo Trabajador </label>
+                <li class="container-text">{{ afiliado?.tipoTrabajador }}</li>
+              </div>
+              <div class="container-column">
+                <label class="container-label"> Fecha ingreso </label>
+                <li class="container-text">{{ afiliado?.fechaIngreso }}</li>
+              </div>
+              <div class="container-column">
+                <label class="container-label"> Fecha afiliación </label>
+                <li class="container-text">{{ afiliado?.fechaAfiliacion }}</li>
+              </div>
+              <div class="container-column"></div>
+            </div>
+          </div>
+        </ul>
+      </p-tabPanel> -->
     </p-tabView>
   </div>
   <!-- <p-dialog
